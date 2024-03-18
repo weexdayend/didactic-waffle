@@ -16,7 +16,7 @@ const Page = () => {
           <h1 className='font-bold text-4xl'>10,000 ton</h1>
           <h6 className='text-sm dark:text-white/60'>{cs('description')}</h6>
         </div>
-        <div className='grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 w-full bg-gradient-to-br from-indigo-700 via-blue-600 to-purple-500 rounded-3xl shadow-lg shadow-black/5 gap-6 px-6 py-6'>
+        <div className='grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 w-full bg-gradient-to-br from-indigo-500 via-blue-400 to-purple-500 rounded-3xl shadow-lg shadow-black/5 gap-6 px-6 py-6'>
           <div className='w-full h-full'>
             <h4 className='text-base text-white'>{ca('realization')}</h4>
             <h1 className='text-3xl text-white font-bold'>8,000 ton</h1>
