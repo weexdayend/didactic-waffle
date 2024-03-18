@@ -8,11 +8,17 @@
     },
     "CardStock": {
       "title": "Overall Stock",
-      "button-new": "New Stock"
+      "description": "Total fertilizer in warehouses and those that have been distribute, this year."
     },
     "CardAch": {
       "realization": "Realization",
       "target": "Target",
       "notes": "from last year"
+    },
+    "CardDistribution": {
+      "title": "Distribution",
+      "description": "Stream of distribution fertilizer",
+      "warehouse": "at Warehouses",
+      "distributed": "Distribute"
     }
 }
