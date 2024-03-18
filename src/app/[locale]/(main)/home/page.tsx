@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <div className='flex flex-col items-center py-20'>
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-12 px-4'>
-        <div className='flex flex-col w-full p-4'>
+        <div className='flex flex-col w-full h-full justify-center p-4'>
           <h4 className='text-xl'>{cs('title')}</h4>
           <h1 className='font-bold text-4xl'>10,000 ton</h1>
           <h6 className='text-sm dark:text-white/60'>{cs('description')}</h6>
@@ -34,12 +34,12 @@ const Page = () => {
             <div className='flex flex-col justify-center gap-2'>
               <h1 className='text-base dark:text-white/80'>{cd('warehouse')}</h1>
               <h1 className='text-3xl font-bold'>2,000 ton</h1>
-              <Progress value={20} className="w-full" primaryColor='bg-amber-600' secondaryColor='bg-amber-100' />
+              <Progress value={20} className="w-full" primaryColor='bg-amber-500' secondaryColor='bg-amber-300/30' />
             </div>
             <div className='flex flex-col justify-center gap-2'>
               <h1 className='text-base dark:text-white/80'>{cd('distributed')}</h1>
               <h1 className='text-3xl font-bold'>8,000 ton</h1>
-              <Progress value={80} className="w-full" primaryColor='bg-green-600' secondaryColor='bg-green-100' />
+              <Progress value={80} className="w-full" primaryColor='bg-green-500' secondaryColor='bg-green-300/30' />
             </div>
           </div>
         </div>
