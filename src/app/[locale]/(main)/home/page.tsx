@@ -16,16 +16,24 @@ const Page = () => {
           <h1 className='font-bold text-4xl'>10,000 ton</h1>
           <h6 className='text-sm dark:text-white/60'>{cs('description')}</h6>
         </div>
-        <div className='flex flex-col w-full bg-zinc-800 rounded-xl shadow-lg shadow-black/5 dark:bg-white p-4'>
-          <h4 className='text-lg text-white/70 dark:text-gray-600'>{ca('realization')}</h4>
-          <h1 className='text-3xl text-white font-bold dark:text-gray-800'>8,000 ton</h1>
-          <h6 className='text-sm text-white/70 dark:text-gray-700'><span className='text-green-500 font-bold'>+12.3%</span> {ca('notes')}</h6>
-          
-          <div className='h-0.5 w-full rounded-full bg-white/10 dark:bg-gray-200 my-4' />
+        <div className='grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 w-full bg-blue-500 rounded-3xl shadow-lg shadow-black/5 px-4 py-6'>
+          <div>
+            <h4 className='text-base text-white'>{ca('realization')}</h4>
+            <h1 className='text-3xl text-white font-bold'>8,000 ton</h1>
+            <div className='w-fit bg-white px-4 py-1 rounded-full mt-4'>
+              <h6 className='text-sm text-zinc-800/70'><span className='text-green-500 font-bold'>+12.3%</span> {ca('notes')}</h6>
+            </div>
+          </div>
 
-          <h4 className='text-lg text-white/70 dark:text-gray-600'>{ca('target')}</h4>
-          <h1 className='text-3xl text-white font-bold dark:text-gray-800'>8,000 ton</h1>
-          <h6 className='text-sm text-white/70 dark:text-gray-700'><span className='text-green-500 font-bold'>+12.3%</span> {ca('notes')}</h6>
+          <div className='sm:block md:block lg:hidden xl:hidden h-0.5 w-full rounded-full bg-white/10 my-4' />
+          
+          <div>
+            <h4 className='text-base text-white'>{ca('target')}</h4>
+            <h1 className='text-3xl text-white font-bold'>8,000 ton</h1>
+            <div className='w-fit bg-white px-4 py-1 rounded-full mt-4'>
+              <h6 className='text-sm text-zinc-800/70'><span className='text-green-500 font-bold'>+12.3%</span> {ca('notes')}</h6>
+            </div>
+          </div>
         </div>
         <div className='flex flex-col w-full p-4'>
           <h1 className='text-2xl'>{cd('title')}</h1>
