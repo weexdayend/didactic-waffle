@@ -1,0 +1,18 @@
+{
+    "Home": {
+      "title": "Hello world!"
+    },
+    "Navigation": {
+      "home": "Home",
+      "monitoring": "Monitoring"
+    },
+    "CardStock": {
+      "title": "Overall Stock",
+      "button-new": "New Stock"
+    },
+    "CardAch": {
+      "realization": "Realization",
+      "target": "Target",
+      "notes": "from last year"
+    }
+}

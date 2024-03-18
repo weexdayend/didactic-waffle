@@ -1,0 +1,18 @@
+{
+    "Home": {
+      "title": "Halo Dunia!"
+    },
+    "Navigation": {
+      "home": "Beranda",
+      "monitoring": "Monitoring"
+    },
+    "CardStock": {
+      "title": "Stok Keseluruhan",
+      "button-new": "Stok Baru"
+    },
+    "CardAch": {
+      "realization": "Realisasi",
+      "target": "Target",
+      "notes": "dari tahun terakhir"
+    }
+}
