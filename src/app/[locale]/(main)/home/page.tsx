@@ -12,17 +12,17 @@ const Page = () => {
         <CardOverall />
         <CardAch />
         <div className='flex flex-col gap-4 w-full h-full'>
-          <div className='bg-indigo-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
+          <div className='bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
             <h1 className='text-white'>Distributor</h1>
             <h1 className='text-xl font-bold text-white'>17</h1>
           </div>
 
-          <div className='bg-blue-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
+          <div className='bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
             <h1 className='text-white'>Kios</h1>
             <h1 className='text-xl font-bold text-white'>901</h1>
           </div>
 
-          <div className='bg-purple-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
+          <div className='bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl h-full flex flex-row items-center justify-between px-5 py-4'>
             <h1 className='text-white'>Gudang Lini III</h1>
             <h1 className='text-xl font-bold text-white'>5</h1>
           </div>
