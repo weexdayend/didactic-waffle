@@ -10,7 +10,7 @@ const Page = () => {
 
   return (
     <div className='flex flex-col items-center py-20'>
-      <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-12 px-4'>
+      <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 px-4'>
         <div className='flex flex-col w-full h-full justify-center p-4'>
           <h4 className='text-xl'>{cs('title')}</h4>
           <h1 className='font-bold text-4xl'>10,000 ton</h1>
