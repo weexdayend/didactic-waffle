@@ -4,6 +4,7 @@ import CardOverall from '@/components/home/card-overall';
 import CardAch from '@/components/home/card-ach';
 
 import Image from 'next/image'
+import Example from '@/components/home/charts/line-chart';
 
 const Page = () => {
 
@@ -22,6 +23,9 @@ const Page = () => {
         </div>
       </div>
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  
+        <Example />
+        <Example />
+        <Example />
         <CardOverall />
         <CardAch />
         <div className='flex flex-col gap-4 w-full h-full'>
