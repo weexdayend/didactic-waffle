@@ -8,7 +8,7 @@
     },
     "CardStock": {
       "title": "Overall Stock",
-      "description": "Total fertilizer in warehouses and those that have been distribute, this year."
+      "description": "Total fertilizer availability in all warehouses."
     },
     "CardAch": {
       "realization": "Realization",

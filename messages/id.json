@@ -8,7 +8,7 @@
     },
     "CardStock": {
       "title": "Stok Keseluruhan",
-      "description": "Total pupuk di gudang dan yang sudah tersalurkan, tahun ini."
+      "description": "Total ketersediaan pupuk di seluruh gudang."
     },
     "CardAch": {
       "realization": "Realisasi",
