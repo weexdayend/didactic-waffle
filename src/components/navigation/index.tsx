@@ -19,7 +19,7 @@ const Navigation = () => {
   }, [])
 
   return (
-    <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 backdrop-filter backdrop-blur-lg bg-opacity-30">
+    <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 bg-background">
       <aside className="flex items-center gap-2">
         {/* <Image
           src={'./assets/syncronice-logo-box.svg'}
