@@ -5,10 +5,10 @@ import { Chart } from "chart.js/auto";
 import React from "react";
 
 interface ExampleProps {
-  // Define props if any
+  title: string;
 }
 
-const Example: React.FC<ExampleProps> = () => {
+const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null); // Ref to hold canvas element
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Example: React.FC<ExampleProps> = () => {
     <div className="w-full h-full flex mx-auto my-auto">
       <div className="flex w-full h-fit border rounded-3xl items-center justify-center dark:bg-white">
         <div className='w-[270px] h-fit flex flex-col items-center justify-between pt-6'>
-          <h1 className='text-lg dark:text-zinc-800'>PUPUK</h1>
+          <h1 className='text-lg dark:text-zinc-800'>{title}</h1>
           <canvas width={200} ref={chartRef}></canvas>
         </div>
       </div>

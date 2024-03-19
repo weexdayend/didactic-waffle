@@ -23,12 +23,14 @@ const Page = () => {
         </div>
       </div>
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  
-        <Example />
-        <Example />
-        <Example />
         <CardOverall />
         <CardAch />
-        <div className='flex flex-col gap-4 w-full h-full'>
+        <div className='w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 xl:col-span-3 gap-6'>
+          <Example title='UREA' />
+          <Example title='ORGANIK' />
+          <Example title='NPK' />
+        </div>
+        <div className='w-full h-fit grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 xl:col-span-3 gap-6'>
           <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-row items-center justify-between px-6 py-6'>
             <h1 className='text-lg text-white'>Distributor</h1>
             <h1 className='text-3xl font-bold text-white'>17</h1>

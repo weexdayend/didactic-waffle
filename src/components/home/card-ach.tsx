@@ -6,7 +6,7 @@ const CardAch = () => {
   const ca = useTranslations('CardAch');
   
   return (
-    <div className='flex flex-col w-full h-full justify-between gap-4 px-6 py-6'>
+    <div className='flex flex-col w-full h-full justify-between gap-4 px-6 py-6 xl:col-span-2'>
       <div className='flex flex-col'>
         <h1 className='text-2xl'>Distribusi</h1>
         <h4 className='text-sm dark:text-white/60'>Aliran distribusi pupuk.</h4>
