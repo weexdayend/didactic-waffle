@@ -44,7 +44,7 @@ const Example: React.FC<ExampleProps> = () => {
                 display: false,
               },
             },
-            responsive: false,
+            responsive: true,
             scales: {
               x: {
                 ticks: {
@@ -79,9 +79,11 @@ const Example: React.FC<ExampleProps> = () => {
   }, []);
 
   return (
-    <div className='border px-6 py-6 rounded-3xl w-full h-full flex flex-col items-center justify-center'>
-      <h1>PUPUK</h1>
-      <canvas ref={chartRef}></canvas>
+    <div className="w-full h-full flex mx-auto my-auto">
+      <div className='pt-6 border rounded-3xl w-full h-full flex flex-col items-center justify-center'>
+        <h1>PUPUK</h1>
+        <canvas ref={chartRef}></canvas>
+      </div>
     </div>
   );
 };
