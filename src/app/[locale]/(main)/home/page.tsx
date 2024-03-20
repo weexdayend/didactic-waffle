@@ -23,28 +23,35 @@ const Page = () => {
         </div>
       </div>
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  
-        <CardOverall />
-        <CardAch />
-        <div className='w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 xl:col-span-3 gap-6'>
-          <Example title='UREA' />
-          <Example title='NPK' />
-        </div>
-        <div className='w-full h-fit grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 xl:col-span-3 gap-6'>
-          <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-row items-center justify-between px-6 py-6'>
-            <h1 className='text-lg text-white'>Distributor</h1>
+        <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
+          <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+            <h1 className='text-sm text-white'>Kecamatan</h1>
+            <h1 className='text-3xl font-bold text-white'>30</h1>
+          </div>
+          
+          <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+            <h1 className='text-sm text-white'>Distributor</h1>
             <h1 className='text-3xl font-bold text-white'>17</h1>
           </div>
 
-          <div className='bg-gradient-to-br from-blue-500 via-blue-400 to-purple-500 rounded-3xl xl:rounded-3xl h-full flex flex-row items-center justify-between px-6 py-6'>
-            <h1 className='text-lg text-white'>Kios</h1>
-            <h1 className='text-3xl font-bold text-white'>901</h1>
+          <div className='bg-gradient-to-br from-blue-500 via-blue-400 to-purple-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+            <h1 className='text-sm text-white'>Kios</h1>
+            <h1 className='text-3xl font-bold text-white'>400</h1>
           </div>
 
-          <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-row items-center justify-between px-6 py-6'>
-            <h1 className='text-lg text-white'>Gudang Lini III</h1>
-            <h1 className='text-3xl font-bold text-white'>5</h1>
+          <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+            <h1 className='text-sm text-white'>Gudang Lini III</h1>
+            <h1 className='text-3xl font-bold text-white'>3</h1>
           </div>
         </div>
+        <div className='w-full grid sm:grid-cols-1 md:grid-cols-3 md:col-span-4 lg:grid-cols-3 lg:col-span-4 xl:grid-cols-3 xl:col-span-4 gap-6'>
+          <Example title='UREA' />
+          <Example title='NPK' />
+          <Example title='KHUSUS' />
+        </div>
+        <CardOverall />
+        <CardAch />
+
       </div>
     </div>
   )

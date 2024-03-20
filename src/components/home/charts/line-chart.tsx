@@ -24,12 +24,12 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
           data: {
             labels: ["Realisasi"],
             datasets: [{
-              data: [86],
+              data: [800],
               label: "Alokasi",
               borderColor: "#3e95cd",
               backgroundColor: "#7bb6dd",
             }, {
-              data: [700],
+              data: [500],
               label: "Realisasi",
               borderColor: "#3cba9f",
               backgroundColor: "#71d1bd",
@@ -56,7 +56,7 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
                   display: false
                 },
                 display: false,
-                stacked: true,
+                stacked: false,
               },
               y: {
                 ticks: {
@@ -66,7 +66,7 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
                   display: false
                 },
                 display: false,
-                stacked: true,
+                stacked: false,
               }
             }
           }
