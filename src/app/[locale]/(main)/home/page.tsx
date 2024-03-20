@@ -40,7 +40,7 @@ const Page = () => {
           </div>
 
           <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-            <h1 className='text-sm text-white'>Gudang Lini III</h1>
+            <h1 className='text-sm text-white'>Gd. Lini III</h1>
             <h1 className='text-3xl font-bold text-white'>3</h1>
           </div>
         </div>
