@@ -51,7 +51,6 @@ const Page = () => {
         </div>
         <CardOverall />
         <CardAch />
-
       </div>
     </div>
   )

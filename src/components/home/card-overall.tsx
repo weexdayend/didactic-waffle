@@ -6,7 +6,7 @@ const CardOverall = () => {
   const cs = useTranslations('CardStock');
     
   return (
-    <div className='grid w-full h-full bg-zinc-900/90 dark:bg-white px-6 py-6 rounded-3xl'>
+    <div className='grid w-full h-fit md:col-span-4 lg:col-span-4 xl:col-span-4 bg-zinc-900/90 dark:bg-white px-6 py-6 rounded-3xl'>
       <div className='flex flex-col h-full w-full justify-between gap-2'>
         <div className='w-full h-fit'>
           <h4 className='text-xl text-white dark:text-zinc-900'>{cs('title')}</h4>
