@@ -3,7 +3,7 @@ import Map from '@/components/map';
 
 import { useTranslations } from 'next-intl';
 
-import { ComboBoxResponsive } from '@/components/mapping/combobox';
+import { SelectDemo } from '@/components/mapping/combobox';
 
 const Page = () => {
   const t = useTranslations('Home');
@@ -14,8 +14,7 @@ const Page = () => {
         <Map />
       </div>
       <div className='absolute top-[70vh] z-[45] flex flex-col px-6 py-6 w-full h-fit rounded-t-3xl bg-background'>
-        <h1>Initialize Design</h1>
-        <ComboBoxResponsive />
+        <SelectDemo />
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ const OpenStreetMap = () => {
   }, []);
 
   return (
-    <div className='h-[70vh] w-screen -z-50' id='map'></div>
+    <div className='h-[70vh] w-screen -z-[100]' id='map'></div>
   )
 }
 
