@@ -25,9 +25,8 @@ const Page = () => {
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  
         <CardOverall />
         <CardAch />
-        <div className='w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 xl:col-span-3 gap-6'>
+        <div className='w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 xl:col-span-3 gap-6'>
           <Example title='UREA' />
-          <Example title='ORGANIK' />
           <Example title='NPK' />
         </div>
         <div className='w-full h-fit grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 xl:col-span-3 gap-6'>
