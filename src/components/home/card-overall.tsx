@@ -11,7 +11,7 @@ const CardOverall = () => {
         <div className='w-full h-fit'>
           <h4 className='text-xl text-white'>{cs('title')}</h4>
           <h1 className='font-bold text-4xl text-white'>10.000 <span className='text-base font-normal'>(Ton)</span></h1>
-          <h6 className='text-sm text-white mt-4'>{cs('description')}</h6>
+          <h6 className='text-sm text-white mt-2'>Akumulasi data stok awal dari distributor dan kios.</h6>
         </div>
         <div className='grid grid-cols-3 gap-4 items-center justify-between my-4'>
           <div className='flex flex-col border-b border-white pb-2'>
