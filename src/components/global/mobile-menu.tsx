@@ -37,7 +37,7 @@ export function MobileMenu() {
             Home
           </DropdownMenuItem>
         </Link>
-        <Link href={'/monitoring'}>
+        <Link href={'/mapping'}>
           <DropdownMenuItem>
             Monitoring
           </DropdownMenuItem>
