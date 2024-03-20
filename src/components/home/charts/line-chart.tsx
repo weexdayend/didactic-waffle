@@ -6,9 +6,13 @@ import React from "react";
 
 interface ExampleProps {
   title: string;
+  colorAlokasi: string;
+  colorRealisasi: string;
+  alokasi: any;
+  realisasi: any;
 }
 
-const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
+const Example: React.FC<ExampleProps> = ({ title, colorAlokasi, colorRealisasi, alokasi, realisasi }: ExampleProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null); // Ref to hold canvas element
 
   useEffect(() => {
@@ -22,17 +26,17 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
         myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ["Realisasi"],
+            labels: ["UREA", "NPK", "KHUSUS"],
             datasets: [{
-              data: [800],
-              label: "Alokasi",
-              borderColor: "#3e95cd",
-              backgroundColor: "#7bb6dd",
-            }, {
-              data: [500],
-              label: "Realisasi",
-              borderColor: "#3cba9f",
-              backgroundColor: "#71d1bd",
+              data: alokasi,
+              label: `${title}`,
+              backgroundColor: `${colorAlokasi}`,
+              borderRadius: 10,
+            },{
+              data: realisasi,
+              label: `${title}`,
+              backgroundColor: `${colorRealisasi}`,
+              borderRadius: 10,
             }]
           },
           options: {
@@ -40,6 +44,9 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
               title: {
                 display: false,
               },
+              legend: {
+                display: false,
+              }
             },
             responsive: true,
             maintainAspectRatio: true,
@@ -50,12 +57,12 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
             scales: {
               x: {
                 ticks: {
-                  display: false
+                  display: true
                 },
                 grid: {
                   display: false
                 },
-                display: false,
+                display: true,
                 stacked: false,
               },
               y: {
@@ -84,11 +91,22 @@ const Example: React.FC<ExampleProps> = ({ title }: ExampleProps) => {
 
   return (
     <div className="w-full h-full flex mx-auto my-auto">
-      <div className="flex w-full h-fit border rounded-3xl items-center justify-center dark:bg-white">
-        <div className='w-[270px] h-fit flex flex-col items-center justify-between pt-6'>
-          <h1 className='text-lg dark:text-zinc-800'>{title}</h1>
+      <div className="flex w-full h-full border rounded-3xl items-center justify-center">
+        <div className='w-[270px] h-fit flex flex-col items-center justify-between gap-12 py-6'>
+          <h1>Diagram Distribusi</h1>
           <canvas width={200} ref={chartRef}></canvas>
+          <div className='flex flex-row w-full items-center justify-center gap-8'>
+            <div className='flex flex-row items-center gap-2'>
+              <div className='w-6 h-3 rounded-full bg-blue-400' />
+              <h6 className='text-sm'>(Alokasi)</h6>
+            </div>
+            <div className='flex flex-row items-center gap-2'>
+              <div className='w-6 h-3 rounded-full bg-green-400' />
+              <h6 className='text-sm'>(Realisasi)</h6>
+            </div>
+          </div>
         </div>
+        
       </div>
     </div>
   );

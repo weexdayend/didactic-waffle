@@ -44,12 +44,12 @@ const Page = () => {
             <h1 className='text-3xl font-bold text-white'>3</h1>
           </div>
         </div>
-        <div className='w-full grid sm:grid-cols-1 md:grid-cols-3 md:col-span-4 lg:grid-cols-3 lg:col-span-4 xl:grid-cols-3 xl:col-span-4 gap-6'>
-          <Example title='UREA' />
-          <Example title='NPK' />
-          <Example title='KHUSUS' />
+        <div className='grid grid-cols-1 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 xl:grid-cols-4 lg:col-span-4 xl:col-span-4 gap-6'>
+          <CardOverall />
+          <div className='w-full grid md:col-span-2 lg:col-span-2 xl:col-span-2 gap-6'>
+            <Example title='Alokasi' colorAlokasi='#60a5fa' colorRealisasi='#4ade80' alokasi={[800, 1000, 500]} realisasi={[800, 1000, 500]} />
+          </div>
         </div>
-        <CardOverall />
         <CardAch />
       </div>
     </div>
