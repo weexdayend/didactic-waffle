@@ -6,10 +6,13 @@ import {
   Warehouse
 } from 'lucide-react'
 
+import Image from 'next/image'
 import L from 'leaflet'
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+
+import aritports from './dummy.json'
 
 const OpenStreetMap = () => {
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -19,15 +22,21 @@ const OpenStreetMap = () => {
   }, []);
   
   // Define marker coordinates
-  const markerPosition: [number, number] = [-4.043477, 39.668205];
+  const markerPosition: [number, number] = [43.665, 142.453];
+
+  // const customIcon = L.icon({
+  //   iconUrl: '/assets/icons/marker.png', // Provide the URL of your PNG image
+  //   iconSize: [32, 32], // Size of the icon
+  //   iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
+  // });
 
   const customIcon = L.divIcon({
     className: 'custom-icon', // Add any custom CSS class for styling if needed
     html: `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-blue-500">
-      <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
-    </svg>
-    `, // Render Warehouse icon from Lucide as HTML string
+      <div class="flex px-4 py-4 w-24 h-24 rounded-full bg-white text-center items-center justify-center">
+        <img src="/assets/icons/marker.png" alt="warehouses icon" height="24" width="24">
+      </div>
+    `,
     iconSize: [32, 32], // Size of the icon
     iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
   });
@@ -39,11 +48,22 @@ const OpenStreetMap = () => {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={markerPosition} icon={customIcon}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {aritports.map((airport, index) => {
+          return (
+            <div className='p-4 rounded-full bg-white'>
+              <Marker
+                key={index}
+                position={[Number(airport.lat), Number(airport.lon)]}
+                icon={customIcon}
+                
+              >
+                <Popup>
+                  {airport.name}
+                </Popup>
+              </Marker>
+            </div>
+          )
+        })}
       </MapContainer>
       )}
     </div>
