@@ -50,7 +50,7 @@ const OpenStreetMap = () => {
         />
         {aritports.map((airport, index) => {
           return (
-            <div className='p-4 rounded-full bg-white'>
+            <div key={index} className='p-4 rounded-full bg-white'>
               <Marker
                 key={index}
                 position={[Number(airport.lat), Number(airport.lon)]}
