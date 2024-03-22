@@ -10,11 +10,12 @@ import {
 import airports from '@/components/map/dummy.json'
 
 type ComboboxProps = {
+  filter: any[];
   handle: (information: any, value: [number, number]) => void;
   clearInformation: () => void;
 }
 
-export default function ComboboxDemo({ handle, clearInformation }: ComboboxProps) {
+export default function ComboboxDemo({ filter, handle, clearInformation }: ComboboxProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const [query, setQuery] = useState('')
 
@@ -52,12 +53,12 @@ export default function ComboboxDemo({ handle, clearInformation }: ComboboxProps
   }
 
   return (
-    <div className='flex flex-row items-center justify-between gap-4'>
+    <div className='w-full flex flex-row items-center justify-between gap-4'>
       <Combobox value={selected} onChange={(airport) => handleSelectionChange(airport)}>
         <div className="relative flex-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className="w-full border-none py-2 pl-3 pr-10 text-sm bg-white leading-5 text-gray-900 focus:ring-0"
+              className="w-full border-none py-2 pl-3 pr-10 text-sm bg-white leading-5 text-gray-900 focus:ring-0 text-zinc-800"
               displayValue={(airport :any) => {
                 if(airport === null){
                   return '';
@@ -89,7 +90,11 @@ export default function ComboboxDemo({ handle, clearInformation }: ComboboxProps
                   Nothing found.
                 </div>
               ) : (
-                filteredAirport.map((airport) => (
+                filteredAirport
+                .filter((airport) => {
+                  return filter.includes(airport.cat)
+                })
+                .map((airport) => (
                   <Combobox.Option
                     key={airport?.code}
                     className={({ active }) =>
