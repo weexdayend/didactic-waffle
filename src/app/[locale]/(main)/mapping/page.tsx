@@ -62,7 +62,7 @@ const Page = () => {
     <div className='flex flex-col items-center pb-20 pt-20'>
       <div className='absolute w-full px-6 pt-6 z-[45] top-20'>
       {myLocation && (
-        <div className='grid grid-cols-1 gap-4'>
+        <div className='flex flex-row items-basline justify-between gap-4'>
           <MyListbox filtered={handleFiltered} />
           <ComboboxDemo filter={selectFilter} handle={handleSelected} clearInformation={clearInformation} />
         </div>
