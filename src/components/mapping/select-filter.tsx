@@ -42,7 +42,7 @@ export default function MyListbox({ filtered }: SelectProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute max-h-60 w-80 pt-4 rounded-b-xl pb-6 overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
+            <Listbox.Options className="absolute max-h-60 w-fit pt-4 rounded-b-xl pb-6 overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
               {people.map((person, index) => (
                 <Listbox.Option 
                   key={index} 
