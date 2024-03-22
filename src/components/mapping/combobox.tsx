@@ -10,10 +10,11 @@ import {
 import airports from '@/components/map/dummy.json'
 
 type ComboboxProps = {
-  handle: (value: [number, number]) => void;
+  handle: (information: any, value: [number, number]) => void;
+  clearInformation: () => void;
 }
 
-export default function ComboboxDemo({ handle }: ComboboxProps) {
+export default function ComboboxDemo({ handle, clearInformation }: ComboboxProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const [query, setQuery] = useState('')
 
@@ -42,7 +43,12 @@ export default function ComboboxDemo({ handle }: ComboboxProps) {
 
   const handleSelectionChange = (value: any) => {
     setSelected(value)
-    handle([Number(value.lat), Number(value.lon)])
+    handle(value, [Number(value.lat), Number(value.lon)])
+  }
+
+  const handleClearInformation = () => {
+    setSelected(null)
+    clearInformation()
   }
 
   return (
@@ -122,7 +128,7 @@ export default function ComboboxDemo({ handle }: ComboboxProps) {
       </Combobox>
       {selected !== null && (
         <div 
-          onClick={() => setSelected(null)}
+          onClick={() => handleClearInformation()}
           className='flex w-fit p-2 h-full bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm cursor-pointer active:scale-95'>
           <XIcon
             className="h-5 w-5 text-gray-400"

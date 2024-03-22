@@ -9,18 +9,21 @@ import 'leaflet/dist/leaflet.css';
 import aritports from './dummy.json';
 
 type MarkerProps = {
+  myLocation: [number, number] | null;
   selectedPosition: [number, number] | null;
+  resetLocation: boolean;
 }
 
-const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
-  const [bounds, setBounds] = useState<[number, number] | null>(null);
-  const mapRef = useRef<any>(null);
+const OpenStreetMap = ({ myLocation, selectedPosition, resetLocation }: MarkerProps) => {
+
+  const [bounds, setBounds] = useState<[number, number] | null>(null)
+
+  const mapRef = useRef<any>(null)
 
   useEffect(() => {
-    getDefaultBounds()
-      .then(defaultBounds => setBounds(defaultBounds))
-      .catch(error => console.error('Error setting default bounds:', error));
-  }, []);
+    setBounds(myLocation);
+    mapRef.current?.flyTo(myLocation, 16);
+  }, [myLocation])
 
   useEffect(() => {
     if (selectedPosition) {
@@ -30,17 +33,39 @@ const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
       getDefaultBounds()
         .then(defaultBounds => {
           setBounds(defaultBounds);
-          mapRef.current?.flyTo(defaultBounds, 13);
+          mapRef.current?.flyTo(defaultBounds, 16);
         })
         .catch(error => console.error('Error setting default bounds:', error));
     }
   }, [selectedPosition]);
 
+  useEffect(() => {
+    if(resetLocation === true){
+      getDefaultBounds()
+        .then(defaultBounds => {
+          setBounds(defaultBounds);
+          mapRef.current?.flyTo(defaultBounds, 16);
+        })
+        .catch(error => console.error('Error setting default bounds:', error));
+    }
+  }, [resetLocation])
+
   const customIcon = L.divIcon({
     className: 'custom-icon', // Add any custom CSS class for styling if needed
     html: `
-      <div class="flex px-4 py-4 w-24 h-24 rounded-full bg-white text-center items-center justify-center">
+      <div class="flex text-center items-center justify-center">
         <img src="/assets/icons/marker.png" alt="warehouses icon" height="24" width="24">
+      </div>
+    `,
+    iconSize: [32, 32], // Size of the icon
+    iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
+  });
+
+  const myIcon = L.divIcon({
+    className: 'custom-icon', // Add any custom CSS class for styling if needed
+    html: `
+      <div class="flex text-center items-center justify-center">
+        <img src="/assets/icons/marker-selected.png" alt="warehouses icon" height="24" width="24">
       </div>
     `,
     iconSize: [32, 32], // Size of the icon
@@ -49,11 +74,23 @@ const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
 
   return (
     <div className='h-[70vh] w-[99vw] -z-50'>
-      {bounds && (
-        <MapContainer zoomControl={false} style={{ height: "100%", width: "100%" }} center={bounds} zoom={17} ref={mapRef}>
+      {bounds ? (
+        <MapContainer zoomControl={false} style={{ height: "100%", width: "100%" }} center={bounds} zoom={16} ref={mapRef}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {myLocation && (
+            <Marker
+              position={myLocation}
+              icon={myIcon}
+            >
+              <Popup>
+                <div className='flex flex-col gap-2'>
+                  <h1>Your current location.</h1>
+                </div>
+              </Popup>
+            </Marker>
+          )}
           {aritports.map((airport, index) => (
             <div key={index} className='p-4 rounded-full bg-white'>
               <Marker
@@ -72,6 +109,10 @@ const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
             </div>
           ))}
         </MapContainer>
+      ) : (
+        <div className='w-full h-full flex items-center justify-center'>
+          <h1 className='text-center px-6'>Mohon untuk beri izin deteksi lokasi terlebih dahulu.</h1>
+        </div>
       )}
     </div>
   );
