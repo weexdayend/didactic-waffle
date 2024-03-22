@@ -53,11 +53,11 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
   }
 
   return (
-    <div className='flex gap-4 w-full h-fit'>
+    <div className='flex flex-row w-full h-fit p-1 rounded-r-xl bg-white'>
       <Combobox value={selected} onChange={(airport) => handleSelectionChange(airport)}>
-        <div className="relative w-fit cursor-default overflow-hidden rounded-lg bg-white text-left">
+        <div className="relative w-full cursor-default rounded-tr-xl overflow-hidden bg-white text-left">
           <Combobox.Input
-            className="relative bg-white w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md text-zinc-800 truncate"
+            className="relative bg-white w-full cursor-default rounded-tr-xl py-2 px-3 text-left text-zinc-800 truncate"
             displayValue={(airport :any) => {
               if(airport === null){
                 return '';
@@ -66,14 +66,8 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
               }
             }}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search for palace..."
+            placeholder="Pilih filter terlebih dahulu..."
           />
-          <Combobox.Button className="absolute inset-y-0 right-0 flex gap-2 items-center pr-2">
-            <ChevronDown
-              className="h-5 w-5 text-zinc-800"
-              aria-hidden="true"
-            />
-          </Combobox.Button>
         </div>
         <Transition
           as={Fragment}
@@ -82,8 +76,9 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
           leaveTo="opacity-0"
           afterLeave={() => setQuery('')}
         >
-          <Combobox.Options             
-            className="absolute mt-14 max-h-60 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
+          <div className='absolute mt-10 max-h-60 w-full left-0 px-6'>
+          <Combobox.Options
+            className="w-full truncate overflow-auto pt-4 rounded-b-xl pb-6 bg-white py-1 text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
             {filteredAirport.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nothing found.
@@ -96,43 +91,31 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
               .map((airport) => (
                 <Combobox.Option
                   key={airport?.code}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                    }`
-                  }
+                  className={`relative cursor-pointer select-none py-2 truncate text-zinc-600`}
                   value={airport}
                 >
                   {({ selected, active }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
+                        className={`block truncate px-4 ${
+                          selected ? 'font-bold' : 'font-normal'
                         }`}
                       >
                         {`${airport?.name}, ${airport?.city}, ${airport?.state}`}
                       </span>
-                      {selected ? (
-                        <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                            active ? 'text-white' : 'text-teal-600'
-                          }`}
-                        >
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
                     </>
                   )}
                 </Combobox.Option>
               ))
             )}
           </Combobox.Options>
+          </div>
         </Transition>
       </Combobox>
       {selected !== null && (
         <div 
           onClick={() => handleClearInformation()}
-          className='flex w-fit p-3 h-full bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm cursor-pointer active:scale-95'>
+          className='flex w-fit px-3 py-2.5 h-full bg-white rounded-tr-xl border-l border-zinc-200 cursor-pointer active:scale-95'>
           <XIcon
             className="h-5 w-5 text-gray-400"
             aria-hidden="true"
