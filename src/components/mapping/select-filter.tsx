@@ -26,7 +26,7 @@ export default function MyListbox({ filtered }: SelectProps) {
   return (
     <Listbox value={selectedPeople} onChange={handleSelect} multiple>
       <div className='relative w-full'>
-        <Listbox.Button className="relative bg-white w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+        <Listbox.Button className="relative bg-white w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md ">
           <span className="block truncate text-zinc-800">
           {
             selectedPeople.length > 0 ? selectedPeople.map((person: any) => person).join(', ') : 'Pilih filter...'
