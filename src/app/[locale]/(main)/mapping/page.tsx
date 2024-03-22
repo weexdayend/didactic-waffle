@@ -72,7 +72,7 @@ const Page = () => {
         <Map myLocation={myLocation} selectedPosition={selected} resetLocation={resetLocation} information={information} filter={selectFilter} />
       </div>
       {myLocation && (
-      <div className='absolute top-[70vh] z-[45] flex flex-col px-6 py-6 w-full h-full rounded-t-3xl bg-background gap-6'>
+      <div className='absolute top-[70vh] z-[45] flex flex-col px-6 py-6 w-full h-fit rounded-t-3xl bg-background gap-6'>
         {information ? (
           <>
             <div 
