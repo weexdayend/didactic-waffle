@@ -4,12 +4,13 @@ import React, { useState } from 'react'
 import Map from '@/components/map'
 import Image from 'next/image'
 
-import { SelectDemo } from '@/components/mapping/combobox'
+import { SelectDemo } from '@/components/mapping/select-filter'
 
 import aritports from '@/components/map/dummy.json'
+import ComboboxDemo from '@/components/mapping/combobox'
 
 const Page = () => {
-  const [selected, setSelected] = useState<[number, number] | null>(null); // Adjusted type to nullable
+  const [selected, setSelected] = useState<[number, number] | null>(null);
 
   const handleSelected = (value: [number, number]) => {
     setSelected(value);
@@ -18,6 +19,9 @@ const Page = () => {
 
   return (
     <div className='flex flex-col items-center pb-20 pt-20'>
+      <div className='absolute w-full px-6 pt-4 z-50 top-20'>
+        <ComboboxDemo handle={handleSelected} />
+      </div>
       <div className='z-[40]'>
         <Map selectedPosition={selected} />
       </div>

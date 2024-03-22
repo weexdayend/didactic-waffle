@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from 'react';
+
+import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L, { LatLngBoundsLiteral } from 'leaflet';
+
 import aritports from './dummy.json';
 
 type MarkerProps = {
@@ -23,12 +25,12 @@ const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
   useEffect(() => {
     if (selectedPosition) {
       setBounds(selectedPosition);
-      mapRef.current?.flyTo(selectedPosition, 17);
+      mapRef.current?.flyTo(selectedPosition, 13);
     } else {
       getDefaultBounds()
         .then(defaultBounds => {
           setBounds(defaultBounds);
-          mapRef.current?.flyTo(defaultBounds, 17);
+          mapRef.current?.flyTo(defaultBounds, 13);
         })
         .catch(error => console.error('Error setting default bounds:', error));
     }
@@ -46,9 +48,9 @@ const OpenStreetMap = ({ selectedPosition }: MarkerProps) => {
   });
 
   return (
-    <div className='h-[70vh] w-screen -z-50'>
+    <div className='h-[70vh] w-[99vw] -z-50'>
       {bounds && (
-        <MapContainer style={{ height: "100%", width: "100%" }} center={bounds} zoom={17} ref={mapRef}>
+        <MapContainer zoomControl={false} style={{ height: "100%", width: "100%" }} center={bounds} zoom={17} ref={mapRef}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
