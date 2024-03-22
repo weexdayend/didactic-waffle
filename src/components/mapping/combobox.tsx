@@ -83,7 +83,7 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
           afterLeave={() => setQuery('')}
         >
           <Combobox.Options             
-            className="absolute mt-4 max-h-60 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
+            className="absolute mt-14 max-h-60 w-fit overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
             {filteredAirport.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nothing found.
