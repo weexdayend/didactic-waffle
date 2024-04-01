@@ -8,6 +8,7 @@ import { ModeToggle } from '@/components/global/mode-toggle'
 import { MobileMenu } from '@/components/global/mobile-menu'
 
 import LanguageChanger from '@/components/global/language-changer'
+import { HelpMenu } from '../global/halp-menu'
 
 const Navigation = () => {
 
@@ -36,7 +37,8 @@ const Navigation = () => {
         </ul>
       </nav>
       <aside className="flex gap-2 items-center">
-        <LanguageChanger locale={pathname} />
+        {/* <LanguageChanger locale={pathname} /> */}
+        <HelpMenu />
         <ModeToggle />
         <div className='sm:block md:hidden lg:hidden xl:hidden'>
           <MobileMenu />
