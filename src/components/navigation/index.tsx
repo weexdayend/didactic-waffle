@@ -28,7 +28,7 @@ const Navigation = () => {
           height={40}
           alt="plur logo"
         /> */}
-        <span className="text-xl font-bold"> Saptakarya</span>
+        <span className="text-xl font-bold"> Fermon</span>
       </aside>
       <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
         <ul className="flex items-center justify-center gap-8">
