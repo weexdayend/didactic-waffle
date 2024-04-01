@@ -1,0 +1,15 @@
+{
+  "builds": [
+    { "src": "package.json", "use": "@vercel/node" }
+  ],
+  "version": 2,
+  "functions": {
+    "api/dev": {
+      "runtime": "nodejs14.x",
+      "memory": 1024
+    }
+  },
+  "hooks": {
+    "postinstall": "prisma generate"
+  }
+}
