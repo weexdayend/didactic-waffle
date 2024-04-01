@@ -9,6 +9,11 @@ import ComboboxDemo from '@/components/mapping/combobox'
 
 import axios from 'axios'
 
+import {
+  AlertCircleIcon,
+  CheckCircle2Icon
+} from 'lucide-react'
+
 import airports from '@/components/map/dummy.json'
 
 import {
@@ -158,27 +163,131 @@ const Page = () => {
                           )
                         })
                       ) : (
-                        <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
-                          <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                            <h1 className='text-sm text-white'>Kecamatan</h1>
-                            <h1 className='text-3xl font-bold text-white'>30</h1>
-                          </div>
-                          
-                          <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                            <h1 className='text-sm text-white'>Distributor</h1>
-                            <h1 className='text-3xl font-bold text-white'>17</h1>
+                        <>
+                          <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
+                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
+                              <div className='flex flex-col gap-6'>
+                                <h1 className='text-lg text-white'>WCM</h1>
+                              </div>
+                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
+                            </div>
+
+                            <div className='border-2 border-red-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
+                              <div className='flex flex-col'>
+                                <h1 className='text-lg text-white'>APG</h1>
+                              </div>
+                              <AlertCircleIcon className='w-6 h-6 text-red-500' />
+                            </div>
+
+                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
+                              <div className='flex flex-col'>
+                                <h1 className='text-lg text-white'>Rekan</h1>
+                              </div>
+                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
+                            </div>
+
+                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
+                              <div className='flex flex-col'>
+                                <h1 className='text-lg text-white'>Markisa</h1>
+                              </div>
+                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
+                            </div>
                           </div>
 
-                          <div className='bg-gradient-to-br from-blue-500 via-blue-400 to-purple-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                            <h1 className='text-sm text-white'>Kios</h1>
-                            <h1 className='text-3xl font-bold text-white'>400</h1>
+                          <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
+                            <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+                              <h1 className='text-sm text-white'>Kecamatan</h1>
+                              <h1 className='text-3xl font-bold text-white'>30</h1>
+                            </div>
+                            
+                            <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+                              <h1 className='text-sm text-white'>Distributor</h1>
+                              <h1 className='text-3xl font-bold text-white'>17</h1>
+                            </div>
+
+                            <div className='bg-gradient-to-br from-blue-500 via-blue-400 to-purple-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+                              <h1 className='text-sm text-white'>Kios</h1>
+                              <h1 className='text-3xl font-bold text-white'>400</h1>
+                            </div>
+
+                            <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
+                              <h1 className='text-sm text-white'>Gd. Lini III</h1>
+                              <h1 className='text-3xl font-bold text-white'>3</h1>
+                            </div>
                           </div>
 
-                          <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                            <h1 className='text-sm text-white'>Gd. Lini III</h1>
-                            <h1 className='text-3xl font-bold text-white'>3</h1>
+                          <div className='w-full grid grid-cols-1 md:col-span-4 lg:col-span-4 xl:col-span-4 gap-6'>
+                            <div className='w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-4'>
+                              <div className='flex flex-col w-full h-full'>
+                                <div className='flex flex-col'>
+                                  <h4 className='text-xl'>UREA</h4>
+                                  <h4 className='text-sm text-zinc-800/70 dark:text-white/70 pb-2'>Harga tebus dan jual pupuk.</h4>
+                                </div>
+                                <div className='grid w-full grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-2'>
+                                  <div className='flex flex-col w-full border rounded-xl p-3'>
+                                    <h6 className='text-base pb-2'>Tebus</h6>
+                                    <div className='flex flex-row w-full items-center justify-between'>
+                                      <div className='flex flex-row border-b-2 border-amber-500'>
+                                        <h6 className='text-sm font-bold'>Distributor &rarr; Produsen</h6>
+                                      </div>
+                                      <div className='flex flex-row border-b-2 border-indigo-500'>
+                                        <h6 className='text-sm font-bold'>2.782.000</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className='flex flex-col w-full border rounded-xl p-3'>
+                                    <h6 className='text-base pb-2'>Jual</h6>
+                                    <div className='flex flex-row w-full items-center justify-between'>
+                                      <div className='flex flex-row border-b-2 border-amber-500'>
+                                        <h6 className='text-sm font-bold'>Distributor &rarr; Kios</h6>
+                                      </div>
+                                      <div className='flex flex-row border-b-2 border-indigo-500'>
+                                        <h6 className='text-sm font-bold'>2.782.000</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                                    
+                              <div className='flex flex-col w-full h-full'>
+                                <div className='flex flex-col'>
+                                  <h4 className='text-xl'>NPK</h4>
+                                  <h4 className='text-sm text-zinc-800/70 dark:text-white/70 pb-2'>Harga tebus dan jual pupuk.</h4>
+                                </div>
+                                <div className='grid w-full grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-2'>
+                                  <div className='flex flex-col w-full border rounded-xl p-3'>
+                                    <h6 className='text-base pb-2'>Tebus</h6>
+                                    <div className='flex flex-row w-full items-center justify-between'>
+                                      <div className='flex flex-row border-b-2 border-amber-500'>
+                                        <h6 className='text-sm font-bold'>Distributor &rarr; Produsen</h6>
+                                      </div>
+                                      <div className='flex flex-row border-b-2 border-indigo-500'>
+                                        <h6 className='text-sm font-bold'>2.782.000</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className='flex flex-col w-full border rounded-xl p-3'>
+                                    <h6 className='text-base pb-2'>Jual</h6>
+                                    <div className='flex flex-row w-full items-center justify-between'>
+                                      <div className='flex flex-row border-b-2 border-amber-500'>
+                                        <h6 className='text-sm font-bold'>Distributor &rarr; Kios</h6>
+                                      </div>
+                                      <div className='flex flex-row border-b-2 border-indigo-500'>
+                                        <h6 className='text-sm font-bold'>2.782.000</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className='flex flex-row w-full items-center justify-center gap-8'>
+                              <div className='flex flex-row items-center gap-2'>
+                                <div className='w-6 h-3 rounded-full bg-indigo-500' />
+                                <h6 className='text-sm'>(Rp)</h6>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        </>
                       )
                     }
                   </div>
