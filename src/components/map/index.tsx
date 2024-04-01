@@ -25,7 +25,7 @@ const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocatio
 
   useEffect(() => {
     setBounds(myLocation);
-    mapRef.current?.flyTo(myLocation, 6);
+    mapRef.current?.flyTo(myLocation, 13);
   }, [myLocation])
 
   function parseCoordinates(strings: any) {

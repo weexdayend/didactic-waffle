@@ -1,0 +1,267 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model log_testing_ {
+  id             Int                      @id @default(autoincrement())
+  total_rows     BigInt?
+  batch_inserted BigInt?
+  duration       Unsupported("interval")?
+  total_batches  BigInt?
+
+  @@map("_log_testing_")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model snapshot_mageai_ {
+  id                 BigInt    @id @default(autoincrement())
+  created_at         DateTime  @db.Timestamp(6)
+  started_at         DateTime? @db.Timestamp(6)
+  finished_at        DateTime? @db.Timestamp(6)
+  block_name         String?
+  block_parameters   Json?
+  execution_status   String?
+  execution_duration BigInt?
+  error_message      String?
+
+  @@map("_snapshot_mageai_")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model testing_import_ {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  testing    String?
+
+  @@map("_testing_import_")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model testing_mapping_ {
+  id               BigInt             @id @default(autoincrement())
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  province         String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  warehouse        String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  distributor      String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  stall            String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  testing_profile_ testing_profile_[]
+
+  @@map("_testing_mapping_")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model testing_profile_ {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at       DateTime          @default(now()) @db.Timestamptz(6)
+  code             String?
+  name             String?
+  address          String?
+  category         String?
+  status           String?
+  id_mapping       BigInt?
+  testing_mapping_ testing_mapping_? @relation(fields: [id_mapping], references: [id], onDelete: Cascade, map: "public__testing_profile__id_mapping_fkey")
+
+  @@map("_testing_profile_")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model datawarehouse_report_f5 {
+  Kode_Produsen    String? @map("Kode Produsen")
+  Produsen         String?
+  No_F5            String? @map("No F5")
+  Kode_Distributor BigInt? @map("Kode Distributor")
+  Nama_Distributor String? @map("Nama Distributor")
+  Tahun            BigInt?
+  Bulan            BigInt?
+  Kode_Provinsi    BigInt? @map("Kode Provinsi")
+  Provinsi         String?
+  Kode_Kabupaten   BigInt? @map("Kode Kabupaten")
+  Kabupaten        String?
+  Status           String?
+  Kode_Produk      String? @map("Kode Produk")
+  Produk           String?
+  Stok_Awal        String? @map("Stok Awal")
+  Penebusan        String?
+  Penyaluran       String?
+  Stok_Akhir       String? @map("Stok Akhir")
+  Keterangan       String?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model datawarehouse_report_f6 {
+  Produsen            String?
+  Nomor               String?
+  Kode_Distributor    BigInt? @map("Kode Distributor")
+  Nama_Distributor    String? @map("Nama Distributor")
+  Kode_Provinsi       BigInt? @map("Kode Provinsi")
+  Nama_Provinsi       String? @map("Nama Provinsi")
+  Kode_Kota_Kabupaten BigInt? @map("Kode Kota/Kabupaten")
+  Nama_Kota_Kab       String? @map("Nama Kota/Kab")
+  Kode_Kecamatan      String? @map("Kode Kecamatan")
+  Nama_Kecamatan      String? @map("Nama Kecamatan")
+  Bulan               BigInt?
+  Tahun               BigInt?
+  Kode_Pengecer       String? @map("Kode Pengecer")
+  Nama_Pengecer       String? @map("Nama Pengecer")
+  Produk              String?
+  Stok_Awal           String? @map("Stok Awal")
+  Penebusan           String?
+  Penyaluran          String?
+  Stok_Akhir          String? @map("Stok Akhir")
+  Status              String?
+  Keterangan          String?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model fact_location {
+  Nama_Provinsi    String? @map("Nama Provinsi")
+  Nama_Kota_Kab    String? @map("Nama Kota/Kab")
+  Nama_Kecamatan   String? @map("Nama Kecamatan")
+  Nama_Distributor String? @map("Nama Distributor")
+  Nama_Pengecer    String? @map("Nama Pengecer")
+
+  @@ignore
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model fact_report_f5 {
+  created_at       DateTime @db.Timestamp(6)
+  nama_distributor String?
+  bulan            BigInt?
+  tahun            BigInt?
+  produk           String?
+  besaran          Float?
+  total            Float?
+  keterangan       String?
+  id               BigInt   @id @default(autoincrement())
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model fact_report_f6 {
+  created_at    DateTime @db.Timestamp(6)
+  nama_pengecer String?
+  bulan         BigInt?
+  tahun         BigInt?
+  produk        String?
+  besaran       Float?
+  total         Float?
+  keterangan    String?
+  id            BigInt   @id @default(autoincrement())
+}
+
+model log_testing {
+  id             Int                      @id @default(autoincrement())
+  total_rows     BigInt?
+  batch_inserted BigInt?
+  duration       Unsupported("interval")?
+  total_batches  BigInt?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mapping_profile {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at     DateTime  @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  id_provinsi    String?   @db.Uuid
+  id_kabupaten   String?   @db.Uuid
+  id_kecamatan   String?   @db.Uuid
+  id_gudang      String?   @db.Uuid
+  id_distributor String?   @db.Uuid
+  id_kios        String?   @db.Uuid
+  status         Boolean?
+  kategori       String?
+  wilayah        wilayah?  @relation(fields: [id_provinsi], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_provinsi_fkey")
+  gudang         profile?  @relation("GudangMappingProfile", fields: [id_gudang], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_gudang_fkey")
+  distributor    profile?  @relation("DistributorMappingProfile", fields: [id_distributor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_distributor_fkey")
+  kios           profile?  @relation("KiosMappingProfile", fields: [id_kios], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_kios_fkey")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mart_accumulation_fact_location {
+  index    Int?    @map("_index") @db.SmallInt
+  district String?
+  total    Int?    @db.SmallInt
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f5 {
+  id         BigInt   @id(map: "mart_accumulation_f5_pkey") @default(autoincrement())
+  created_at DateTime @db.Timestamp(6)
+  produk     String?
+  bulan      BigInt?
+  tahun      BigInt?
+  besaran    Float?
+  total      Float?
+  keterangan String?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f6 {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @db.Timestamp(6)
+  produk     String?
+  bulan      BigInt?
+  tahun      BigInt?
+  besaran    Float?
+  total      Float?
+  keterangan String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model profile {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at      DateTime         @db.Timestamp(6)
+  updated_at      DateTime?        @db.Timestamp(6)
+  deleted_at      DateTime?        @db.Timestamp(6)
+  kategori        String?
+  kode            String?
+  nama            String?
+  long            String?
+  lat             String?
+  alamat          String?
+  status          Boolean?
+  gudang          mapping_profile[] @relation("GudangMappingProfile")
+  distributor     mapping_profile[] @relation("DistributorMappingProfile")
+  kios            mapping_profile[] @relation("KiosMappingProfile")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model testing_import {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  testing    String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model wilayah {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at      DateTime          @db.Timestamp(6)
+  updated_at      DateTime?         @db.Timestamp(6)
+  deleted_at      DateTime?         @db.Timestamp(6)
+  kode            String?
+  nama            String?
+  long            String?
+  lat             String?
+  status          Boolean?
+  kategori        String?
+  mapping_profile mapping_profile[]
+}
