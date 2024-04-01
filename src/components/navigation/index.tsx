@@ -1,14 +1,14 @@
 "use client"
 
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import { ModeToggle } from '@/components/global/mode-toggle'
 import { MobileMenu } from '@/components/global/mobile-menu'
 
-import LanguageChanger from '@/components/global/language-changer'
-import { HelpMenu } from '../global/halp-menu'
+import { HelpMenu } from '../global/help-menu'
+
+import Monitoring from '../monitoring'
 
 const Navigation = () => {
 
@@ -39,7 +39,7 @@ const Navigation = () => {
       <aside className="flex gap-2 items-center">
         {/* <LanguageChanger locale={pathname} /> */}
         <HelpMenu />
-        <ModeToggle />
+        <Monitoring />
         <div className='sm:block md:hidden lg:hidden xl:hidden'>
           <MobileMenu />
         </div>

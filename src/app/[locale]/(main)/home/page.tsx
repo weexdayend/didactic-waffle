@@ -6,11 +6,6 @@ import CardAch from '@/components/home/card-ach';
 import Image from 'next/image'
 import Example from '@/components/home/charts/line-chart';
 
-import {
-  AlertCircleIcon,
-  CheckCircle2Icon
-} from 'lucide-react'
-
 const Page = () => {
 
   return (
@@ -25,37 +20,6 @@ const Page = () => {
       <div className='flex items-center justify-center w-full px-4 py-4 my-6'>
         <div className='px-6 py-4 w-full rounded-2xl border'>
           <h1 className='text-xs'>Last updated 20 Maret 2024, 03.39 WIB.</h1>
-        </div>
-      </div>
-      <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4 pb-6'>
-        <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
-          <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-            <div className='flex flex-col gap-6'>
-              <h1 className='text-lg text-white'>WCM</h1>
-            </div>
-            <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-          </div>
-
-          <div className='border-2 border-red-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-            <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>APG</h1>
-            </div>
-            <AlertCircleIcon className='w-6 h-6 text-red-500' />
-          </div>
-
-          <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-            <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>Rekan</h1>
-            </div>
-            <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-          </div>
-
-          <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-            <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>Markisa</h1>
-            </div>
-            <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-          </div>
         </div>
       </div>
       <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  

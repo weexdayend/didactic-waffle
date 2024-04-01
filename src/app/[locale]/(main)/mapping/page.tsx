@@ -10,13 +10,6 @@ import ComboboxDemo from '@/components/mapping/combobox'
 import axios from 'axios'
 
 import {
-  AlertCircleIcon,
-  CheckCircle2Icon
-} from 'lucide-react'
-
-import airports from '@/components/map/dummy.json'
-
-import {
   ArrowLeftIcon
 } from 'lucide-react'
 
@@ -164,36 +157,6 @@ const Page = () => {
                         })
                       ) : (
                         <>
-                          <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
-                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-                              <div className='flex flex-col gap-6'>
-                                <h1 className='text-lg text-white'>WCM</h1>
-                              </div>
-                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-                            </div>
-
-                            <div className='border-2 border-red-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-                              <div className='flex flex-col'>
-                                <h1 className='text-lg text-white'>APG</h1>
-                              </div>
-                              <AlertCircleIcon className='w-6 h-6 text-red-500' />
-                            </div>
-
-                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-                              <div className='flex flex-col'>
-                                <h1 className='text-lg text-white'>Rekan</h1>
-                              </div>
-                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-                            </div>
-
-                            <div className='border-2 border-green-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6 gap-2'>
-                              <div className='flex flex-col'>
-                                <h1 className='text-lg text-white'>Markisa</h1>
-                              </div>
-                              <CheckCircle2Icon className='w-6 h-6 text-green-500' />
-                            </div>
-                          </div>
-
                           <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
                             <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
                               <h1 className='text-sm text-white'>Kecamatan</h1>
