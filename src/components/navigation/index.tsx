@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -23,7 +24,7 @@ const Navigation = () => {
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 bg-background">
       <aside className="flex items-center gap-2">
         {/* <Image
-          src={'./assets/syncronice-logo-box.svg'}
+          src={'/assets/icons/logo.png'}
           width={40}
           height={40}
           alt="plur logo"

@@ -1,23 +1,23 @@
 // Import the necessary modules
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET(req) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     // Fetch profiles from the database
     const profile = await prisma.profile.findMany();
 
-    // Initialize arrays to hold completed, error, and not defined data
-    const data_completed= [];
-    const data_error = [];
-    const data_notvalid = [];
+    // Initialize arrays to hold completed, error, and not valid data
+    const data_completed: any[] = [];
+    const data_error: any[] = [];
+    const data_notvalid: any[] = [];
 
     // Iterate through the profile data and categorize based on long and lat values
     profile.forEach((profileItem) => {
-      const lat = parseFloat(profileItem.lat);
-      const long = parseFloat(profileItem.long);
+      const lat = parseFloat(profileItem.lat as string);
+      const long = parseFloat(profileItem.long as string);
       // Check if long and lat are valid numbers and not equal to 0
       if (isNaN(lat) && isNaN(long)) {
         data_error.push(profileItem);
@@ -46,9 +46,14 @@ export async function GET(req) {
     req.headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
     // Return the response
-    return Response.json(response);
+    return new NextResponse(JSON.stringify(response), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   } catch (error) {
     console.log('🔴 Error', error)
-    return new NextResponse('Internal Server Error', { status: 500 })
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
