@@ -14,9 +14,10 @@ type MarkerProps = {
   information: any;
   resetLocation: boolean;
   filter: any[];
+  data: any;
 }
 
-const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocation, filter }: MarkerProps) => {
+const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocation, filter, data }: MarkerProps) => {
 
   const [bounds, setBounds] = useState<[number, number] | null>(null)
 
@@ -27,10 +28,25 @@ const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocatio
     mapRef.current?.flyTo(myLocation, 6);
   }, [myLocation])
 
+  function parseCoordinates(strings: any) {
+    // Ensure selectedPosition is not null and contains valid values
+    if (strings && strings.length === 2) {
+      // Convert each string to a number
+      const latitude = parseFloat(strings[0].replace(',', '.'));
+      const longitude = parseFloat(strings[1].replace(',', '.'));
+  
+      // Check if the conversion is successful
+      if (!isNaN(latitude) && !isNaN(longitude)) {
+        return [latitude, longitude]; // Return array of parsed numbers
+      }
+    }
+    return null; // Return null if conversion fails
+  }
+
   useEffect(() => {
     if (selectedPosition) {
       setBounds(selectedPosition);
-      mapRef.current?.flyTo(selectedPosition, 13);
+      mapRef.current?.flyTo(parseCoordinates(selectedPosition), 13);
     } else {
       getDefaultBounds()
         .then(defaultBounds => {
@@ -51,7 +67,7 @@ const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocatio
     className: 'custom-icon', // Add any custom CSS class for styling if needed
     html: `
       <div class="flex text-center items-center justify-center">
-        <img src="/assets/icons/marker.png" alt="warehouses icon" height="24" width="24">
+        <img src="/assets/icons/marker.png" alt="warehouses icon" height="8" width="8">
       </div>
     `,
     iconSize: [32, 32], // Size of the icon
@@ -62,18 +78,24 @@ const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocatio
     className: 'custom-icon', // Add any custom CSS class for styling if needed
     html: `
       <div class="flex text-center items-center justify-center">
-        <img src="/assets/icons/marker-selected.png" alt="warehouses icon" height="24" width="24">
+        <img src="/assets/icons/marker-selected.png" alt="warehouses icon" height="8" width="8">
       </div>
     `,
     iconSize: [32, 32], // Size of the icon
     iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
   });
 
-  const filteredAirports = airports.filter((airport) => {
-    return filter.includes(airport.cat);
+  const filteredAirports = data && data.filter((airport: any) => {
+    return (
+      filter.includes(airport.kategori) && 
+      airport.long !== null && 
+      airport.lat !== null &&
+      airport.long !== '0' &&
+      airport.lat !== '0'
+    );
   });
 
-  const markersToRender = filter.length > 0 ? filteredAirports : [information];
+  const markersToRender = filter.length > 0 ? filteredAirports : filteredAirports;
 
   return (
     <div className='h-[70vh] w-[99vw] -z-50'>
@@ -82,19 +104,18 @@ const OpenStreetMap = ({ myLocation, selectedPosition, information, resetLocatio
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {markersToRender && markersToRender.map((airport: any, index: number) => (
-            airport && (
+          {data && data !== undefined && markersToRender.map((airport: any, index: number) => (
+            data && data !== undefined && (
               <div key={index} className='p-4 rounded-full bg-white'>
                 <Marker
                   key={index}
-                  position={[Number(airport.lat), Number(airport.lon)]}
+                  position={[parseFloat(airport.lat.replace(',', '.')), parseFloat(airport.long.replace(',', '.'))]}
                   icon={customIcon}
                 >
                   <Popup>
                     <div className='flex flex-col gap-2'>
-                      <h1>Name - {airport.name}</h1>
-                      <h1>City - {airport.city}</h1>
-                      <h1>State - {airport.state}</h1>
+                      <h1>Name - {airport.nama}</h1>
+                      <h1>Kategori - {airport.kategori}</h1>
                     </div>
                   </Popup>
                 </Marker>

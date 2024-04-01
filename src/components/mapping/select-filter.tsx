@@ -9,7 +9,7 @@ import {
 const people = [
   'Distributor',
   'Kios',
-  'Gudang Lini III',
+  'Gudang',
 ]
 
 type SelectProps = {

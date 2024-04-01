@@ -13,38 +13,29 @@ type ComboboxProps = {
   filter: any[];
   handle: (information: any, value: [number, number]) => void;
   clearInformation: () => void;
+  data: any;
 }
 
-export default function ComboboxDemo({ filter, handle, clearInformation }: ComboboxProps) {
+export default function ComboboxDemo({ filter, handle, clearInformation, data }: ComboboxProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const [query, setQuery] = useState('')
 
   const filteredAirport = 
     query === ''
-      ? airports
-      : airports.filter((airport) => {
-            const nameMatch = airport.name
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, ''))
-
-            const cityMatch = airport.city
+      ? data
+      : data.filter((airport: any) => {
+            const nameMatch = airport.nama
               .toLowerCase()
               .replace(/\s+/g, '')
               .includes(query.toLowerCase().replace(/\s+/g, ''))
             
-            const stateMatch = airport.state
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, ''))
-            
-            return nameMatch || cityMatch || stateMatch
+            return nameMatch
           }
         )
 
   const handleSelectionChange = (value: any) => {
     setSelected(value)
-    handle(value, [Number(value.lat), Number(value.lon)])
+    handle(value, [value.lat, value.long])
   }
 
   const handleClearInformation = () => {
@@ -62,7 +53,7 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
               if(airport === null){
                 return '';
               } else {
-                return airport.name + ', '+ airport.city + ', '+ airport.state;
+                return airport.name
               }
             }}
             onChange={(event) => setQuery(event.target.value)}
@@ -79,18 +70,18 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
           <div className='absolute mt-10 max-h-60 w-full left-0 px-6'>
           <Combobox.Options
             className="w-full truncate overflow-auto pt-4 rounded-b-xl pb-6 bg-white py-1 text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
-            {filteredAirport.length === 0 && query !== '' ? (
+            {data && filteredAirport.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nothing found.
               </div>
             ) : (
-              filteredAirport
-              .filter((airport) => {
-                return filter.includes(airport.cat)
+              data && filteredAirport
+              .filter((airport: any) => {
+                return filter.includes(airport.kategori)
               })
-              .map((airport) => (
+              .map((airport: any) => (
                 <Combobox.Option
-                  key={airport?.code}
+                  key={airport?.kode}
                   className={`relative cursor-pointer select-none py-2 truncate text-zinc-600`}
                   value={airport}
                 >
@@ -101,7 +92,7 @@ export default function ComboboxDemo({ filter, handle, clearInformation }: Combo
                           selected ? 'font-bold' : 'font-normal'
                         }`}
                       >
-                        {`${airport?.name}, ${airport?.city}, ${airport?.state}`}
+                        {`${airport?.nama}`}
                       </span>
                     </>
                   )}
