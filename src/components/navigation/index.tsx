@@ -23,13 +23,14 @@ const Navigation = () => {
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 bg-background">
       <aside className="flex items-center gap-2">
-        {/* <Image
-          src={'/assets/icons/logo.png'}
-          width={40}
+        <Image
+          src={'/assets/icons/logo-pi-putih.svg'}
+          width={80}
           height={40}
           alt="plur logo"
-        /> */}
-        <span className="text-xl font-bold"> Fermon</span>
+          layout="fixed"
+        />
+        {/* <span className="text-xl font-bold"> Fermon</span> */}
       </aside>
       <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
         <ul className="flex items-center justify-center gap-8">
@@ -41,6 +42,7 @@ const Navigation = () => {
         {/* <LanguageChanger locale={pathname} /> */}
         <HelpMenu />
         <Monitoring />
+        <ModeToggle />
         <div className='sm:block md:hidden lg:hidden xl:hidden'>
           <MobileMenu />
         </div>

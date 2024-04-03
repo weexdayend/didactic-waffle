@@ -18,7 +18,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     // Fetch profiles from the database
     const wilayah = await prisma.wilayah.findMany();
-    const penyaluran = await prisma.profile.findMany();
+    const profile = await prisma.profile.findMany();
     
     // Count occurrences of categories in the wilayah table
     const wilayahCategoriesCount: Record<string, number> = wilayah.reduce((acc: any, curr: any) => {
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }, {});
 
     // Count occurrences of categories in the profile table
-    const profileCategoriesCount: Record<string, number> = penyaluran.reduce((acc: any, curr: any) => {
+    const profileCategoriesCount: Record<string, number> = profile.reduce((acc: any, curr: any) => {
       if (curr && curr.kategori) {
         acc[curr.kategori] = (acc[curr.kategori] || 0) + 1;
       }

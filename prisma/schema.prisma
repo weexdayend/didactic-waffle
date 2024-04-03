@@ -173,22 +173,28 @@ model log_testing {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model mapping_profile {
-  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at     DateTime  @db.Timestamp(6)
-  updated_at     DateTime? @db.Timestamp(6)
-  deleted_at     DateTime? @db.Timestamp(6)
-  id_provinsi    String?   @db.Uuid
-  id_kabupaten   String?   @db.Uuid
-  id_kecamatan   String?   @db.Uuid
-  id_gudang      String?   @db.Uuid
-  id_distributor String?   @db.Uuid
-  id_kios        String?   @db.Uuid
+  id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at     DateTime   @db.Timestamp(6)
+  updated_at     DateTime?  @db.Timestamp(6)
+  deleted_at     DateTime?  @db.Timestamp(6)
+  id_provinsi    String?    @unique
+  id_kabupaten   String?    @unique
+  id_kecamatan   String?    @unique
+  id_gudang      String?    @unique
+  id_distributor String?    @unique
+  id_kios        String?    @unique
   status         Boolean?
   kategori       String?
-  wilayah        wilayah?  @relation(fields: [id_provinsi], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_provinsi_fkey")
-  gudang         profile?  @relation("GudangMappingProfile", fields: [id_gudang], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_gudang_fkey")
-  distributor    profile?  @relation("DistributorMappingProfile", fields: [id_distributor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_distributor_fkey")
-  kios           profile?  @relation("KiosMappingProfile", fields: [id_kios], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_mapping_profile_id_kios_fkey")
+
+  Provinsi       wilayah?    @relation("MapProvinsi", fields: [id_provinsi], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+  Kotakab        wilayah?    @relation("MapKabupaten", fields: [id_kabupaten], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+  Kecamatan      wilayah?    @relation("MapKecamatan", fields: [id_kecamatan], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+  
+  Gudang         profile?    @relation("MapGudang", fields: [id_gudang], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+  Distributor    profile?    @relation("MapDistributor", fields: [id_distributor], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+  Kios           profile?    @relation("MapKios", fields: [id_kios], references: [kode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([id_provinsi, id_kabupaten, id_kecamatan, id_gudang, id_distributor, id_kios])
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -233,15 +239,18 @@ model profile {
   updated_at      DateTime?        @db.Timestamp(6)
   deleted_at      DateTime?        @db.Timestamp(6)
   kategori        String?
-  kode            String?
+  kode            String
   nama            String?
   long            String?
   lat             String?
   alamat          String?
   status          Boolean?
-  gudang          mapping_profile[] @relation("GudangMappingProfile")
-  distributor     mapping_profile[] @relation("DistributorMappingProfile")
-  kios            mapping_profile[] @relation("KiosMappingProfile")
+
+  Gudang          mapping_profile[] @relation("MapGudang")
+  Distributor     mapping_profile[] @relation("MapDistributor")
+  Kios            mapping_profile[] @relation("MapKios")
+
+  @@unique([kode])
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -257,11 +266,16 @@ model wilayah {
   created_at      DateTime          @db.Timestamp(6)
   updated_at      DateTime?         @db.Timestamp(6)
   deleted_at      DateTime?         @db.Timestamp(6)
-  kode            String?
+  kode            String
   nama            String?
   long            String?
   lat             String?
   status          Boolean?
   kategori        String?
-  mapping_profile mapping_profile[]
+
+  Provinsi        mapping_profile? @relation("MapProvinsi")
+  Kotakab         mapping_profile? @relation("MapKabupaten")
+  Kecamatan       mapping_profile? @relation("MapKecamatan")
+
+  @@unique([kode])
 }
