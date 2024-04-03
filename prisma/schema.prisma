@@ -128,11 +128,19 @@ model datawarehouse_report_f6 {
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model fact_location {
-  Nama_Provinsi    String? @map("Nama Provinsi")
-  Nama_Kota_Kab    String? @map("Nama Kota/Kab")
-  Nama_Kecamatan   String? @map("Nama Kecamatan")
-  Nama_Distributor String? @map("Nama Distributor")
-  Nama_Pengecer    String? @map("Nama Pengecer")
+  kode_provinsi    String?
+  nama_provinsi    String?
+  kode_kab_kota    String?
+  nama_kab_kota    String?
+  kode_kecamatan   String?
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nama_kecamatan   String?
+  kode_gudang      String?
+  nama_gudang      String?
+  kode_distributor String?
+  nama_distributor String?
+  kode_kios        String?
+  nama_kios        String?
 
   @@ignore
 }
@@ -143,24 +151,38 @@ model fact_report_f5 {
   nama_distributor String?
   bulan            BigInt?
   tahun            BigInt?
-  produk           String?
+  nama_produk      String?
   besaran          Float?
   total            Float?
   keterangan       String?
   id               BigInt   @id @default(autoincrement())
+  kode_provinsi    String?
+  nama_provinsi    String?
+  kode_kab_kota    String?
+  nama_kab_kota    String?
+  kode_distributor String?
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model fact_report_f6 {
-  created_at    DateTime @db.Timestamp(6)
-  nama_pengecer String?
-  bulan         BigInt?
-  tahun         BigInt?
-  produk        String?
-  besaran       Float?
-  total         Float?
-  keterangan    String?
-  id            BigInt   @id @default(autoincrement())
+  created_at       DateTime @db.Timestamp(6)
+  nama_pengecer    String?
+  bulan            BigInt?
+  tahun            BigInt?
+  nama_produk      String?
+  besaran          Float?
+  total            Float?
+  keterangan       String?
+  id               BigInt   @id @default(autoincrement())
+  kode_provinsi    String?
+  nama_provinsi    String?
+  kode_kab_kota    String?
+  nama_kab_kota    String?
+  kode_kecamatan   String?
+  nama_kecamatan   String?
+  kode_distributor String?
+  nama_distributor String?
+  kode_pengecer    String?
 }
 
 model log_testing {
@@ -206,32 +228,7 @@ model mart_accumulation_fact_location {
   @@ignore
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model mart_accumulation_products_f5 {
-  id         BigInt   @id(map: "mart_accumulation_f5_pkey") @default(autoincrement())
-  created_at DateTime @db.Timestamp(6)
-  produk     String?
-  bulan      BigInt?
-  tahun      BigInt?
-  besaran    Float?
-  total      Float?
-  keterangan String?
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model mart_accumulation_products_f6 {
-  id         BigInt   @id @default(autoincrement())
-  created_at DateTime @db.Timestamp(6)
-  produk     String?
-  bulan      BigInt?
-  tahun      BigInt?
-  besaran    Float?
-  total      Float?
-  keterangan String?
-}
-
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model profile {
   id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -278,4 +275,129 @@ model wilayah {
   Kecamatan       mapping_profile? @relation("MapKecamatan")
 
   @@unique([kode])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model datawarehouse_report_f5_karawang {
+  kode_produsen    String?
+  nama_produsen    String?
+  no_f5            String?
+  kode_distributor BigInt?
+  nama_distributor String?
+  tahun            BigInt?
+  bulan            BigInt?
+  kode_provinsi    BigInt?
+  nama_provinsi    String?
+  kode_kab_kota    BigInt?
+  nama_kab_kota    String?
+  status           String?
+  kode_produk      String?
+  nama_produk      String?
+  stok_awal        String?
+  penebusan        String?
+  penyaluran       String?
+  stok_akhir       String?
+  keterangan       String?
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model datawarehouse_report_f6_karawang {
+  nama_produsen    String?
+  no_f6            String?
+  kode_distributor BigInt?
+  nama_distributor String?
+  kode_provinsi    BigInt?
+  nama_provinsi    String?
+  kode_kab_kota    BigInt?
+  nama_kab_kota    String?
+  kode_kecamatan   String?
+  nama_kecamatan   String?
+  bulan            BigInt?
+  tahun            BigInt?
+  kode_pengecer    String?
+  nama_pengecer    String?
+  nama_produk      String?
+  stok_awal        String?
+  penebusan        String?
+  penyaluran       String?
+  stok_akhir       String?
+  status           String?
+  keterangan       String?
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model harga_pupuk {
+  id           String    @id(map: "hargapupuk_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at   DateTime  @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  deleted_at   DateTime? @db.Timestamp(6)
+  id_provinsi  String?   @db.Uuid
+  id_kabupaten String?   @db.Uuid
+  tahun        BigInt?
+  bulan        BigInt?
+  hargapukuk   Decimal?  @db.Decimal
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f5_distributor {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at       DateTime @db.Timestamp(6)
+  nama_produk      String?
+  bulan            BigInt?
+  tahun            BigInt?
+  besaran          Float?
+  total            Float?
+  keterangan       String?
+  kode_distributor String
+  nama_distributor String?
+
+  @@unique([kode_distributor])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f5_global {
+  id          BigInt   @id(map: "mart_accumulation_f5_pkey") @default(autoincrement())
+  created_at  DateTime @db.Timestamp(6)
+  nama_produk String?
+  bulan       BigInt?
+  tahun       BigInt?
+  besaran     Float?
+  total       Float?
+  keterangan  String?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f6_global {
+  id          BigInt   @id(map: "mart_accumulation_products_f6_pkey") @default(autoincrement())
+  created_at  DateTime @db.Timestamp(6)
+  nama_produk String?
+  bulan       BigInt?
+  tahun       BigInt?
+  besaran     Float?
+  total       Float?
+  keterangan  String?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mart_accumulation_products_f6_kios {
+  id            BigInt   @id @default(autoincrement())
+  created_at    DateTime @db.Timestamp(6)
+  nama_produk   String?
+  bulan         BigInt?
+  tahun         BigInt?
+  besaran       Float?
+  total         Float?
+  keterangan    String?
+  kode_pengecer String
+  nama_pengecer String?
+
+  @@unique([kode_pengecer])
 }

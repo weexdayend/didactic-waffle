@@ -35,7 +35,7 @@ export default function ComboboxDemo({ filter, handle, clearInformation, data }:
 
   const handleSelectionChange = (value: any) => {
     setSelected(value)
-    handle(value, [value.lat, value.long])
+    handle(value, [value.long, value.lat])
   }
 
   const handleClearInformation = () => {

@@ -177,3 +177,10 @@ export function populateGroupedData(
 
   return groupedData;
 }
+
+export function formatIDR(amount: any) {
+  // Convert the number to string and add separator for thousands
+  const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // Add 'Rp' prefix and return the formatted amount
+  return `${formattedAmount}`;
+}

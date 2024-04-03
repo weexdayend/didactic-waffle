@@ -1,7 +1,10 @@
 "use client"
 
+import dynamic from "next/dynamic";
+
 import React, { useEffect, useState } from 'react'
-import Map from '@/components/map'
+import { useMemo } from "react";
+
 import Image from 'next/image'
 
 import MyListbox from '@/components/mapping/select-filter'
@@ -12,6 +15,7 @@ import axios from 'axios'
 import {
   ArrowLeftIcon
 } from 'lucide-react'
+import CardInformation from "@/components/mapping/card-information";
 
 const Page = () => {
   const [myLocation, setMyLocation] = useState<[number, number] | null>(null)
@@ -25,6 +29,11 @@ const Page = () => {
 
   const [data, setData] = useState<any>()
   const [error, setError] = useState<any>()
+
+  const Map = useMemo(() => dynamic(
+    () => import('@/components/leaflet/'),
+    { ssr: false }
+  ), [])
 
   useEffect(() => {
     axios.get('/api/dev')
@@ -65,7 +74,7 @@ const Page = () => {
   const handleLocationDetection = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setMyLocation([position.coords.latitude, position.coords.longitude])
+        setMyLocation([position.coords.longitude, position.coords.latitude])
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -91,13 +100,33 @@ const Page = () => {
             )}
             </div>
             <div className='z-[40]'>
-              <Map data={data} myLocation={myLocation} selectedPosition={selected} resetLocation={resetLocation} information={information} filter={selectFilter} />
+              {/* <Map data={data} myLocation={myLocation} selectedPosition={selected} resetLocation={resetLocation} information={information} filter={selectFilter} /> */}
+              {
+                data && (
+                  <Map 
+                    posix={[-6.898678903936348, 107.6190306816882]} 
+                    data={data} 
+                    selectedPosition={selected} 
+                    resetLocation={resetLocation} 
+                    information={information} 
+                    filter={selectFilter}
+                    handleSelectMarker={handleSelected}
+                  />
+                )
+              }
             </div>
             {myLocation && (
             <div className='absolute top-[70vh] z-[45] flex flex-col px-6 py-6 w-full h-fit rounded-t-3xl bg-background gap-6'>
               {information ? (
                 <>
                   <div 
+                    onClick={() => clearInformation()}
+                    className='rounded-full p-2 border w-fit cursor-pointer active:scale-95'
+                  >
+                    <ArrowLeftIcon className='w-6 h-6' />
+                  </div>
+                  <CardInformation data={information} />
+                  {/* <div 
                     onClick={() => clearInformation()}
                     className='rounded-full p-2 border w-fit cursor-pointer active:scale-95'
                   >
@@ -110,7 +139,7 @@ const Page = () => {
                         <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>{information.kategori}</h1>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </>
               ) : (
                 <>
@@ -126,7 +155,7 @@ const Page = () => {
                             <div 
                               key={index} 
                               className='flex flex-row px-6 py-6 border rounded-3xl gap-4 hover:cursor-pointer hover:border-blue-500'
-                              onClick={() => handleSelected(airport, [airport.lat, airport.long])}
+                              onClick={() => handleSelected(airport, [airport.long, airport.lat])}
                             >
                               <div className='px-2 py-2 h-fit w-fit bg-blue-100 rounded-full'>
                                 <Image
@@ -157,28 +186,6 @@ const Page = () => {
                         })
                       ) : (
                         <>
-                          {/* <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-6'>
-                            <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                              <h1 className='text-sm text-white'>Kecamatan</h1>
-                              <h1 className='text-3xl font-bold text-white'>30</h1>
-                            </div>
-                            
-                            <div className='bg-gradient-to-br from-indigo-500 via-blue-400 to-blue-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                              <h1 className='text-sm text-white'>Distributor</h1>
-                              <h1 className='text-3xl font-bold text-white'>17</h1>
-                            </div>
-
-                            <div className='bg-gradient-to-br from-blue-500 via-blue-400 to-purple-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                              <h1 className='text-sm text-white'>Kios</h1>
-                              <h1 className='text-3xl font-bold text-white'>400</h1>
-                            </div>
-
-                            <div className='bg-gradient-to-br from-purple-500 via-blue-400 to-indigo-500 rounded-3xl xl:rounded-3xl h-full flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-6 py-6'>
-                              <h1 className='text-sm text-white'>Gd. Lini III</h1>
-                              <h1 className='text-3xl font-bold text-white'>3</h1>
-                            </div>
-                          </div> */}
-
                           <div className='w-full grid grid-cols-1 md:col-span-4 lg:col-span-4 xl:col-span-4 gap-6'>
                             <div className='w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-4'>
                               <div className='flex flex-col w-full h-full'>
