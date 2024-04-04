@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Progress } from '@/components/ui/progress'
 
 import { formatIDR } from '@/lib/functions'
 
@@ -47,15 +48,33 @@ const CardInformation = ({ data }: InformationProps) => {
           setError(error.response.data.error);
         })
         .finally(() => {
-          setTimeout(() => {
+          const timer = setTimeout(() => {
             setLoadData(false);
           }, 5000);
+
+          // Clear timeout when component unmounts
+          return () => clearTimeout(timer);
         });
     }
   }, [data])
 
   const uniqueProvinsi = datas && Array.from(new Set(datas.data.map((item: any) => item.provinsi)));
   const uniqueKabupaten = datas && Array.from(new Set(datas.data.map((item: any) => item.kabupaten)));
+
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    // Simulate progress increment every 500ms
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        // Increment progress by 10 until it reaches 100
+        return prevProgress >= 100 ? 100 : prevProgress + 10;
+      });
+    }, 500);
+
+    // Clear interval when component unmounts
+    return () => clearInterval(interval);
+  }, []);
 
   const skeletonCards = Array.from({ length: 2 }, (_, index) => (
     <Skeleton key={index} className="h-52 w-full rounded-2xl" />
@@ -64,6 +83,7 @@ const CardInformation = ({ data }: InformationProps) => {
   if (loadData) {
     return (
       <div className='flex flex-col gap-4'>
+        <div className="h-1.5 bg-blue-500/30 rounded-full transition-all ease-in-out" style={{ width: `${progress}%` }} />
         {skeletonCards}
       </div>  
     );
