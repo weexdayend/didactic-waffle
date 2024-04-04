@@ -13,10 +13,12 @@ import ComboboxDemo from '@/components/mapping/combobox'
 import axios from 'axios'
 
 import {
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  ArrowRightIcon
 } from 'lucide-react'
 
 import CardInformation from "@/components/mapping/card-information";
+import { Button } from "@/components/ui/button";
 
 
 const pageSize = 10; // Number of items per page
@@ -98,12 +100,16 @@ const Page = () => {
   const endIndex = currentPage * pageSize;
 
   // Get the current page's data based on the index range
-  const currentPageData = data && data.slice(startIndex, endIndex);
+  const currentPageData = (data || [])
+    .filter((airport: any) => selectFilter.length === 0 || selectFilter.includes(airport.kategori))
+    .slice(startIndex, endIndex);
 
   // Function to handle pagination
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  console.log(currentPageData)
 
   return (
     <>
@@ -124,7 +130,7 @@ const Page = () => {
                 data && (
                   <Map 
                     posix={[-6.3021906, 107.3046116]} 
-                    data={data} 
+                    data={currentPageData} 
                     selectedPosition={selected} 
                     resetLocation={resetLocation} 
                     information={information} 
@@ -148,47 +154,72 @@ const Page = () => {
                 </>
               ) : (
                 <>
-                  <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6'>
+                  <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 pt-2'>
                     {
                       selectFilter.length > 0 ? (
-                        currentPageData
-                        .filter((airport: any) => {
-                          return selectFilter.includes(airport.kategori)
-                        })
-                        .map((airport: any, index: number) => {
-                          return(
-                            <div 
-                              key={index} 
-                              className='flex flex-row px-6 py-6 border rounded-3xl gap-4 hover:cursor-pointer hover:border-blue-500'
-                              onClick={() => handleSelected(airport, [airport.long, airport.lat])}
-                            >
-                              <div className='px-2 py-2 h-fit w-fit bg-blue-100 rounded-full'>
-                                <Image
-                                  src={'/assets/icons/warehouses.png'}
-                                  height={16}
-                                  width={16}
-                                  alt='warehouses icon'
-                                />
-                              </div>
-                              <div className='flex w-full h-full flex-col gap-4'>
-                                <div className='flex flex-col'>
-                                  <h1 className='text-base font-bold uppercase'>{airport.nama}</h1>
-                                  <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>{airport.kategori}</h1>
+                        <>
+                        <div className="w-full flex flex-row items-center justify-between">
+                          <Button 
+                            variant={'outline'}
+                            size={'icon'}
+                            onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}
+                          >
+                            <ArrowLeftIcon className="w-4 h-4" />
+                          </Button>
+                          <span>{currentPage}</span>
+                          <Button 
+                            variant={'outline'}
+                            size={'icon'}
+                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / pageSize)}
+                          >
+                            <ArrowRightIcon className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        {
+                          currentPageData
+                          .map((airport: any, index: number) => {
+                            return(
+                              <div 
+                                key={index} 
+                                className='flex flex-row px-6 py-6 border rounded-xl gap-4 hover:cursor-pointer hover:border-blue-500'
+                                onClick={() => handleSelected(airport, [airport.long, airport.lat])}
+                              >
+                                <div className='px-2 py-2 h-fit w-fit bg-blue-100 rounded-full'>
+                                  <Image
+                                    src={'/assets/icons/warehouses.png'}
+                                    height={16}
+                                    width={16}
+                                    alt='warehouses icon'
+                                  />
                                 </div>
-                                <div className='grid grid-cols-2 gap-2'>
-                                  <div className='flex flex-col w-full h-full'>
-                                    <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>Alokasi</h1>
-                                    <h1 className='text-base font-bold uppercase'>{airport.provinsi}</h1>
-                                  </div>
-                                  <div className='flex flex-col w-full h-full'>
-                                    <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>Realisasi</h1>
-                                    <h1 className='text-base font-bold uppercase'>0.562</h1>
+                                <div className='flex w-full h-full flex-col gap-4'>
+                                  <div className='flex flex-col'>
+                                    <h1 className='text-base font-bold uppercase'>{airport.nama}</h1>
+                                    <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>{airport.kategori}</h1>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          )
-                        })
+                            )
+                          })
+                        }
+                        <div className="w-full flex flex-row items-center justify-between">
+                          <Button 
+                            variant={'outline'}
+                            size={'icon'}
+                            onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}
+                          >
+                            <ArrowLeftIcon className="w-4 h-4" />
+                          </Button>
+                          <span>{currentPage}</span>
+                          <Button 
+                            variant={'outline'}
+                            size={'icon'}
+                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / pageSize)}
+                          >
+                            <ArrowRightIcon className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        </>
                       ) : (
                         <>
                           <div className='w-full grid grid-cols-1 md:col-span-4 lg:col-span-4 xl:col-span-4 gap-6'>
