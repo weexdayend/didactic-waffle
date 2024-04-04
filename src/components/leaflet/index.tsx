@@ -20,7 +20,7 @@ interface MapProps {
 }
 
 const defaults = {
-  zoom: 6,
+  zoom: 12,
 }
 
 const Map = (Map: MapProps) => {
@@ -46,7 +46,7 @@ const Map = (Map: MapProps) => {
       getDefaultBounds()
         .then(defaultBounds => {
           setBounds(defaultBounds);
-          mapRef.current?.flyTo(defaultBounds, 6);
+          mapRef.current?.flyTo(posix, 12);
         })
         .catch(error => console.error('Error setting default bounds:', error));
     }

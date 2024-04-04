@@ -18,6 +18,10 @@ import {
 
 import CardInformation from "@/components/mapping/card-information";
 
+
+const pageSize = 10; // Number of items per page
+
+
 const Page = () => {
   const [myLocation, setMyLocation] = useState<[number, number] | null>(null)
   
@@ -29,6 +33,8 @@ const Page = () => {
   const [loadData, setLoadData] = useState(false)
 
   const [data, setData] = useState<any>()
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [error, setError] = useState<any>()
 
   const Map = useMemo(() => dynamic(
@@ -87,6 +93,18 @@ const Page = () => {
     setSelectFilter(value)
   }
 
+  // Calculate the index range of items to display for the current page
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = currentPage * pageSize;
+
+  // Get the current page's data based on the index range
+  const currentPageData = data && data.slice(startIndex, endIndex);
+
+  // Function to handle pagination
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
       {
@@ -105,7 +123,7 @@ const Page = () => {
               {
                 data && (
                   <Map 
-                    posix={[-6.898678903936348, 107.6190306816882]} 
+                    posix={[-6.3021906, 107.3046116]} 
                     data={data} 
                     selectedPosition={selected} 
                     resetLocation={resetLocation} 
@@ -133,7 +151,7 @@ const Page = () => {
                   <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6'>
                     {
                       selectFilter.length > 0 ? (
-                        data
+                        currentPageData
                         .filter((airport: any) => {
                           return selectFilter.includes(airport.kategori)
                         })
