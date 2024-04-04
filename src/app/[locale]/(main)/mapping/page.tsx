@@ -15,6 +15,7 @@ import axios from 'axios'
 import {
   ArrowLeftIcon
 } from 'lucide-react'
+
 import CardInformation from "@/components/mapping/card-information";
 
 const Page = () => {

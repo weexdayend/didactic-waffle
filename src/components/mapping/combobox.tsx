@@ -2,12 +2,8 @@ import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 
 import {
-    ChevronDown,
-    CheckIcon,
     XIcon,
 } from 'lucide-react'
-
-import airports from '@/components/map/dummy.json'
 
 type ComboboxProps = {
   filter: any[];
