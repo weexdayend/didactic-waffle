@@ -127,20 +127,6 @@ const Page = () => {
                     <ArrowLeftIcon className='w-6 h-6' />
                   </div>
                   <CardInformation data={information} />
-                  {/* <div 
-                    onClick={() => clearInformation()}
-                    className='rounded-full p-2 border w-fit cursor-pointer active:scale-95'
-                  >
-                    <ArrowLeftIcon className='w-6 h-6' />
-                  </div>
-                  <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6'>
-                    <div className='flex flex-row px-6 py-6 border rounded-2xl gap-4'>
-                      <div className='flex flex-col'>
-                        <h1 className='text-base font-bold uppercase'>{information.nama}</h1>
-                        <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>{information.kategori}</h1>
-                      </div>
-                    </div>
-                  </div> */}
                 </>
               ) : (
                 <>
@@ -174,7 +160,7 @@ const Page = () => {
                                 <div className='grid grid-cols-2 gap-2'>
                                   <div className='flex flex-col w-full h-full'>
                                     <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>Alokasi</h1>
-                                    <h1 className='text-base font-bold uppercase'>2.250</h1>
+                                    <h1 className='text-base font-bold uppercase'>{airport.provinsi}</h1>
                                   </div>
                                   <div className='flex flex-col w-full h-full'>
                                     <h1 className='text-xs text-zinc-800/70 dark:text-white/70'>Realisasi</h1>

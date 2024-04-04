@@ -114,51 +114,55 @@ const CardInformation = ({ data }: InformationProps) => {
         </CardFooter>
       </Card>
 
-      <Card className='w-full h-fit rounded-2xl'>
-        <CardHeader>
-          <div>
-            <h1 className='text-lg'>Distribusi</h1>
-            <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>alokasi</span> dan <span className='font-bold'>realisasi</span> pupuk.</p>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className='w-full flex flex-col items-center gap-6 py-6'>
-            <div className='w-full flex flex-col items-center gap-4 justify-between'>
-              {
-                datas && datas.distribusi
-                .filter((item: any) => item.keterangan === 'Penyaluran')
-                .map((item: any, index: number) => (
-                  <div key={index} className='w-full flex flex-col gap-2'>
-                    <div className='w-full flex flex-col'>
-                      <h1>{item.nama_produk}</h1>
-                    </div>
-                    <div className='w-full flex flex-row items-center justify-between'>
-                      <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
-                        <h1 className='text-base font-bold'>{item.besaran}</h1>
+      {
+        data.kategori === 'Distributor' || data.kategori === 'Kios' && (
+        <Card className='w-full h-fit rounded-2xl'>
+          <CardHeader>
+            <div>
+              <h1 className='text-lg'>Distribusi</h1>
+              <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>alokasi</span> dan <span className='font-bold'>realisasi</span> pupuk.</p>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className='w-full flex flex-col items-center gap-6 py-6'>
+              <div className='w-full flex flex-col items-center gap-4 justify-between'>
+                {
+                  datas && datas.distribusi
+                  .filter((item: any) => item.keterangan === 'Penyaluran')
+                  .map((item: any, index: number) => (
+                    <div key={index} className='w-full flex flex-col gap-2'>
+                      <div className='w-full flex flex-col'>
+                        <h1>{item.nama_produk}</h1>
                       </div>
-                      <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
-                        <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                      <div className='w-full flex flex-row items-center justify-between'>
+                        <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
+                          <h1 className='text-base font-bold'>{item.besaran}</h1>
+                        </div>
+                        <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
+                          <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              }
+                  ))
+                }
+              </div>
             </div>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <div className='flex flex-row w-full items-center justify-center gap-8'>
-            <div className='flex flex-row items-center gap-2'>
-              <div className='w-6 h-3 rounded-full bg-amber-500' />
-              <h6 className='text-sm'>(Ton)</h6>
+          </CardContent>
+          <CardFooter>
+            <div className='flex flex-row w-full items-center justify-center gap-8'>
+              <div className='flex flex-row items-center gap-2'>
+                <div className='w-6 h-3 rounded-full bg-amber-500' />
+                <h6 className='text-sm'>(Ton)</h6>
+              </div>
+              <div className='flex flex-row items-center gap-2'>
+                <div className='w-6 h-3 rounded-full bg-indigo-500' />
+                <h6 className='text-sm'>(Rp)</h6>
+              </div>
             </div>
-            <div className='flex flex-row items-center gap-2'>
-              <div className='w-6 h-3 rounded-full bg-indigo-500' />
-              <h6 className='text-sm'>(Rp)</h6>
-            </div>
-          </div>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+        )
+      }
 
       <Card>
         <CardHeader>
