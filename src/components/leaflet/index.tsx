@@ -78,6 +78,7 @@ const Map = (Map: MapProps) => {
         zoom={zoom}
         style={{ height: "100%", width: "100%" }}
         zoomControl={false}
+        maxZoom={12}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.saptakarya.co.id">Saptakarya</a>'
