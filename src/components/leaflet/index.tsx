@@ -54,7 +54,7 @@ const Map = (Map: MapProps) => {
 
   useEffect(() => {
     if(resetLocation === true){
-      mapRef.current?.flyTo(posix, 6);
+      mapRef.current?.flyTo(posix, 12);
     }
   }, [resetLocation])
 
