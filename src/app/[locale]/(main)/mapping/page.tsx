@@ -120,7 +120,7 @@ const Page = () => {
             {myLocation && (
               <div className='flex flex-row items-basline'>
                 <MyListbox filtered={handleFiltered} />
-                <ComboboxDemo data={data} filter={selectFilter} handle={handleSelected} clearInformation={clearInformation} />
+                <ComboboxDemo data={currentPageData} filter={selectFilter} handle={handleSelected} clearInformation={clearInformation} />
               </div>
             )}
             </div>
