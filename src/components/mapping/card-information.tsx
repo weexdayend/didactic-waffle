@@ -12,8 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 
 import { formatIDR } from '@/lib/functions'
+
+import {
+  BookOpenIcon
+} from 'lucide-react'
 
 type InformationProps = {
   data: any;
@@ -28,6 +34,7 @@ const CardInformation = ({ data }: InformationProps) => {
   const [error, setError] = useState<any>()
 
   useEffect(() => {
+    setLoadData(true)
     if (data) {
       axios.get(`/api/dev/information/${data.kode}/${data.kategori}`) // Make a POST request with the area parameter
         .then(response => {
@@ -49,6 +56,26 @@ const CardInformation = ({ data }: InformationProps) => {
 
   const uniqueProvinsi = datas && Array.from(new Set(datas.data.map((item: any) => item.provinsi)));
   const uniqueKabupaten = datas && Array.from(new Set(datas.data.map((item: any) => item.kabupaten)));
+
+  const skeletonCards = Array.from({ length: 2 }, (_, index) => (
+    <Skeleton key={index} className="h-52 w-full rounded-2xl" />
+  ));
+
+  if (loadData) {
+    return (
+      <div className='flex flex-col gap-4'>
+        {skeletonCards}
+      </div>  
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!data) {
+    return <div>No data received</div>;
+  }
 
   return (
     <div className='flex flex-col gap-4 pt-2'>
@@ -121,7 +148,7 @@ const CardInformation = ({ data }: InformationProps) => {
         </CardContent>
         <CardFooter>
           <div className='flex flex-row w-full items-center justify-center gap-8'>
-          <div className='flex flex-row items-center gap-2'>
+            <div className='flex flex-row items-center gap-2'>
               <div className='w-6 h-3 rounded-full bg-amber-500' />
               <h6 className='text-sm'>(Ton)</h6>
             </div>
@@ -131,6 +158,38 @@ const CardInformation = ({ data }: InformationProps) => {
             </div>
           </div>
         </CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div className='flex flex-col'>
+            <h1 className='text-lg'>Dokumen</h1>
+            <h1 className='text-sm opacity-70'>Daftar dokumen terkait.</h1>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className='flex flex-col'>
+            <div className='flex flex-row items-center justify-between py-4 border-b'>
+              <h1 className='text-sm'>Kedistributoran</h1>
+              <Button
+                variant={'outline'}
+                size={'icon'}
+              >
+                <BookOpenIcon className='w-4 h-4' />
+              </Button>
+            </div>
+
+            <div className='flex flex-row items-center justify-between py-4'>
+              <h1 className='text-sm'>OS Pengambilan Prod di Lini III</h1>
+              <Button
+                variant={'outline'}
+                size={'icon'}
+              >
+                <BookOpenIcon className='w-4 h-4' />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
       </Card>
     </div>
   )

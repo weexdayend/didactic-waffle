@@ -55,6 +55,7 @@ const RowProfile = ({ params }: { params: { area: string, resource: string } }) 
   if (!data) {
     return <div>No data received</div>;
   }
+  
   return (
     <div className='flex flex-col gap-6'>
     {
