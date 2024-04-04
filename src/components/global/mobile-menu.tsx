@@ -37,7 +37,6 @@ export function MobileMenu() {
             Home
           </DropdownMenuItem>
         </Link>
-        <div className='w-full h-1.5 border-4 rounded-full' />
         <Link href={'/mapping'}>
           <DropdownMenuItem>
             Mapping

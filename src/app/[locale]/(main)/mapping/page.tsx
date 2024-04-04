@@ -68,6 +68,7 @@ const Page = () => {
   const clearInformation = () => {
     setInformation(null)
     setResetLocation(!resetLocation)
+    setCurrentPage(1)
   }
 
   useEffect(() => {
@@ -93,6 +94,7 @@ const Page = () => {
 
   const handleFiltered = (value: any[]) => {
     setSelectFilter(value)
+    setCurrentPage(1)
   }
 
   // Calculate the index range of items to display for the current page
@@ -104,12 +106,13 @@ const Page = () => {
     .filter((airport: any) => selectFilter.length === 0 || selectFilter.includes(airport.kategori))
     .slice(startIndex, endIndex);
 
+  const loadedData = (data || [])
+    .filter((airport: any) => selectFilter.length === 0 || selectFilter.includes(airport.kategori))
+
   // Function to handle pagination
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  console.log(currentPageData)
 
   return (
     <>
@@ -170,7 +173,7 @@ const Page = () => {
                           <Button 
                             variant={'outline'}
                             size={'icon'}
-                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / pageSize)}
+                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(loadedData.length / pageSize)}
                           >
                             <ArrowRightIcon className="w-4 h-4" />
                           </Button>
@@ -214,7 +217,7 @@ const Page = () => {
                           <Button 
                             variant={'outline'}
                             size={'icon'}
-                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / pageSize)}
+                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(loadedData.length / pageSize)}
                           >
                             <ArrowRightIcon className="w-4 h-4" />
                           </Button>

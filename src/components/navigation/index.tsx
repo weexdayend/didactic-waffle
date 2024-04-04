@@ -13,23 +13,29 @@ import Monitoring from '../monitoring'
 import { useTheme } from 'next-themes'
 
 const Navigation = () => {
-
+  const [source, setSource] = useState<string>('')
   const [pathname, setPathname] = useState<string>('en')
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     const pathnameSegments = window.location.pathname.split('/');
     setPathname(pathnameSegments[1])
   }, [])
 
-  const { theme } = useTheme();
-  const logoSrc = theme === 'dark' ? '/assets/icons/logo-pi-putih.svg' : '/assets/icons/logo-pi-warna.svg';
-
+  useEffect(() => {
+    if (theme === 'dark') {
+      setSource('/assets/icons/logo-pi-putih.svg')
+    } else {
+      setSource('/assets/icons/logo-pi-warna.svg')
+    }
+  }, [theme])
 
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 bg-background">
       <aside className="flex items-center gap-2">
         <Image
-          src={logoSrc}
+          src={source}
           width={80}
           height={40}
           alt="plur logo"

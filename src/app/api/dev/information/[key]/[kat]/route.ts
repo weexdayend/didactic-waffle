@@ -57,7 +57,23 @@ export async function GET(req: Request, context: { params: Params }) {
         });
       } else {
         // If no data for the specified category, return an empty array
-        return [];
+        return {
+          // Spread profile properties
+          id: profile.id,
+          created_at: profile.created_at,
+          updated_at: profile.updated_at,
+          deleted_at: profile.deleted_at,
+          kategori: profile.kategori,
+          kode: profile.kode,
+          nama: profile.nama,
+          long: profile.long,
+          lat: profile.lat,
+          alamat: profile.alamat,
+          status: profile.status,
+          provinsi: null,
+          kabupaten: null,
+          kecamatan: null
+        };
       }
     });
 

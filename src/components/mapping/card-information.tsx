@@ -27,11 +27,9 @@ type InformationProps = {
 }
 
 const CardInformation = ({ data }: InformationProps) => {
+  
   const [loadData, setLoadData] = useState(false)
-
   const [datas, setDatas] = useState<any>()
-  const [loadDistribusi, setLoadDistribusi] = useState<any>()
-
   const [error, setError] = useState<any>()
 
   useEffect(() => {
