@@ -21,7 +21,7 @@ const DetailDocument = () => {
       <CardContent>
         <div className='flex flex-col'>
           <div className='flex flex-row items-center justify-between py-4 border-b'>
-            <h1 className='text-sm'>Kedistributoran</h1>
+            <h1 className='text-sm'>SPJB</h1>
             <Button
               variant={'outline'}
               size={'icon'}
@@ -31,7 +31,7 @@ const DetailDocument = () => {
           </div>
 
           <div className='flex flex-row items-center justify-between py-4'>
-            <h1 className='text-sm'>OS Pengambilan Prod di Lini III</h1>
+            <h1 className='text-sm'>Bank Garansi</h1>
             <Button
               variant={'outline'}
               size={'icon'}

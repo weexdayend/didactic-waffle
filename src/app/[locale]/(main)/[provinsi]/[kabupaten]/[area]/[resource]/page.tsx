@@ -2,7 +2,14 @@ import React from 'react'
 
 import RowProfile from '@/components/detail/row-profile';
 
-async function Page({ params }: { params: { area: string, resource: string, page: number } }) {
+async function Page(
+  { params }: { params: { 
+    provinsi: string,
+    kabupaten: string,
+    area: string,
+    resource: string,
+    page: number
+  } }) {
 
   let area = params.area || '';
   area = area.charAt(0).toUpperCase() + area.slice(1);

@@ -7,8 +7,11 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 import DetailProfile from '../detail-profile'
 import DetailDistribusi from '../detail-distribusi'
-import DetailDocument from '../detail-docomuent'
 import NullDistribusi from '../null-distribusi'
+
+import Distributor from '../distributor'
+import Gudang from '../gudang'
+import Kios from '../kios'
 
 type ParamsProps = {
   id: string,
@@ -39,7 +42,7 @@ const Information = ({ id, kategori }: ParamsProps) => {
         .finally(() => {
           const timer = setTimeout(() => {
             setLoadData(false);
-          }, 5000);
+          }, 2500);
 
           // Clear timeout when component unmounts
           return () => clearTimeout(timer);
@@ -77,7 +80,15 @@ const Information = ({ id, kategori }: ParamsProps) => {
           <NullDistribusi />
         )
       }
-      <DetailDocument />
+      {
+        kategori === 'gudang' && (<Gudang />)
+      }
+      {
+        kategori === 'distributor' && (<Distributor />)
+      }
+      {
+        kategori === 'kios' && (<Kios />)
+      }
     </div>
   )
 }

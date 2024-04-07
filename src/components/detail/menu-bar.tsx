@@ -14,29 +14,31 @@ import {
 } from "@/components/ui/navigation-menu"
 
 type ParamsProps = {
-  area: string
+  provinsi: string;
+  kabupaten: string;
+  area: string;
 }
 
-const MenuBar = ({ area }: ParamsProps) => {
+const MenuBar = ({ provinsi, kabupaten, area }: ParamsProps) => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem className='flex flex-row gap-2'>
-          <Link href={`/id/detail/gudang/profile`} legacyBehavior passHref>
+          <Link href={`/${provinsi}/${kabupaten}/gudang/profile`} legacyBehavior passHref>
             <NavigationMenuLink
               className={`${navigationMenuTriggerStyle()} border ${area === 'gudang' ? 'border-white bg-background text-white' : ''}`}
             >
               Gudang
             </NavigationMenuLink>
           </Link>
-          <Link href={`/id/detail/distributor/profile`} legacyBehavior passHref>
+          <Link href={`/${provinsi}/${kabupaten}/distributor/profile`} legacyBehavior passHref>
             <NavigationMenuLink
               className={`${navigationMenuTriggerStyle()} border ${area === 'distributor' ? 'border-white bg-background text-white' : ''}`}
             >
               Distributor
             </NavigationMenuLink>
           </Link>
-          <Link href={`/id/detail/kios/profile`} legacyBehavior passHref>
+          <Link href={`/${provinsi}/${kabupaten}/kios/profile`} legacyBehavior passHref>
             <NavigationMenuLink
               className={`${navigationMenuTriggerStyle()} border ${area === 'kios' ? 'border-white bg-background text-white' : ''}`}
             >

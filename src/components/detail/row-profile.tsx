@@ -29,7 +29,15 @@ import SearchBox from './search-box'
   
 const pageSize = 10; // Number of items per page
 
-const RowProfile = ({ params }: { params: { area: string, resource: string } }) => {
+const RowProfile = (
+  { params }: { params: { 
+    provinsi: string,
+    kabupaten: string,
+    area: string,
+    resource: string,
+    page: number
+  } }) => {
+
   const [loadData, setLoadData] = useState(false)
 
   const [logData, setLogData] = useState<any>()
@@ -53,7 +61,7 @@ const RowProfile = ({ params }: { params: { area: string, resource: string } }) 
       .finally(() => {
         setTimeout(() => {
           setLoadData(false);
-        }, 5000);
+        }, 2500);
       });
   }, [params.area]);
 
@@ -74,7 +82,7 @@ const RowProfile = ({ params }: { params: { area: string, resource: string } }) 
   };
 
   const handleSearchData = (value: any) => {
-    window.location.href=`/id/detail/${params.area}/${params.resource}/${value}`
+    window.location.href=`/${params.provinsi}/${params.kabupaten}/${params.area}/${params.resource}/${value}`
   }
 
   if (loadData) {
@@ -91,7 +99,7 @@ const RowProfile = ({ params }: { params: { area: string, resource: string } }) 
   
   return (
     <div className='flex flex-col gap-6'>
-      <MenuBar area={params.area} />
+      <MenuBar provinsi={params.provinsi} kabupaten={params.kabupaten} area={params.area} />
       <SearchBox handle={handleSearchData} data={data} area={params.area} />
       {
         currentPageData.map((item: any, index: number) => (
@@ -166,7 +174,7 @@ const RowProfile = ({ params }: { params: { area: string, resource: string } }) 
               params.area === 'kios' ? (
                 <CardFooter className='flex flex-col'>
                   <div className='w-full flex flex-row items-center gap-4'>
-                    <Link href={`/id/detail/${params.area}/${params.resource}/${item.kode}`}>
+                    <Link href={`/${params.provinsi}/${params.kabupaten}/${params.area}/${params.resource}/${item.kode}`}>
                       <Button variant={'outline'}>Detail</Button>
                     </Link>
                     <Button variant={'outline'}>Lokasi</Button>

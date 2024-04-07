@@ -1,4 +1,7 @@
-import React from 'react'
+'use client'
+
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 import {
   Card,
@@ -8,17 +11,101 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import SelectButton from './select-button'
+import { Button } from '@/components/ui/button'
 
-const CardFilter = () => {
+type FilterOption = {
+  provinsi: string | 'all',
+  kabupaten: string | 'all'
+}
+
+type FilterProps = {
+  handleChange: (value: FilterOption) => void
+}
+
+const CardFilter = ({ handleChange }: FilterProps) => {
+  const [loadData, setLoadData] = useState(false) // Set initial state to true
+
+  const [dataProvinsi, setDataProvinsi] = useState<any>()
+  const [dataKabupaten, setDataKabupaten] = useState<any>()
+
+  const [error, setError] = useState<any>()
+
+  const [selectProvinsi, setSelectProvinsi] = useState<string>('all')
+  const [selectKabupaten, setSelectKabupaten] = useState<string>('all')
+
+  useEffect(() => {
+    setLoadData(true); // Set loadData to true before fetching data
+  
+    // Define array of promises for API requests
+    const promises = [
+      axios.get('/api/dev/area/filter/provinsi/all'),
+      axios.get('/api/dev/area/filter/kabupaten/all')
+    ];
+  
+    Promise.all(promises)
+      .then(responses => {
+        const [provinsiResponse, kabupatenResponse] = responses;
+  
+        if (!provinsiResponse.data || !kabupatenResponse.data) {
+          throw new Error('No data received');
+        }
+  
+        setDataProvinsi(provinsiResponse.data);
+        setDataKabupaten(kabupatenResponse.data);
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoadData(false);
+        }, 2500);
+      });
+  }, []);
+
+  const filterProvinsi = (value: any) => {
+    setSelectProvinsi(value);
+  }
+
+  const filterKabupaten = (value: any) => {
+    setSelectKabupaten(value);
+  }
+
+  const submitFilter = () => {
+    handleChange({
+      provinsi: selectProvinsi,
+      kabupaten: selectKabupaten
+    })
+  }
+
+  const filteredKabupaten = dataKabupaten && selectProvinsi !== 'all' ? dataKabupaten.filter((item: any) => item.id_provinsi === selectProvinsi) : dataKabupaten;
+
   return (
     <Card className='w-full h-fit'>
       <CardHeader>
-        <CardTitle>Dashboard</CardTitle>
-        <CardDescription>Fertilizer Monitoring area Jawa Barat dan Banten.</CardDescription>
+        <CardTitle>Filter</CardTitle>
+        <CardDescription>Filter data fertilizer monitoring.</CardDescription>
       </CardHeader>
       <CardContent>
-        <h1 className='text-xs'>Last updated 20 Maret 2024, 03.39 WIB.</h1>
+        <div className='w-full flex flex-col items-center justify-between gap-4'>
+          {
+            dataProvinsi && (<SelectButton holder='Provinsi' data={dataProvinsi} handleChange={filterProvinsi} />)
+          }
+          {
+            selectProvinsi !== null && selectProvinsi !== 'all' && dataKabupaten && (<SelectButton holder='Kabupaten' data={filteredKabupaten} handleChange={filterKabupaten} />)
+          }
+        </div>
       </CardContent>
+      <CardFooter>
+        {
+          (selectProvinsi === 'all' || selectKabupaten !== null) && (
+            <Button variant={'outline'} onClick={submitFilter}>
+              Apply filter
+            </Button>
+          )
+        }
+      </CardFooter>
     </Card>
   )
 }

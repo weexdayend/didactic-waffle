@@ -104,6 +104,8 @@ export async function GET(req: Request, context: { params: Params }) {
           keterangan: true
         }
       })
+    } else {
+      distribusi = [];
     }
 
     const result = {

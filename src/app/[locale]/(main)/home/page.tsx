@@ -1,15 +1,6 @@
 import React from 'react'
-
 import Image from 'next/image'
-
-
-
-import TitleCard from '@/components/home/card-title';
-
-import CardOverall from '@/components/home/card-overall';
-import CardAch from '@/components/home/card-ach';
-import Example from '@/components/home/charts/line-chart';
-import CumArea from '@/components/home/cum-area';
+import Index from '@/components/home';
 
 const Page = () => {
   return (
@@ -21,10 +12,12 @@ const Page = () => {
         width={1200}
         className="md:hidden lg:hidden xl:hidden rounded-bl-3xl rounded-br-3xl"
       />
-      <div className='flex flex-col items-center justify-center w-full px-4 py-4 my-6 gap-6'>
+      <Index />
+      {/* <div className='flex flex-col items-center justify-center w-full px-4 py-4 my-6 gap-4'>
         <TitleCard />
+        <CardFilter /> 
       </div>
-      <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4'>  
+      <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 px-4'>
         <CumArea />
         <div className='grid grid-cols-1 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 xl:grid-cols-4 lg:col-span-4 xl:col-span-4 gap-6'>
           <CardOverall />
@@ -33,7 +26,7 @@ const Page = () => {
           </div>
         </div>
         <CardAch />
-      </div>
+      </div> */}
     </div>
   )
 }
