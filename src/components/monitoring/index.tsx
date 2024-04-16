@@ -39,7 +39,7 @@ const Monitoring = () => {
         <div className='w-full h-fit grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 md:col-span-4 lg:grid-cols-4 lg:col-span-4 xl:grid-cols-4 xl:col-span-4 gap-2 px-4 pb-6'>
           <div className='border-2 border-green-500 rounded-xl xl:rounded-xl h-fit flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-3 py-3 gap-2'>
             <div className='flex flex-col gap-6'>
-              <h1 className='text-lg text-white'>WCM</h1>
+              <h1 className='text-lg'>WCM</h1>
             </div>
             <div className='flex flex-row w-full justify-between items-center px-4 py-2 rounded-xl border border-green-500'>
               <h1 className='text-xs'>ON</h1>
@@ -49,7 +49,7 @@ const Monitoring = () => {
 
           <div className='border-2 border-red-500 rounded-xl xl:rounded-xl h-fit flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-3 py-3 gap-2'>
             <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>APG</h1>
+              <h1 className='text-lg'>APG</h1>
             </div>
             <div className='flex flex-row w-full justify-between items-center px-4 py-2 rounded-xl border border-red-500'>
               <h1 className='text-xs'>OFF</h1>
@@ -59,7 +59,7 @@ const Monitoring = () => {
 
           <div className='border-2 border-green-500 rounded-xl xl:rounded-xl h-fit flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-3 py-3 gap-2'>
             <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>Rekan</h1>
+              <h1 className='text-lg'>Rekan</h1>
             </div>
             <div className='flex flex-row w-full justify-between items-center px-4 py-2 rounded-xl border border-green-500'>
               <h1 className='text-xs'>ON</h1>
@@ -69,7 +69,7 @@ const Monitoring = () => {
 
           <div className='border-2 border-green-500 rounded-xl xl:rounded-xl h-fit flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-center justify-between px-3 py-3 gap-2'>
             <div className='flex flex-col'>
-              <h1 className='text-lg text-white'>Markisa</h1>
+              <h1 className='text-lg'>Markisa</h1>
             </div>
             <div className='flex flex-row w-full justify-between items-center px-4 py-2 rounded-xl border border-green-500'>
               <h1 className='text-xs'>ON</h1>
