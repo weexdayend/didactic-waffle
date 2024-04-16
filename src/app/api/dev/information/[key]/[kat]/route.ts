@@ -89,7 +89,9 @@ export async function GET(req: Request, context: { params: Params }) {
           nama_produk: true,
           besaran: true,
           total: true,
-          keterangan: true
+          keterangan: true,
+          bulan: true,
+          tahun: true
         }
       })
     } else if ( kat === 'Kios' ) {
@@ -101,16 +103,26 @@ export async function GET(req: Request, context: { params: Params }) {
           nama_produk: true,
           besaran: true,
           total: true,
-          keterangan: true
+          keterangan: true,
+          bulan: true,
+          tahun: true
         }
       })
     } else {
       distribusi = [];
     }
 
+    const serializeBigInt = (items: any[]) => {
+      return distribusi.map((item: any) => ({
+        ...item,
+        bulan: item.bulan.toString(),
+        tahun: item.tahun.toString(),
+      }));
+    };
+
     const result = {
       data,
-      distribusi
+      distribusi: serializeBigInt(distribusi)
     };
 
     // Set CORS headers
