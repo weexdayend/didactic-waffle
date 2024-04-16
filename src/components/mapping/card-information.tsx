@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Progress } from '@/components/ui/progress'
 
 import { formatIDR } from '@/lib/functions'
 
@@ -27,7 +26,6 @@ type InformationProps = {
 }
 
 const CardInformation = ({ data }: InformationProps) => {
-  
   const [loadData, setLoadData] = useState(false)
   const [datas, setDatas] = useState<any>()
   const [error, setError] = useState<any>()

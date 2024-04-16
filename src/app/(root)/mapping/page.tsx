@@ -19,6 +19,7 @@ import {
 
 import CardInformation from "@/components/mapping/card-information";
 import { Button } from "@/components/ui/button";
+import Information from "@/components/detail/information";
 
 
 const pageSize = 10; // Number of items per page
@@ -153,7 +154,8 @@ const Page = () => {
                   >
                     <ArrowLeftIcon className='w-6 h-6' />
                   </div>
-                  <CardInformation data={information} />
+                  <Information id={information.kode} kategori={information.kategori} />
+                  {/* <CardInformation data={information} /> */}
                 </>
               ) : (
                 <>

@@ -81,13 +81,13 @@ const Information = ({ id, kategori }: ParamsProps) => {
         )
       }
       {
-        kategori === 'gudang' && (<Gudang />)
+        kategori === 'gudang' || kategori === 'Gudang' && (<Gudang />)
       }
       {
-        kategori === 'distributor' && (<Distributor />)
+        kategori === 'distributor' || kategori === 'Distributor' && (<Distributor />)
       }
       {
-        kategori === 'kios' && (<Kios />)
+        kategori === 'kios' || kategori === 'Kios' && (<Kios />)
       }
     </div>
   )

@@ -23,7 +23,7 @@ async function Page(
             <ArrowLeftIcon className='h-6 w-6' />
           </div>
         </Link>
-        <Information id={params.key} kategori={params.area}  />
+        <Information id={params.key} kategori={params.area} />
       </div>
     </div>
   )

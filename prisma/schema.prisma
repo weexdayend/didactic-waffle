@@ -401,3 +401,14 @@ model mart_accumulation_products_f6_kios {
 
   @@unique([kode_pengecer])
 }
+
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model user {
+  name   String?
+  email  String  @unique
+  hashed String?
+  image  String?
+  role   String?
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
