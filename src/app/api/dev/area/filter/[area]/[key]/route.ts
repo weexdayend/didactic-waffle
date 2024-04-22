@@ -45,7 +45,7 @@ export async function GET(req: Request, context: { params: Params }) {
               long: profile['Kotakab'].longitude,
               lat: profile['Kotakab'].lattitude,
               alamat: profile['Kotakab'].alamat,
-              status: profile['Kotakab'].status
+              status: profile['Kotakab'].status_mapping
           };
         }
       })

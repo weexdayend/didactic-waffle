@@ -26,15 +26,25 @@ export async function GET(req: Request, context: { params: Params }) {
         gte: Number(sYear),
         lte: Number(eYear),
       },
+      OR: [],
     };
     
     if (p !== 'all') {
-      whereClause.kode_provinsi = p;
+      whereClause.OR.push(
+        {
+          kode_provinsi: `00${p}`,
+        },
+        {
+          kode_provinsi: p,
+        }
+      );
     }
     
     if (kk !== 'all') {
-      whereClause.kode_kab_kota = kk;
-    }    
+      whereClause.kode_kab_kota = {
+        contains: kk,
+      };
+    } 
 
     const f5 = await prisma.mart_accumulation_products_f5_wilayah.groupBy({
       by: ['nama_produk', 'keterangan'],
