@@ -17,7 +17,7 @@ export async function GET(req: Request, context: { params: Params }) {
     const load = await prisma.profile.findMany({
       where: {
         kode: key,
-        status: true
+        status_profile: true
       },
       include: {
         [kat]: {
