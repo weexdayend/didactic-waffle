@@ -16,6 +16,7 @@ export async function GET(req: Request, context: { params: Params }) {
   try {
 
     const { p, kk, sMonth, sYear, eMonth, eYear } = context.params;
+    const formattedP = p.slice(2);
 
     let whereClause: any = {
       bulan: {
@@ -32,7 +33,7 @@ export async function GET(req: Request, context: { params: Params }) {
     if (p !== 'all') {
       whereClause.OR.push(
         {
-          kode_provinsi: `00${p}`,
+          kode_provinsi: formattedP,
         },
         {
           kode_provinsi: p,
