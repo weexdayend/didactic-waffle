@@ -24,7 +24,7 @@ export async function GET(req: Request, context: { params: Params }) {
         load = await prisma.wilayah.findMany({
           where: {
             kategori: key,
-            status: true
+            status_wilayah: true
           },
         });
   
@@ -37,7 +37,7 @@ export async function GET(req: Request, context: { params: Params }) {
               {kategori: 'Kota'},
               {kategori: 'Kabupaten'}
             ],
-            status: true
+            status_wilayah: true
           },
           include: {
             Kotakab: {
@@ -65,8 +65,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  long: profile.long,
-                  lat: profile.lat,
+                  longitude: profile.longitude,
+                  lattitude: profile.lattitude,
                   alamat: profile.alamat,
                   status: profile.status,
                   // Spread map_keca properties
@@ -83,8 +83,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  long: profile.long,
-                  lat: profile.lat,
+                  longitude: profile.longitude,
+                  lattitude: profile.lattitude,
                   alamat: profile.alamat,
                   status: profile.status,
                   id_provinsi: null,
@@ -111,7 +111,7 @@ export async function GET(req: Request, context: { params: Params }) {
         load = await prisma.wilayah.findMany({
           where: {
             kategori: key,
-            status: true
+            status_wilayah: true
           },
           include: {
             [mapping]: {
@@ -149,8 +149,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  long: profile.long,
-                  lat: profile.lat,
+                  longitude: profile.longitude,
+                  lattitude: profile.lattitude,
                   alamat: profile.alamat,
                   status: profile.status,
                   // Spread map_keca properties
@@ -170,8 +170,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  long: profile.long,
-                  lat: profile.lat,
+                  longitude: profile.longitude,
+                  lattitude: profile.lattitude,
                   alamat: profile.alamat,
                   status: profile.status,
                   id_provinsi: null,
@@ -202,7 +202,7 @@ export async function GET(req: Request, context: { params: Params }) {
       const load = await prisma.profile.findMany({
         where: {
           kategori: key,
-          status: true
+          status_profile: true
         },
         include: {
           [mapping]: {
@@ -247,10 +247,10 @@ export async function GET(req: Request, context: { params: Params }) {
             kategori: profile.kategori,
             kode: profile.kode,
             nama: profile.nama,
-            long: profile.long,
-            lat: profile.lat,
+            longitude: profile.longitude,
+            lattitude: profile.lattitude,
             alamat: profile.alamat,
-            status: profile.status,
+            status: profile.status_wilayah,
             // Spread map_dist properties
             id_provinsi,
             id_kabupaten,
