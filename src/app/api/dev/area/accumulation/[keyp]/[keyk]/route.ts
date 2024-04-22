@@ -24,9 +24,9 @@ export async function GET(req: NextRequest, context: { params: Params }): Promis
     const { keyp, keyk } = context.params;
 
     let data;
-    if ( keyp === 'all' && keyk === 'all' || keyk === 'null' ) {
+    if ( keyp === 'all' && keyk === 'all') {
       data = await prisma.mapping_profile.findMany();
-    } else if ( keyp !== 'all' && keyk === 'all' || keyk !== 'all' ) {
+    } else if ( keyp !== 'all' && keyk === 'all' ) {
       data = await prisma.mapping_profile.findMany({
         where: {
           id_provinsi: keyp,

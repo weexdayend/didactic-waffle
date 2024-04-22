@@ -8,10 +8,17 @@ import CardFilter from './filter/filter-card'
 import CumArea from './cum-area'
 import CardPerson from './card-person'
 import CardReport from './card-report'
+import FilterDate from './filter/filter-date'
 
 type FilterProps = {
   provinsi: string | 'all',
   kabupaten: string | 'all',
+  date: {
+    startMonth: string,
+    startYear: string,
+    endMonth: string,
+    endYear: string,
+  }
 }
 
 const Index = () => {
@@ -21,10 +28,7 @@ const Index = () => {
   const [dataReportF6, setDataReportF6] = useState<any>([])
   const [error, setError] = useState<any>()
 
-  const [filter, setFilter] = useState<FilterProps>({
-    provinsi: 'all',
-    kabupaten: 'all'
-  })
+  const [filter, setFilter] = useState<FilterProps | null>(null)
 
   useEffect(() => {
     if (filter) {
@@ -33,7 +37,7 @@ const Index = () => {
     // Define array of promises for API requests
     const promises = [
       axios.get(`/api/dev/area/accumulation/${filter.provinsi}/${filter.kabupaten}`),
-      axios.get(`/api/dev/area/report`)
+      axios.get(`/api/dev/area/report/${filter.provinsi}/${filter.kabupaten}/${filter.date.startMonth}/${filter.date.startYear}/${filter.date.endMonth}/${filter.date.endYear}`),
     ];
   
     Promise.all(promises)
@@ -68,9 +72,9 @@ const Index = () => {
       <TitleCard />
       <CardFilter handleChange={handleFilterChange} />
       {
-        dataAccumulation && (<CumArea provinsi={filter.provinsi} kabupaten={filter.kabupaten} data={dataAccumulation} />)
-      } 
-      <div className='w-full grid grid-cols-1 md:col-span-4 lg:col-span-4 xl:col-span-4 gap-6'>
+        filter && dataAccumulation && (<CumArea provinsi={filter.provinsi} kabupaten={filter.kabupaten} data={dataAccumulation} />)
+      }
+      {/* <div className='w-full grid grid-cols-1 md:col-span-4 lg:col-span-4 xl:col-span-4 gap-6'>
         <div className='w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-4'>
           <div className='flex flex-col w-full h-full'>
             <div className='flex flex-col'>
@@ -140,23 +144,23 @@ const Index = () => {
             <h6 className='text-sm'>(Rp)</h6>
           </div>
         </div>
-      </div>
+      </div> */}
       {
-        dataReportF5 && (
+        filter && dataReportF5 && (
           <div className='w-full flex flex-col gap-4'>
             <CardReport data={dataReportF5} title='F5' />
           </div>
         )
       }
       {
-        dataReportF6 && (
+        filter && dataReportF6 && (
           <div className='w-full flex flex-col gap-4'>
             <CardReport data={dataReportF6} title='F6' />
           </div>
         )
       }
       {
-        filter.kabupaten !== 'all' && (
+        filter && filter.kabupaten !== 'all' && (
           <CardPerson />
         )
       }

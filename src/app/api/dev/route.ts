@@ -38,24 +38,24 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const data_notvalid: any[] = [];
 
     // Iterate through the profile data and categorize based on long and lat values
-    profile.forEach((profileItem) => {
-      const lat = parseFloat(profileItem.lat as string);
-      const long = parseFloat(profileItem.long as string);
+    profile.forEach((profileItem: any) => {
+      const latitude = parseFloat(profileItem.latitude as string);
+      const longitude = parseFloat(profileItem.longitude as string);
       // Check if long and lat are valid numbers and not equal to 0
-      if (isNaN(lat) && isNaN(long)) {
+      if (isNaN(latitude) && isNaN(longitude)) {
         data_error.push(profileItem);
       } else if (
-        profileItem.long === '0' &&
-        profileItem.lat === '0' ||
-        (typeof profileItem.long === 'string' && profileItem.long.includes('.')) ||
-        (typeof profileItem.lat === 'string' && profileItem.lat.includes('.'))
+        profileItem.longitude === '0' &&
+        profileItem.latitude === '0' ||
+        (typeof profileItem.longitude === 'string' && profileItem.longitude.includes('.')) ||
+        (typeof profileItem.latitude === 'string' && profileItem.latitude.includes('.'))
       ) {
         data_notvalid.push(profileItem);
       } else {
-        if (profileItem.lat && profileItem.long){
+        if (profileItem.latitude && profileItem.longitude){
           // Refactor latitude and longitude format
-          const lat = parseFloat(profileItem.lat.toString().replace(',', '.'));
-          const long = parseFloat(profileItem.long.toString().replace(',', '.'));
+          const lat = parseFloat(profileItem.latitude.toString().replace(',', '.'));
+          const long = parseFloat(profileItem.longitude.toString().replace(',', '.'));
           data_completed.push({ ...profileItem, lat, long });
         }
       }

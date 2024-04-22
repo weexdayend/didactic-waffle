@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { formatIDR } from '@/lib/functions'
+import FilterDate from './filter/filter-date'
 
 type ParamsProps = {
   data: any,
@@ -21,7 +22,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
   return (
     <Card className='w-full h-fit'>
       <CardHeader>
-        <div>
+        <div className='flex flex-col'>
           <p className='text-sm opacity-75'>Bulan {filteredItem && `${filteredItem.bulan}, Tahun ${filteredItem.tahun}`}</p>
           <h1 className='text-lg'>Distribusi {title}</h1>
           <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>alokasi</span> dan <span className='font-bold'>realisasi</span> pupuk.</p>
@@ -41,10 +42,10 @@ const CardReport = ({ data, title }: ParamsProps) => {
                   </div>
                   <div className='w-full flex flex-row items-center justify-between'>
                     <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
-                      <h1 className='text-base font-bold'>{item.besaran}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.besaran ? formatIDR(parseFloat(item._sum.besaran.toFixed(2))) : 0}</h1>
                     </div>
                     <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
-                      <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.total ? formatIDR(item._sum.total) : 0}</h1>
                     </div>
                   </div>
                 </div>
@@ -63,10 +64,10 @@ const CardReport = ({ data, title }: ParamsProps) => {
                   </div>
                   <div className='w-full flex flex-row items-center justify-between'>
                     <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
-                      <h1 className='text-base font-bold'>{item.besaran}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.besaran ? formatIDR(parseFloat(item._sum.besaran.toFixed(2))) : 0}</h1>
                     </div>
                     <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
-                      <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.total ? formatIDR(item._sum.total) : 0}</h1>
                     </div>
                   </div>
                 </div>
@@ -85,10 +86,10 @@ const CardReport = ({ data, title }: ParamsProps) => {
                   </div>
                   <div className='w-full flex flex-row items-center justify-between'>
                     <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
-                      <h1 className='text-base font-bold'>{item.besaran}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.besaran ? formatIDR(parseFloat(item._sum.besaran.toFixed(2))) : 0}</h1>
                     </div>
                     <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
-                      <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.total ? formatIDR(item._sum.total) : 0}</h1>
                     </div>
                   </div>
                 </div>
@@ -107,10 +108,10 @@ const CardReport = ({ data, title }: ParamsProps) => {
                   </div>
                   <div className='w-full flex flex-row items-center justify-between'>
                     <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
-                      <h1 className='text-base font-bold'>{item.besaran}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.besaran ? formatIDR(parseFloat(item._sum.besaran.toFixed(2))) : 0}</h1>
                     </div>
                     <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
-                      <h1 className='text-base font-bold'>{formatIDR(item.total)}</h1>
+                      <h1 className='text-base font-bold'>{item._sum.total ? formatIDR(item._sum.total) : 0}</h1>
                     </div>
                   </div>
                 </div>

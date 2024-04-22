@@ -17,7 +17,7 @@ export async function GET(req: Request, context: { params: Params }) {
       data = await prisma.wilayah.findMany({
         where: {
           kategori: area,
-          status: true
+          status_wilayah: true
         }
       })
     } else {
@@ -27,7 +27,7 @@ export async function GET(req: Request, context: { params: Params }) {
             { kategori: 'Kota' },
             { kategori: 'Kabupaten' }
           ],
-          status: true
+          status_mapping: true
         },
         include: {
           Kotakab: true
@@ -42,8 +42,8 @@ export async function GET(req: Request, context: { params: Params }) {
               kategori: profile['Kotakab'].kategori,
               kode: profile['Kotakab'].kode,
               nama: profile['Kotakab'].nama,
-              long: profile['Kotakab'].long,
-              lat: profile['Kotakab'].lat,
+              long: profile['Kotakab'].longitude,
+              lat: profile['Kotakab'].lattitude,
               alamat: profile['Kotakab'].alamat,
               status: profile['Kotakab'].status
           };
