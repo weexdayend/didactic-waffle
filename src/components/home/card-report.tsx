@@ -35,6 +35,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
             {
               data
               .filter((item: any) => item.keterangan === 'Stok Awal')
+              .sort((a: any, b: any) => b.nama_produk.localeCompare(a.nama_produk))
               .map((item: any, index: number) => (
                 <div key={index} className='w-full flex flex-col'>
                   <div className='w-full flex flex-col'>
@@ -57,6 +58,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
             {
               data
               .filter((item: any) => item.keterangan === 'Penebusan')
+              .sort((a: any, b: any) => b.nama_produk.localeCompare(a.nama_produk))
               .map((item: any, index: number) => (
                 <div key={index} className='w-full flex flex-col'>
                   <div className='w-full flex flex-col'>
@@ -79,6 +81,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
             {
               data
               .filter((item: any) => item.keterangan === 'Penyaluran')
+              .sort((a: any, b: any) => b.nama_produk.localeCompare(a.nama_produk))
               .map((item: any, index: number) => (
                 <div key={index} className='w-full flex flex-col'>
                   <div className='w-full flex flex-col'>
@@ -101,6 +104,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
             {
               data
               .filter((item: any) => item.keterangan === 'Stok Akhir')
+              .sort((a: any, b: any) => b.nama_produk.localeCompare(a.nama_produk))
               .map((item: any, index: number) => (
                 <div key={index} className='w-full flex flex-col'>
                   <div className='w-full flex flex-col'>
