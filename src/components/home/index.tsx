@@ -9,6 +9,7 @@ import CumArea from './cum-area'
 import CardPerson from './card-person'
 import CardReport from './card-report'
 import FilterDate from './filter/filter-date'
+import NilDistribusi from './card-nil-distribusi'
 
 type FilterProps = {
   provinsi: string | 'all',
@@ -146,16 +147,24 @@ const Index = () => {
         </div>
       </div> */}
       {
-        filter && dataReportF5 && (
+        filter && dataReportF5.length > 0 ? (
           <div className='w-full flex flex-col gap-4'>
             <CardReport data={dataReportF5} title='F5' />
+          </div>
+        ) : (
+          <div className='w-full flex flex-col gap-4'>
+            <NilDistribusi title='F5' />
           </div>
         )
       }
       {
-        filter && dataReportF6 && (
+        filter && dataReportF5.length > 0 ? (
           <div className='w-full flex flex-col gap-4'>
             <CardReport data={dataReportF6} title='F6' />
+          </div> 
+        ) : (
+          <div className='w-full flex flex-col gap-4'>
+            <NilDistribusi title='F6' />
           </div>
         )
       }

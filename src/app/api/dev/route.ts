@@ -30,7 +30,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
 
     // Fetch profiles from the database
-    const profile = await prisma.profile.findMany();
+    const profile = await prisma.profile.findMany({
+      where: {
+        OR: [
+          { longitude: { not: null } },
+          { lattitude: { not: null } },
+        ],
+      },
+    });
 
     // Initialize arrays to hold completed, error, and not valid data
     const data_completed: any[] = [];
@@ -39,22 +46,22 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     // Iterate through the profile data and categorize based on long and lat values
     profile.forEach((profileItem: any) => {
-      const latitude = parseFloat(profileItem.latitude as string);
+      const lattitude = parseFloat(profileItem.lattitude as string);
       const longitude = parseFloat(profileItem.longitude as string);
       // Check if long and lat are valid numbers and not equal to 0
-      if (isNaN(latitude) && isNaN(longitude)) {
+      if (isNaN(lattitude) && isNaN(longitude)) {
         data_error.push(profileItem);
       } else if (
         profileItem.longitude === '0' &&
-        profileItem.latitude === '0' ||
+        profileItem.lattitude === '0' ||
         (typeof profileItem.longitude === 'string' && profileItem.longitude.includes('.')) ||
-        (typeof profileItem.latitude === 'string' && profileItem.latitude.includes('.'))
+        (typeof profileItem.lattitude === 'string' && profileItem.lattitude.includes('.'))
       ) {
         data_notvalid.push(profileItem);
       } else {
-        if (profileItem.latitude && profileItem.longitude){
+        if (profileItem.lattitude && profileItem.longitude){
           // Refactor latitude and longitude format
-          const lat = parseFloat(profileItem.latitude.toString().replace(',', '.'));
+          const lat = parseFloat(profileItem.lattitude.toString().replace(',', '.'));
           const long = parseFloat(profileItem.longitude.toString().replace(',', '.'));
           data_completed.push({ ...profileItem, lat, long });
         }
