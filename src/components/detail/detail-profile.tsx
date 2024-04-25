@@ -61,7 +61,7 @@ const DetailProfile = ({ data }: ParamsProps) => {
             <div className='grid grid-cols-2 gap-4'>
               {
                 data.map((item: any, index: number) => (
-                  <div className='px-4 py-3 rounded-md border'>
+                  <div key={index} className='px-4 py-3 rounded-md border'>
                     <h1 key={index} className='text-xs font-bold'>{item.kecamatan}</h1>
                   </div>
                 ))
