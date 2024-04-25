@@ -14,10 +14,10 @@ export async function GET(req: Request, context: { params: Params }) {
 
     let data;
     if ( area === 'Provinsi') {
-      data = await prisma.wilayah.findMany({
+      data = await prisma.fact_wilayah.findMany({
         where: {
           kategori: area,
-          status_wilayah: true
+          status: true
         }
       })
     } else {
@@ -27,7 +27,7 @@ export async function GET(req: Request, context: { params: Params }) {
             { kategori: 'Kota' },
             { kategori: 'Kabupaten' }
           ],
-          status_mapping: true
+          status: true
         },
         include: {
           Kotakab: true
@@ -42,8 +42,8 @@ export async function GET(req: Request, context: { params: Params }) {
               kategori: profile['Kotakab'].kategori,
               kode: profile['Kotakab'].kode,
               nama: profile['Kotakab'].nama,
-              long: profile['Kotakab'].longitude,
-              lat: profile['Kotakab'].lattitude,
+              long: profile['Kotakab'].long,
+              lat: profile['Kotakab'].lat,
               alamat: profile['Kotakab'].alamat,
               status: profile['Kotakab'].status_mapping
           };

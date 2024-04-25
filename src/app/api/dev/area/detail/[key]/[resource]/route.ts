@@ -21,23 +21,23 @@ export async function GET(req: Request, context: { params: Params }) {
     let load;
     if (resource === 'wilayah') {
       if (key === 'Provinsi') {
-        load = await prisma.wilayah.findMany({
+        load = await prisma.fact_wilayah.findMany({
           where: {
             kategori: key,
-            status_wilayah: true
+            status: true
           },
         });
   
         data = load
 
       } else if (key === 'Kotakab') {
-        load = await prisma.wilayah.findMany({
+        load = await prisma.fact_wilayah.findMany({
           where: {
             OR: [
               {kategori: 'Kota'},
               {kategori: 'Kabupaten'}
             ],
-            status_wilayah: true
+            status: true
           },
           include: {
             Kotakab: {
@@ -108,10 +108,10 @@ export async function GET(req: Request, context: { params: Params }) {
           return 0;
         });
       } else {
-        load = await prisma.wilayah.findMany({
+        load = await prisma.fact_wilayah.findMany({
           where: {
             kategori: key,
-            status_wilayah: true
+            status: true
           },
           include: {
             [mapping]: {
@@ -149,8 +149,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  longitude: profile.longitude,
-                  lattitude: profile.lattitude,
+                  long: profile.long,
+                  lat: profile.lat,
                   alamat: profile.alamat,
                   status: profile.status,
                   // Spread map_keca properties
@@ -170,8 +170,8 @@ export async function GET(req: Request, context: { params: Params }) {
                   kategori: profile.kategori,
                   kode: profile.kode,
                   nama: profile.nama,
-                  longitude: profile.longitude,
-                  lattitude: profile.lattitude,
+                  long: profile.long,
+                  lat: profile.lat,
                   alamat: profile.alamat,
                   status: profile.status,
                   id_provinsi: null,
@@ -199,10 +199,10 @@ export async function GET(req: Request, context: { params: Params }) {
         });
       }
     } else if (resource === 'profile') {
-      const load = await prisma.profile.findMany({
+      const load = await prisma.fact_profile.findMany({
         where: {
           kategori: key,
-          status_profile: true
+          status: true
         },
         include: {
           [mapping]: {
@@ -247,8 +247,8 @@ export async function GET(req: Request, context: { params: Params }) {
             kategori: profile.kategori,
             kode: profile.kode,
             nama: profile.nama,
-            longitude: profile.longitude,
-            lattitude: profile.lattitude,
+            long: profile.long,
+            lat: profile.lat,
             alamat: profile.alamat,
             status: profile.status_wilayah,
             // Spread map_dist properties

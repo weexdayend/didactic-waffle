@@ -17,13 +17,10 @@ type ParamsProps = {
 }
 
 const CardReport = ({ data, title }: ParamsProps) => {
-  const filteredItem = data.find((item: any) => item.keterangan === 'Stok Awal');
-
   return (
     <Card className='w-full h-fit'>
       <CardHeader>
         <div className='flex flex-col'>
-          <p className='text-sm opacity-75'>Bulan {filteredItem && `${filteredItem.bulan}, Tahun ${filteredItem.tahun}`}</p>
           <h1 className='text-lg'>Distribusi {title}</h1>
           <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>alokasi</span> dan <span className='font-bold'>realisasi</span> pupuk.</p>
         </div>

@@ -1,7 +1,7 @@
-import Information from '@/components/detail/information'
 import React from 'react'
-
 import Link from 'next/link'
+
+import Information from '@/components/detail/information'
 
 import {
   ArrowLeftIcon

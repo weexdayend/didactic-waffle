@@ -4,37 +4,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-function getMatch(wilayah: any[], mapping: any[], provinsiIds: string[], id: string) {
-  return mapping
-    .filter(entry => {
-        // Check if the dynamic ID exists and is included in provinsiIds
-        return entry[id] && provinsiIds.includes(entry[id]);
-    })
-    .filter(entry => {
-        // Check if the kategori from wilayah and mapping entries are the same
-        const wilayahEntry = wilayah.find(w => w.id === entry[id]);
-        return wilayahEntry?.kategori === entry.kategori;
-    })
-    .map(entry => {
-        // Find the corresponding wilayah entry
-        const wilayahEntry = wilayah.find(w => w.id === entry[id]);
-        // Return the merged entry with additional properties
-        return {
-            ...entry,
-            name: wilayahEntry?.nama,
-        };
-    });
-}
-
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
 
     // Fetch profiles from the database
-    const profile = await prisma.profile.findMany({
+    const profile = await prisma.fact_profile.findMany({
       where: {
         OR: [
-          { longitude: { not: null } },
-          { lattitude: { not: null } },
+          { long: { not: null } },
+          { long: { not: "" } },
+          { lat: { not: null } },
+          { lat: { not: "" } },
         ],
       },
     });
@@ -46,23 +26,23 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     // Iterate through the profile data and categorize based on long and lat values
     profile.forEach((profileItem: any) => {
-      const lattitude = parseFloat(profileItem.lattitude as string);
-      const longitude = parseFloat(profileItem.longitude as string);
+      const lat = parseFloat(profileItem.lat as string);
+      const long = parseFloat(profileItem.long as string);
       // Check if long and lat are valid numbers and not equal to 0
-      if (isNaN(lattitude) && isNaN(longitude)) {
+      if (isNaN(lat) && isNaN(long)) {
         data_error.push(profileItem);
       } else if (
-        profileItem.longitude === '0' &&
-        profileItem.lattitude === '0' ||
-        (typeof profileItem.longitude === 'string' && profileItem.longitude.includes('.')) ||
-        (typeof profileItem.lattitude === 'string' && profileItem.lattitude.includes('.'))
+        profileItem.lat === '0' &&
+        profileItem.long === '0' ||
+        (typeof profileItem.long === 'string' && profileItem.long.includes('.')) ||
+        (typeof profileItem.lat === 'string' && profileItem.lat.includes('.'))
       ) {
         data_notvalid.push(profileItem);
       } else {
-        if (profileItem.lattitude && profileItem.longitude){
+        if (profileItem.lat && profileItem.long){
           // Refactor latitude and longitude format
-          const lat = parseFloat(profileItem.lattitude.toString().replace(',', '.'));
-          const long = parseFloat(profileItem.longitude.toString().replace(',', '.'));
+          const lat = parseFloat(profileItem.lat.toString().replace(',', '.'));
+          const long = parseFloat(profileItem.long.toString().replace(',', '.'));
           data_completed.push({ ...profileItem, lat, long });
         }
       }

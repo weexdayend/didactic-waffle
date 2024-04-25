@@ -14,10 +14,10 @@ export async function GET(req: Request, context: { params: Params }) {
     let ids = key.toString()
 
     let data;
-    const load = await prisma.profile.findMany({
+    const load = await prisma.fact_profile.findMany({
       where: {
         kode: key,
-        status_profile: true
+        status: true
       },
       include: {
         [kat]: {
@@ -79,50 +79,8 @@ export async function GET(req: Request, context: { params: Params }) {
 
     data = transformedData
 
-    let distribusi: any;
-    if ( kat === 'Distributor' ) {
-      distribusi = await prisma.mart_accumulation_products_f5_distributor.findMany({
-        where: {
-          kode_distributor: ids
-        },
-        select: {
-          nama_produk: true,
-          besaran: true,
-          total: true,
-          keterangan: true,
-          bulan: true,
-          tahun: true
-        }
-      })
-    } else if ( kat === 'Kios' ) {
-      distribusi = await prisma.mart_accumulation_products_f6_kios.findMany({
-        where: {
-          kode_pengecer: ids
-        },
-        select: {
-          nama_produk: true,
-          besaran: true,
-          total: true,
-          keterangan: true,
-          bulan: true,
-          tahun: true
-        }
-      })
-    } else {
-      distribusi = [];
-    }
-
-    const serializeBigInt = (items: any[]) => {
-      return distribusi.map((item: any) => ({
-        ...item,
-        bulan: item.bulan.toString(),
-        tahun: item.tahun.toString(),
-      }));
-    };
-
     const result = {
       data,
-      distribusi: serializeBigInt(distribusi)
     };
 
     // Set CORS headers
