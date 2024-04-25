@@ -29,19 +29,26 @@ export async function GET(req: Request, context: { params: Params }) {
       OR: [],
     };
     
+    // Add kode_provinsi condition to OR clause if p is not 'all'
     if (p !== 'all') {
-      whereClause.OR.push(
-        {
-          kode_provinsi: p,
-        }
-      );
+      whereClause.OR.push({
+        kode_provinsi: p,
+      });
     }
     
+    // Add kode_kab_kota condition to OR clause if kk is not 'all'
     if (kk !== 'all') {
-      whereClause.kode_kab_kota = {
-        contains: kk,
-      };
-    } 
+      whereClause.OR.push({
+        kode_kab_kota: {
+          contains: kk,
+        },
+      });
+    }
+    
+    // If OR array is empty, remove it from the whereClause
+    if (whereClause.OR.length === 0) {
+      delete whereClause.OR;
+    }
 
     const f5 = await prisma.mart_accumulation_products_f5_wilayah.groupBy({
       by: ['nama_produk', 'keterangan'],

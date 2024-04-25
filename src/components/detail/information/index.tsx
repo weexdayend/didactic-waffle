@@ -75,13 +75,13 @@ const Information = ({ id, kategori }: ParamsProps) => {
       <DetailProfile data={datas.data} />
       <DetailDistribusi id={id} kategori={kategori} />
       {
-        kategori === 'gudang' && (<Gudang />)
+        kat === 'Gudang' && (<Gudang />)
       }
       {
-        kategori === 'distributor' && (<Distributor />)
+        kat === 'Distributor' && (<Distributor />)
       }
       {
-        kategori === 'kios' && (<Kios />)
+        kat === 'Kios' && (<Kios />)
       }
     </div>
   )

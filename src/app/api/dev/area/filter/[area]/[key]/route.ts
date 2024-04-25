@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 type Params = {
   area: string;
 }
-  
+
 export async function GET(req: Request, context: { params: Params }) {
   try {
     let area = context.params.area || '';

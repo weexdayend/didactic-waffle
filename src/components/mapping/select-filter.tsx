@@ -25,24 +25,16 @@ export default function MyListbox({ filtered }: SelectProps) {
   }
 
   return (
-    <div className='flex flex-row w-fit h-fit p-1 rounded-l-xl bg-white border-r border-zinc-200'>
+    <div className='flex flex-row w-fit h-fit p-1 rounded-xl bg-white border-r border-zinc-200'>
       <Listbox value={selectedPeople} onChange={handleSelect} multiple>
         <div className='relative w-fit'>
-          <Listbox.Button className="relative bg-white w-fit cursor-default rounded-l-xl py-2 px-4 text-left">
-            {/* <span className="block truncate text-zinc-800">
-            {
-              selectedPeople.length > 0 ? selectedPeople.map((person: any) => person).join(', ') : 'Pilih filter...'
-            }
-            </span> */}
-            <ListFilter className='w-6 h-6 text-zinc-800' />
-          </Listbox.Button>
           <Transition
             as={Fragment}
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute max-h-60 w-fit pr-8 pt-4 rounded-b-xl pb-6 overflow-auto rounded-md bg-white text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute max-h-60 w-fit pr-8 pt-4 pb-6 overflow-auto rounded-xl bg-white text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
               {people.map((person, index) => (
                 <Listbox.Option 
                   key={index} 

@@ -39,7 +39,15 @@ const Map = (Map: MapProps) => {
   const mapRef = useRef<any>(null)
 
   useEffect(() => {
-    if (selectedPosition) {
+    if (
+      selectedPosition &&
+      Array.isArray(selectedPosition) &&
+      selectedPosition.length === 2 &&
+      selectedPosition[0] !== 0 &&
+      selectedPosition[1] !== 0 &&
+      selectedPosition[0] !== null &&
+      selectedPosition[1] !== null
+    ) {
       setBounds(selectedPosition);
       mapRef.current?.flyTo(selectedPosition, 18);
     } else {
@@ -85,18 +93,27 @@ const Map = (Map: MapProps) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {markersToRender.map((airport: any, index: number) => (
-          <Marker 
-            key={index} 
-            position={[airport.long, airport.lat]} 
-            draggable={false}
-            eventHandlers={{
-              click: () => handleSelectMarker(airport, [airport.long, airport.lat]),
-            }}
-          >
-            <Popup>
-              <h1>{airport.nama}</h1>
-            </Popup>
-          </Marker>
+          <div key={index}>
+            {
+              airport.long !== null &&
+              airport.lat !== null &&
+              airport.long !== '0' &&
+              airport.lat !== '0' && (
+                <Marker 
+                  key={index} 
+                  position={[airport.long, airport.lat]} 
+                  draggable={false}
+                  eventHandlers={{
+                    click: () => handleSelectMarker(airport, [airport.long, airport.lat]),
+                  }}
+                >
+                  <Popup>
+                    <h1>{airport.nama}</h1>
+                  </Popup>
+                </Marker>
+              )
+            }
+          </div>
         ))}
       </MapContainer>
     </div>
