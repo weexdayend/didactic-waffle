@@ -182,14 +182,6 @@ const Page = () => {
                                 <h1 className="text-xs opacity-70">Provinsi</h1>
                                 <h1 className="text-sm">{airport.provinsi}</h1>
                               </div>
-                              <div className="flex flex-col">
-                                <h1 className="text-xs opacity-70">Wilayah Kerja</h1>
-                                {
-                                  airport.wilker && airport.wilker.map((item: any, index: number) => (
-                                    <h1 key={index} className="text-sm">{item.nama}</h1>
-                                  ))
-                                }
-                              </div>
                             </div>
                           </div>
                         </div>

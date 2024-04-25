@@ -12,17 +12,17 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { formatIDR } from '@/lib/functions'
-import FilterDate from '../home/filter/filter-date'
-import { Button } from '../ui/button'
+import FilterDate from '@/components/home/filter/filter-date'
+import { Button } from '@/components/ui/button'
 
 type ParamsProps = {
   id: any,
   kategori: any
 }
 
-const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
+const CardDistribusi = ({ id, kategori }: ParamsProps) => {
   const [loadData, setLoadData] = useState(false)
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>([])
   const [error, setError] = useState<any>()
 
   const [date, setDate] = useState<{
@@ -63,11 +63,7 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
         if (!distribusi.data) {
           throw new Error('No data received');
         }
-
-        const datas = distribusi.data
-        if (datas.length < 0) {
-          console.log(datas)
-        }  
+  
         setData(distribusi.data)
       })
       .catch(error => {
@@ -194,7 +190,7 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
             </div>
           ) : (
             <div className='w-full flex flex-col items-center gap-4 justify-between'>
-              <h1>Belum ada data pendistribusian.</h1>
+              <h1>Filter terlebih dahulu untuk melihat data.</h1>
             </div>
           )
         }
@@ -215,4 +211,4 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
   )
 }
 
-export default DetailDistribusi
+export default CardDistribusi
