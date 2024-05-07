@@ -14,6 +14,7 @@ import {
 import { formatIDR } from '@/lib/functions'
 import FilterDate from '../home/filter/filter-date'
 import { Button } from '../ui/button'
+import { Spinner } from '../ui/spinner'
 
 type ParamsProps = {
   id: any,
@@ -47,6 +48,8 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
   }
 
   const submitFilter = () => {
+    setLoadData(true);
+
     if (date?.startMonth === '' || date?.startYear === '' || date?.endMonth === '' || date?.endYear === '') {
       alert('Tanggal awal dan akhir tidak boleh kosong')
       return;
@@ -74,9 +77,7 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
         setError(error.message);
       })
       .finally(() => {
-        setTimeout(() => {
-          setLoadData(false);
-        }, 2500);
+        setLoadData(false);
       }
     );
   }
@@ -91,6 +92,11 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
         <div className='flex flex-col gap-4 pt-4'>
           <FilterDate handleChange={filterDate} />
           <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full' onClick={submitFilter}>
+            {
+              loadData && (
+                <Spinner size="small" className='text-white' />
+              )
+            }
             Apply filter
           </Button>
         </div>
