@@ -43,6 +43,8 @@ const Map = (Map: MapProps) => {
       selectedPosition &&
       Array.isArray(selectedPosition) &&
       selectedPosition.length === 2 &&
+      typeof selectedPosition[0] === 'number' &&
+      typeof selectedPosition[1] === 'number' &&
       selectedPosition[0] !== 0 &&
       selectedPosition[1] !== 0 &&
       selectedPosition[0] !== null &&
@@ -50,11 +52,13 @@ const Map = (Map: MapProps) => {
     ) {
       setBounds(selectedPosition);
       mapRef.current?.flyTo(selectedPosition, 18);
+      // Show marker logic here
     } else {
       getDefaultBounds()
         .then(defaultBounds => {
           setBounds(defaultBounds);
           mapRef.current?.flyTo(posix, 12);
+          // Hide marker logic here
         })
         .catch(error => console.error('Error setting default bounds:', error));
     }
@@ -68,11 +72,10 @@ const Map = (Map: MapProps) => {
 
   const filteredAirports = data && data.filter((airport: any) => {
     return (
-      filter.includes(airport.kategori) && 
-      airport.long !== null && 
-      airport.lat !== null &&
-      airport.long !== '0' &&
-      airport.lat !== '0'
+      airport.longitude !== null && 
+      airport.lattitude !== null &&
+      airport.longitude !== '0' &&
+      airport.lattitude !== '0'
     );
   });
 
@@ -92,19 +95,19 @@ const Map = (Map: MapProps) => {
           attribution='&copy; <a href="https://www.saptakarya.co.id">Saptakarya</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {markersToRender.map((airport: any, index: number) => (
+        {filteredAirports.map((airport: any, index: number) => (
           <div key={index}>
             {
-              airport.long !== null &&
-              airport.lat !== null &&
-              airport.long !== '0' &&
-              airport.lat !== '0' && (
+              airport.longitude !== null &&
+              airport.lattitude !== null &&
+              airport.longitude !== '0' &&
+              airport.lattitude !== '0' && (
                 <Marker 
                   key={index} 
-                  position={[airport.long, airport.lat]} 
+                  position={[airport.longitude, airport.lattitude]} 
                   draggable={false}
                   eventHandlers={{
-                    click: () => handleSelectMarker(airport, [airport.long, airport.lat]),
+                    click: () => handleSelectMarker(airport, [airport.longitude, airport.lattitude]),
                   }}
                 >
                   <Popup>

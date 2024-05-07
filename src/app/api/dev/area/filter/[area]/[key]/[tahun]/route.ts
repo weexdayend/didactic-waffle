@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 type Params = {
   area: string;
+  tahun: string;
 }
 
 export async function GET(req: Request, context: { params: Params }) {
@@ -14,20 +15,36 @@ export async function GET(req: Request, context: { params: Params }) {
 
     let data;
     if ( area === 'Provinsi') {
-      data = await prisma.fact_wilayah.findMany({
+      const load = await prisma.fact_map_area.findMany({
         where: {
-          kategori: area,
-          status: true
+          kategori: 'Provinsi',
+          tahun: context.params.tahun
+        },
+        include: {
+          Provinsi: true
         }
       })
+      
+      const transformedData = load.map((profile: any) => {
+        if (profile['Provinsi']) {
+          return {
+              id_provinsi: profile.kode_provinsi,
+              kategori: profile.kategori,
+              kode: profile['Provinsi'].kode_provinsi,
+              nama: profile['Provinsi'].nama_provinsi,
+          };
+        }
+      })
+      data = transformedData
+
     } else {
-      const load = await prisma.mapping_profile.findMany({
+      const load = await prisma.fact_map_area.findMany({
         where: {
           OR: [
             { kategori: 'Kota' },
             { kategori: 'Kabupaten' }
           ],
-          status: true
+          tahun: context.params.tahun
         },
         include: {
           Kotakab: true
@@ -37,19 +54,13 @@ export async function GET(req: Request, context: { params: Params }) {
       const transformedData = load.map((profile: any) => {
         if (profile['Kotakab']) {
           return {
-              id: profile.id,
-              id_provinsi: profile.id_provinsi,
-              kategori: profile['Kotakab'].kategori,
-              kode: profile['Kotakab'].kode,
-              nama: profile['Kotakab'].nama,
-              long: profile['Kotakab'].long,
-              lat: profile['Kotakab'].lat,
-              alamat: profile['Kotakab'].alamat,
-              status: profile['Kotakab'].status_mapping
+              id_provinsi: profile.kode_provinsi,
+              kategori: profile.kategori,
+              kode: profile['Kotakab'].kode_kab_kota,
+              nama: profile['Kotakab'].nama_kab_kota,
           };
         }
       })
-
       data = transformedData
     }
 

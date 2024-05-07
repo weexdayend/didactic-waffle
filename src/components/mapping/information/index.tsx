@@ -6,8 +6,9 @@ import axios from 'axios'
 import CardFilter from '@/components/mapping/information/card-filter'
 
 type FilterProps = {
-  provinsi: string | 'all',
-  kabupaten: string | 'all',
+  provinsi: string,
+  kabupaten: string,
+  tahun: string,
 }
 
 type Props = {
@@ -24,29 +25,27 @@ function Index({ handle }: Props) {
     if (filter) {
       setLoadData(true); // Set loadData to true before fetching data
   
-    // Define array of promises for API requests
-    const promises = [
-      axios.get(`/api/dev/mapping/${filter.provinsi}/${filter.kabupaten}`),
-    ];
-  
-    Promise.all(promises)
-      .then(responses => {
-        const [list, report] = responses;
-  
-        if (!list.data && !report.data) {
-          throw new Error('No data received');
-        }
-  
-        setList(list.data);
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setTimeout(() => {
+      // Define array of promises for API requests
+      const promises = [
+        axios.get(`/api/dev/mapping/${filter.provinsi}/${filter.kabupaten}/${filter.tahun}`),
+      ];
+    
+      Promise.all(promises)
+        .then(responses => {
+          const [list, report] = responses;
+    
+          if (!list.data && !report.data) {
+            throw new Error('No data received');
+          }
+    
+          setList(list.data);
+        })
+        .catch(error => {
+          setError(error.message);
+        })
+        .finally(() => {
           setLoadData(false);
-        }, 2500);
-      });
+        });
     }
   }, [filter])
 
@@ -62,7 +61,7 @@ function Index({ handle }: Props) {
 
   return (
     <div className='w-full flex flex-col gap-4'>
-      <CardFilter handleChange={handleFilterChange} />
+      <CardFilter handleChange={handleFilterChange} loading={loadData} />
     </div>
   )
 }

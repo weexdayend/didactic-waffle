@@ -43,20 +43,11 @@ const Navigation = () => {
         />
         {/* <span className="text-xl font-bold"> Fermon</span> */}
       </aside>
-      <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
-        <ul className="flex items-center justify-center gap-8">
-          <Link href={'/home'}>Home</Link>
-          <Link href={'/mapping'}>Mapping</Link>
-        </ul>
-      </nav>
       <aside className="flex gap-2 items-center">
         {/* <LanguageChanger locale={pathname} /> */}
         <HelpMenu />
         <Monitoring />
         <ModeToggle />
-        <div className='sm:block md:hidden lg:hidden xl:hidden'>
-          <MobileMenu />
-        </div>
       </aside>
     </div>
   )

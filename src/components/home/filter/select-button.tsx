@@ -31,9 +31,6 @@ const SelectButton = ({ holder, data, handleChange }: Props) => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value={`all`}>
-            Semua {holder}
-          </SelectItem>
           {data.map((item: any, index: number) => (
             <SelectItem key={item.kode + index} value={item.kode}>
               {item.nama}

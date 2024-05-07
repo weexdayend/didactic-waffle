@@ -11,19 +11,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import SelectButton from '@/components/home/filter/select-button'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 
 type FilterOption = {
-  provinsi: string | 'all',
-  kabupaten: string | 'all',
+  provinsi: string,
+  kabupaten: string,
+  tahun: string,
 }
 
 type FilterProps = {
   handleChange: (value: FilterOption) => void
+  loading: boolean
 }
 
-const CardFilter = ({ handleChange }: FilterProps) => {
+const CardFilter = ({ handleChange, loading }: FilterProps) => {
   const [loadData, setLoadData] = useState(false) // Set initial state to true
 
   const [dataProvinsi, setDataProvinsi] = useState<any>()
@@ -31,16 +43,17 @@ const CardFilter = ({ handleChange }: FilterProps) => {
 
   const [error, setError] = useState<any>()
 
+  const [selectTahun, setSelectTahun] = useState<string>('')
   const [selectProvinsi, setSelectProvinsi] = useState<string | null>(null)
   const [selectKabupaten, setSelectKabupaten] = useState<string| null>(null)
 
-  useEffect(() => {
+  const fetchData = async () => {
     setLoadData(true); // Set loadData to true before fetching data
   
     // Define array of promises for API requests
     const promises = [
-      axios.get('/api/dev/area/filter/provinsi/all'),
-      axios.get('/api/dev/area/filter/kabupaten/all')
+      axios.get(`/api/dev/area/filter/provinsi/all/${selectTahun}`),
+      axios.get(`/api/dev/area/filter/kabupaten/all/${selectTahun}`),
     ];
   
     Promise.all(promises)
@@ -58,11 +71,19 @@ const CardFilter = ({ handleChange }: FilterProps) => {
         setError(error.message);
       })
       .finally(() => {
-        setTimeout(() => {
-          setLoadData(false);
-        }, 2500);
+        setLoadData(false);
       });
-  }, []);
+  }
+
+  useEffect(() => {
+    if (selectTahun) {
+      fetchData();
+    }
+  }, [selectTahun])
+
+  const handleSelectTahun = (value: any) => {
+    setSelectTahun(value);
+  }
 
   const filterProvinsi = (value: any) => {
     setSelectProvinsi(value);
@@ -82,6 +103,7 @@ const CardFilter = ({ handleChange }: FilterProps) => {
     handleChange({
       provinsi: selectProvinsi,
       kabupaten: selectKabupaten,
+      tahun: selectTahun
     })
   }
 
@@ -95,6 +117,20 @@ const CardFilter = ({ handleChange }: FilterProps) => {
       </CardHeader>
       <CardContent className='flex flex-col gap-4'>
         <div className='w-full flex flex-col items-center justify-between gap-4'>
+          <Select onValueChange={(e) => handleSelectTahun(e)}>
+            <SelectTrigger className="w-full">
+              <SelectValue
+                placeholder={`Pilih tahun...`} 
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value='2022'>2022</SelectItem>
+                <SelectItem value='2023'>2023</SelectItem>
+                <SelectItem value='2024'>2024</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           {
             dataProvinsi && (<SelectButton holder='Provinsi' data={dataProvinsi} handleChange={filterProvinsi} />)
           }
@@ -104,7 +140,12 @@ const CardFilter = ({ handleChange }: FilterProps) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full' onClick={submitFilter}>
+        <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full gap-1.5' onClick={submitFilter}>
+          {
+            loading || loadData && (
+              <Spinner size="small" className='text-white' />
+            )
+          }
           Apply filter
         </Button>
       </CardFooter>

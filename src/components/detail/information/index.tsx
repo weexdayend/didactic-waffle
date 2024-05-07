@@ -72,16 +72,16 @@ const Information = ({ id, kategori }: ParamsProps) => {
 
   return (
     <div className='w-full h-full flex flex-col gap-4'>
-      <DetailProfile data={datas.data} />
+      <DetailProfile information={datas.information} wilker={datas.wilker} />
       <DetailDistribusi id={id} kategori={kategori} />
       {
-        kat === 'Gudang' && (<Gudang />)
+        kategori === 'Gudang' && (<Gudang />)
       }
       {
-        kat === 'Distributor' && (<Distributor />)
+        kategori === 'Distributor' && (<Distributor />)
       }
       {
-        kat === 'Kios' && (<Kios />)
+        kategori === 'Pengecer' && (<Kios />)
       }
     </div>
   )

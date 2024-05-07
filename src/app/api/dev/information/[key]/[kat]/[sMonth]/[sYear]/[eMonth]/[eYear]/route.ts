@@ -18,7 +18,7 @@ export async function GET(req: Request, context: { params: Params }) {
     let ids = key.toString()
 
     let distribusi: any;
-    if ( kat === 'distributor' ) {
+    if ( kat === 'Distributor' ) {
       distribusi = await prisma.mart_accumulation_products_f5_distributor.groupBy({
         by: ['nama_produk', 'keterangan'],
         _sum: {
@@ -37,7 +37,7 @@ export async function GET(req: Request, context: { params: Params }) {
           kode_distributor: ids
         },
       })
-    } else if ( kat === 'kios' ) {
+    } else if ( kat === 'Pengecer' ) {
       distribusi = await prisma.mart_accumulation_products_f6_kios.groupBy({
         by: ['nama_produk', 'keterangan'],
         _sum: {

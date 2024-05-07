@@ -11,76 +11,67 @@ type Params = {
 export async function GET(req: Request, context: { params: Params }) {
   try {
     const { key, kat } = context.params
-    let ids = key.toString()
 
-    let data;
-    const load = await prisma.fact_profile.findMany({
-      where: {
-        kode: key,
-        status: true
-      },
-      include: {
-        [kat]: {
-          where: {
-            kategori: kat,
-            status: true
-          },
-          include: {
-            Provinsi: true,
-            Kotakab: true,
-            Kecamatan: true,
-          }
+    let detail_information;
+    let wilker_information;
+    
+    const filterDetail = {
+      [kat === 'Gudang' ? 'kode_gudang' : kat === 'Distributor' ? 'kode_distributor' : 'kode_pengecer']: key,
+    };
+
+    const filterWilker = {
+      [kat === 'Gudang' ? 'kode_gudang' : kat === 'Distributor' ? 'kode_distributor' : 'kode_pengecer']: key,
+      kategori: kat
+    };
+
+    [detail_information, wilker_information] = await Promise.all([
+      (prisma as any)[kat === 'Gudang' ? 'fact_gudang' : kat === 'Distributor' ? 'fact_distributor' : 'fact_kios'].findMany({
+        where: filterDetail
+      }),
+      prisma.fact_map_area.findMany({
+        where: filterWilker,
+        include: {
+          Kecamatan: true
         }
-      }
-    });
+      })
+    ]);
 
-    const transformedData = load.flatMap((profile: any) => {
-      if (profile[kat] && profile[kat].length > 0) {
-        return profile[kat].map((item: any) => {
-          return {
-            // Spread profile properties
-            id: profile.id,
-            created_at: profile.created_at,
-            updated_at: profile.updated_at,
-            deleted_at: profile.deleted_at,
-            kategori: profile.kategori,
-            kode: profile.kode,
-            nama: profile.nama,
-            long: profile.long,
-            lat: profile.lat,
-            alamat: profile.alamat,
-            status: profile.status,
-            provinsi: item.Provinsi.nama,
-            kabupaten: item.Kotakab.nama,
-            kecamatan: item.Kecamatan.nama
-          };
-        });
-      } else {
-        // If no data for the specified category, return an empty array
-        return {
-          // Spread profile properties
-          id: profile.id,
-          created_at: profile.created_at,
-          updated_at: profile.updated_at,
-          deleted_at: profile.deleted_at,
-          kategori: profile.kategori,
-          kode: profile.kode,
-          nama: profile.nama,
-          long: profile.long,
-          lat: profile.lat,
-          alamat: profile.alamat,
-          status: profile.status,
-          provinsi: null,
-          kabupaten: null,
-          kecamatan: null
-        };
-      }
-    });
+    const propertyMap: { [key: string]: any } = {
+      Gudang: { 
+        kode: 'kode_gudang', 
+        nama: 'nama_gudang', 
+        kategori: 'Gudang' 
+      },
+      Distributor: { 
+        kode: 'kode_distributor', 
+        nama: 'nama_distributor', 
+        kategori: 'Distributor',
+      },
+      Pengecer: { 
+        kode: 'kode_pengecer', 
+        nama: 'nama_pengecer',
+        kategori: 'Pengecer',
+      },
+    };
 
-    data = transformedData
+    const formatted_information = detail_information.map((item: any) => {
+      const { kode, nama, kategori } = propertyMap[kat];
+      return {
+        kode: item[kode],
+        nama: item[nama],
+        kategori,
+        alamat: item.alamat
+      };
+    });
+    
+    const formatted_wilker = wilker_information.map(item => ({
+      kode: item?.Kecamatan?.kode_kecamatan || null,
+      nama: item?.Kecamatan?.nama_kecamatan || null
+    }));
 
     const result = {
-      data,
+      information: formatted_information,
+      wilker: formatted_wilker
     };
 
     // Set CORS headers
