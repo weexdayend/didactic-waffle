@@ -24,18 +24,11 @@ import SelectButton from '@/components/home/filter/select-button'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 
-type FilterOption = {
-  provinsi: string,
-  kabupaten: string,
-  tahun: string,
-}
-
 type FilterProps = {
-  handleChange: (value: FilterOption) => void
-  loading: boolean
+  handleChange: (value: any) => void
 }
 
-const CardFilter = ({ handleChange, loading }: FilterProps) => {
+const CardFilter = ({ handleChange }: FilterProps) => {
   const [loadData, setLoadData] = useState(false) // Set initial state to true
 
   const [dataProvinsi, setDataProvinsi] = useState<any>()
@@ -94,17 +87,34 @@ const CardFilter = ({ handleChange, loading }: FilterProps) => {
   }
 
   const submitFilter = () => {
-
+    setLoadData(true); // Set loadData to true before fetching data
+    
     if (selectProvinsi === null || selectKabupaten === null) {
       alert('Provinsi dan Kabupaten tidak boleh kosong')
       return;
     }
 
-    handleChange({
-      provinsi: selectProvinsi,
-      kabupaten: selectKabupaten,
-      tahun: selectTahun
-    })
+    // Define array of promises for API requests
+    const promises = [
+      axios.get(`/api/dev/mapping/${selectProvinsi}/${selectKabupaten}/${selectTahun}`),
+    ];
+  
+    Promise.all(promises)
+      .then(responses => {
+        const [list] = responses;
+  
+        if (!list.data) {
+          throw new Error('No data received');
+        }
+  
+        handleChange(list.data);
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoadData(false);
+      });
   }
 
   const filteredKabupaten = dataKabupaten && selectProvinsi !== 'all' ? dataKabupaten.filter((item: any) => item.id_provinsi === selectProvinsi) : dataKabupaten;
@@ -142,7 +152,7 @@ const CardFilter = ({ handleChange, loading }: FilterProps) => {
       <CardFooter>
         <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full gap-1.5' onClick={submitFilter}>
           {
-            loading || loadData && (
+            loadData && (
               <Spinner size="small" className='text-white' />
             )
           }
