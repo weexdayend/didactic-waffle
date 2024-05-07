@@ -45,7 +45,6 @@ const Navigation = () => {
       </aside>
       <aside className="flex gap-2 items-center">
         {/* <LanguageChanger locale={pathname} /> */}
-        <HelpMenu />
         <Monitoring />
         <ModeToggle />
       </aside>
