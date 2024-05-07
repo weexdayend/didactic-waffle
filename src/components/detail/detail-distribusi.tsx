@@ -48,17 +48,17 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
   }
 
   const submitFilter = () => {
-    setLoadData(true);
-
     if (date?.startMonth === '' || date?.startYear === '' || date?.endMonth === '' || date?.endYear === '') {
       alert('Tanggal awal dan akhir tidak boleh kosong')
       return;
     }
 
+    setLoadData(true);
+
     const promises = [
       axios.get(`/api/dev/information/${id}/${kategori}/${date.startMonth}/${date.startYear}/${date.endMonth}/${date.endYear}`),
     ];
-  
+
     Promise.all(promises)
       .then(responses => {
         const [distribusi] = responses;
@@ -67,10 +67,6 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
           throw new Error('No data received');
         }
 
-        const datas = distribusi.data
-        if (datas.length < 0) {
-          console.log(datas)
-        }  
         setData(distribusi.data)
       })
       .catch(error => {
@@ -91,7 +87,7 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
         </div>
         <div className='flex flex-col gap-4 pt-4'>
           <FilterDate handleChange={filterDate} />
-          <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full' onClick={submitFilter}>
+          <Button className='bg-blue-500 text-white hover:bg-blue-400 w-full gap-1.5' onClick={submitFilter}>
             {
               loadData && (
                 <Spinner size="small" className='text-white' />
@@ -103,7 +99,7 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
       </CardHeader>
       <CardContent>
         {
-          data && data.length > 0 ? (
+          data && data.length > 0 && (
             <div className='w-full flex flex-col items-center gap-4 justify-between'>
               <div className='w-full h-fit flex flex-col border rounded-2xl px-4 py-5 gap-4'>
                 <h1 className='text-base'>Stok Awal</h1>
@@ -198,24 +194,24 @@ const DetailDistribusi = ({ id, kategori }: ParamsProps) => {
                 }
               </div>
             </div>
-          ) : (
-            <div className='w-full flex flex-col items-center gap-4 justify-between'>
-              <h1>Belum ada data pendistribusian.</h1>
-            </div>
           )
         }
       </CardContent>
       <CardFooter>
-        <div className='flex flex-row w-full items-center justify-center gap-8'>
-        <div className='flex flex-row items-center gap-2'>
-            <div className='w-6 h-3 rounded-full bg-amber-500' />
-            <h6 className='text-sm'>(Ton)</h6>
-          </div>
-          <div className='flex flex-row items-center gap-2'>
-            <div className='w-6 h-3 rounded-full bg-indigo-500' />
-            <h6 className='text-sm'>(Rp)</h6>
-          </div>
-        </div>
+        {
+          data && data.length > 0 && (
+            <div className='flex flex-row w-full items-center justify-center gap-8'>
+              <div className='flex flex-row items-center gap-2'>
+                <div className='w-6 h-3 rounded-full bg-amber-500' />
+                <h6 className='text-sm'>(Ton)</h6>
+              </div>
+              <div className='flex flex-row items-center gap-2'>
+                <div className='w-6 h-3 rounded-full bg-indigo-500' />
+                <h6 className='text-sm'>(Rp)</h6>
+              </div>
+            </div>
+          )
+        }
       </CardFooter>
     </Card>
   )
