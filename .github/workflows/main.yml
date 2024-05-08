@@ -1,0 +1,59 @@
+name: CI/CD Fermon Apps
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/fermon-app:latest
+  
+  deploy-to-vps:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+
+    steps:
+    - name: SSH and deploy to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fermon-app:latest
+
+          if docker ps -a --format '{{.Names}}' | grep -q '^fermon-app$'; then
+            docker stop fermon-app
+            docker rm fermon-app
+          fi
+
+          docker system prune -f
+          docker run --name fermon-app -dit \
+            -p 7654:7654 \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
+            -e NEXT_PUBLIC_MAPBOX_TOKEN=${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }} \
+            -e MAP_TILER=${{ secrets.MAP_TILER }} \
+            -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
+            -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
+            --memory=1g --memory-swap=1g --cpus=0.5 \
+            ${{ secrets.DOCKERHUB_USERNAME }}/fermon-app:latest
