@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button"
 
 import Information from "@/components/detail/information"
 import Index from '@/components/mapping/information'
+import CardPerson from "@/components/home/card-person";
 
 const pageSize = 10
 
@@ -35,6 +36,9 @@ const Page = () => {
 
   const [data, setData] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState(1)
+
+  const [selectedProv, setSelectedProv] = useState('')
+  const [selectedKab, setSelectedKab] = useState('')
 
   const [error, setError] = useState<any>()
 
@@ -89,9 +93,23 @@ const Page = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleFilter = (profile: any) => {
+  const handleFilter = (profile: any, prov: string, kab: string) => {
     setData(profile)
+    setSelectedProv(prov)
+    setSelectedKab(kab)
   }
+
+  useEffect(() => {
+    if (selectedProv !== '') {
+      console.log(selectedProv)
+    }
+  }, [selectedProv])
+
+  useEffect(() => {
+    if (selectedKab !== '') {
+      console.log(selectedKab)
+    }
+  }, [selectedKab])
 
   return (
     <div className='flex flex-col items-center pb-20 pt-20'>
@@ -199,6 +217,7 @@ const Page = () => {
                       <ArrowRightIcon className="w-4 h-4" />
                     </Button>
                   </div>
+                  <CardPerson />
                 </>
               )
             }

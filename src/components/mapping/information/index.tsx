@@ -12,13 +12,13 @@ type FilterProps = {
 }
 
 type Props = {
-  handle: (profile: any) => void;
+  handle: (profile: any, prov: string, kab: string) => void;
 }
 
 function Index({ handle }: Props) {
 
-  const handleFilterChange = (value: any) => {
-    handle(value)
+  const handleFilterChange = (value: any, prov: string, kab: string) => {
+    handle(value, prov, kab)
   }
 
   return (
