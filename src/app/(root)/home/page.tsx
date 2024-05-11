@@ -32,7 +32,8 @@ const Page = () => {
   const [resetLocation, setResetLocation] = useState(false)
   const [selectFilter, setSelectFilter] = useState<any[]>([])
 
-  const [loadData, setLoadData] = useState(false)
+  const [dataProv, setDataProv] = useState<any[]>([])
+  const [dataKab, setDataKab] = useState<any[]>([])
 
   const [data, setData] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -93,10 +94,10 @@ const Page = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleFilter = (profile: any, prov: string, kab: string) => {
+  const handleFilter = (profile: any, prov: any, kab: any) => {
     setData(profile)
-    setSelectedProv(prov)
-    setSelectedKab(kab)
+    setDataProv(prov)
+    setDataKab(kab)
   }
 
   useEffect(() => {
@@ -217,7 +218,7 @@ const Page = () => {
                       <ArrowRightIcon className="w-4 h-4" />
                     </Button>
                   </div>
-                  <CardPerson />
+                  <CardPerson prov={dataProv} kab={dataKab} />
                 </>
               )
             }
