@@ -58,6 +58,7 @@ const Page = () => {
     setInformation(null)
     setResetLocation(!resetLocation)
     setCurrentPage(1)
+    setData([])
   }
 
   useEffect(() => {

@@ -53,7 +53,7 @@ const CardDistribusi = ({ id, kategori }: ParamsProps) => {
     }
 
     const promises = [
-      axios.get(`/api/dev/information/${id}/${kategori}/${date.startMonth}/${date.startYear}/${date.endMonth}/${date.endYear}`),
+      axios.get(`/api/dev/area/report/${id}/${kategori}/${date.startMonth}/${date.startYear}/${date.endMonth}/${date.endYear}`),
     ];
   
     Promise.all(promises)

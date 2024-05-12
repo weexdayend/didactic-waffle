@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 
 type FilterProps = {
-  handleChange: (value: any, prov: string, kab: string) => void
+  handleChange: (value: any, prov: string, kab: string, f5: any, f6: any) => void
 }
 
 const CardFilter = ({ handleChange }: FilterProps) => {
@@ -99,17 +99,18 @@ const CardFilter = ({ handleChange }: FilterProps) => {
       axios.get(`/api/dev/mapping/${selectProvinsi}/${selectKabupaten}/${selectTahun}`),
       axios.post(`https://api.greatjbb.com/petugas/id`, { kode: selectProvinsi }),
       axios.post(`https://api.greatjbb.com/petugas/id`, { kode: selectKabupaten }),
+      axios.get(`/api/dev/area/report/${selectProvinsi}/${selectKabupaten}/1/${selectTahun}/12/${selectTahun}`),
     ];
   
     Promise.all(promises)
       .then((responses: any) => {
-        const [list, prov, kab] = responses;
+        const [list, prov, kab, report] = responses;
   
         if (!list.data && !prov.data && !kab.data) {
           throw new Error('No data received');
         }
   
-        handleChange(list.data, prov.data, kab.data);
+        handleChange(list.data, prov.data, kab.data, report.data.f5, report.data.f6);
       })
       .catch(error => {
         setError(error.message);
