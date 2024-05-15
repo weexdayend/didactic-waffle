@@ -21,8 +21,7 @@ export async function GET(req: NextRequest, context: { params: Params }): Promis
           in: ['Gudang', 'Distributor', 'Pengecer'],
         },
         kode_provinsi: prov,
-        kode_kab_kota: kab,
-        tahun: tahun
+        kode_kab_kota: kab
       }
     })
 
@@ -31,7 +30,8 @@ export async function GET(req: NextRequest, context: { params: Params }): Promis
       where: {
         kode_gudang: {
           in: kodeGudangs
-        }
+        },
+        tahun: tahun
       }
     });
 
@@ -40,7 +40,8 @@ export async function GET(req: NextRequest, context: { params: Params }): Promis
       where: {
         kode_distributor: {
           in: kodeDistributors
-        }
+        },
+        tahun: tahun
       }
     });
 
@@ -49,7 +50,8 @@ export async function GET(req: NextRequest, context: { params: Params }): Promis
       where: {
         kode_pengecer: {
           in: kodePengecers
-        }
+        },
+        tahun: tahun
       }
     });
 

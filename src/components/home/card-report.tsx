@@ -13,10 +13,12 @@ import FilterDate from './filter/filter-date'
 
 type ParamsProps = {
   data: any,
+  alokasi?: any,
+  harga?: any,
   title: any,
 }
 
-const CardReport = ({ data, title }: ParamsProps) => {
+const CardReport = ({ data, alokasi, harga, title }: ParamsProps) => {
   return (
     <Card className='w-full h-fit'>
       <CardHeader>
@@ -123,7 +125,7 @@ const CardReport = ({ data, title }: ParamsProps) => {
       </CardContent>
       <CardFooter>
         <div className='flex flex-row w-full items-center justify-center gap-8'>
-        <div className='flex flex-row items-center gap-2'>
+          <div className='flex flex-row items-center gap-2'>
             <div className='w-6 h-3 rounded-full bg-amber-500' />
             <h6 className='text-sm'>(Ton)</h6>
           </div>

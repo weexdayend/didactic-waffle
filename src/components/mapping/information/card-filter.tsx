@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 
 type FilterProps = {
-  handleChange: (value: any, prov: string, kab: string, f5: any, f6: any) => void
+  handleChange: (value: any, prov: string, kab: string, f5: any, f6: any, alokasi: any, harga: any) => void
 }
 
 const CardFilter = ({ handleChange }: FilterProps) => {
@@ -99,18 +99,21 @@ const CardFilter = ({ handleChange }: FilterProps) => {
       axios.get(`/api/dev/mapping/${selectProvinsi}/${selectKabupaten}/${selectTahun}`),
       axios.post(`https://api.greatjbb.com/petugas/id`, { kode: selectProvinsi }),
       axios.post(`https://api.greatjbb.com/petugas/id`, { kode: selectKabupaten }),
+      axios.post(`https://api.greatjbb.com/monitoring/alokasi`, { kode: selectKabupaten, kategori: 'Kabupaten', tahun: selectTahun }),
       axios.get(`/api/dev/area/report/${selectProvinsi}/${selectKabupaten}/1/${selectTahun}/12/${selectTahun}`),
     ];
   
     Promise.all(promises)
       .then((responses: any) => {
-        const [list, prov, kab, report] = responses;
+        const [list, prov, kab, produk, report] = responses;
   
-        if (!list.data && !prov.data && !kab.data) {
+        if (!list.data && !prov.data && !kab.data && !produk.data) {
           throw new Error('No data received');
         }
+
+        const dataProduk = produk.data
   
-        handleChange(list.data, prov.data, kab.data, report.data.f5, report.data.f6);
+        handleChange(list.data, prov.data, kab.data, report.data.f5, report.data.f6, dataProduk.alokasi, dataProduk.harga);
       })
       .catch(error => {
         setError(error.message);

@@ -27,7 +27,7 @@ export async function GET(req: Request, context: { params: Params }) {
     };
 
     const f5 = await prisma.mart_accumulation_products_f5_wilayah.groupBy({
-      by: ['nama_produk', 'keterangan'],
+      by: ['kode_produk', 'nama_produk', 'keterangan'],
       _sum: {
         besaran: true,
         total: true,
@@ -36,7 +36,7 @@ export async function GET(req: Request, context: { params: Params }) {
     });
 
     const f6 = await prisma.mart_accumulation_products_f6_wilayah.groupBy({
-      by: ['nama_produk', 'keterangan'],
+      by: ['kode_produk', 'nama_produk', 'keterangan'],
       _sum: {
         besaran: true,
         total: true,

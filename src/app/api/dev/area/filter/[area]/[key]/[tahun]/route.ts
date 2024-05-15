@@ -18,11 +18,10 @@ export async function GET(req: Request, context: { params: Params }) {
       const load = await prisma.fact_map_area.findMany({
         where: {
           kategori: 'Provinsi',
-          tahun: context.params.tahun
         },
         include: {
           Provinsi: true
-        }
+        },
       })
       
       const transformedData = load.map((profile: any) => {
@@ -43,8 +42,7 @@ export async function GET(req: Request, context: { params: Params }) {
           OR: [
             { kategori: 'Kota' },
             { kategori: 'Kabupaten' }
-          ],
-          tahun: context.params.tahun
+          ]
         },
         include: {
           Kotakab: true

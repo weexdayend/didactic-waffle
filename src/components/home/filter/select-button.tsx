@@ -31,7 +31,7 @@ const SelectButton = ({ holder, data, handleChange }: Props) => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {data.map((item: any, index: number) => (
+          {data.sort((a: any, b: any) => a.nama.localeCompare(b.nama)).map((item: any, index: number) => (
             <SelectItem key={item.kode + index} value={item.kode}>
               {item.nama}
             </SelectItem>
