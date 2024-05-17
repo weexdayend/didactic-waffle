@@ -18,13 +18,18 @@ type ParamsProps = {
   title: any,
 }
 
+interface AllocationItem {
+  kode_produk: string;
+  total: number;
+}
+
 const CardReport = ({ data, alokasi, harga, title }: ParamsProps) => {
   return (
     <Card className='w-full h-fit'>
       <CardHeader>
         <div className='flex flex-col'>
-          <h1 className='text-lg'>Distribusi {title}</h1>
-          <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>alokasi</span> dan <span className='font-bold'>realisasi</span> pupuk.</p>
+          <h1 className='text-lg'>Realisasi {title}</h1>
+          <p className='text-xs opacity-70'>Detail informasi <span className='font-bold'>realisasi</span> pupuk.</p>
         </div>
       </CardHeader>
       <CardContent>
@@ -119,6 +124,35 @@ const CardReport = ({ data, alokasi, harga, title }: ParamsProps) => {
                   </div>
                 </div>
               ))
+            }
+          </div>
+          <div className='w-full h-fit flex flex-col border rounded-2xl px-4 py-5 gap-4'>
+            <h1 className='text-base'>Realisasi</h1>
+            {
+              data
+              .filter((item: any) => item.keterangan === 'Penyaluran')
+              .sort((a: any, b: any) => b.nama_produk.localeCompare(a.nama_produk))
+              .map((item: any, index: number) => {
+                const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
+                const total = allocation ? allocation.total : 0;
+                const ratio = allocation ? ((parseFloat(item._sum.besaran.toFixed(2)) / allocation.total) * 100) : 0;
+                
+                return(
+                  <div key={index} className='w-full flex flex-col'>
+                    <div className='w-full flex flex-col'>
+                      <h1 className='text-sm opacity-80'>Alokasi {item.nama_produk}</h1>
+                    </div>
+                    <div className='w-full flex flex-row items-center justify-between'>
+                      <div className='flex flex-col pb-2 border-b-4 border-amber-500'>
+                        <h1 className='text-base font-bold'>{formatIDR(total)}</h1>
+                      </div>
+                      <div className='flex flex-col pb-2 border-b-4 border-indigo-500'>
+                        <h1 className='text-base font-bold'>{ratio.toFixed(2)} %</h1>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
             }
           </div>
         </div>
