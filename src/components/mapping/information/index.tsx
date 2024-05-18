@@ -1,51 +1,69 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 
 import CardFilter from '@/components/mapping/information/card-filter'
-import CardDistribusi from './card-distribusi'
-import CardReport from '@/components/home/card-report'
-import { formatIDR } from '@/lib/functions'
-
-type FilterProps = {
-  provinsi: string,
-  kabupaten: string,
-  tahun: string,
-}
-
-interface AllocationItem {
-  kode_produk: string;
-  total: number;
-}
+import CardReport from '@/components/mapping/information/card-report'
+import CardHarga from './card-harga'
 
 type Props = {
   handle: (profile: any, prov: string, kab: string) => void;
 }
 
 function Index({ handle }: Props) {
-  const [dataF5, setDataF5] = useState([])
-  const [dataF6, setDataF6] = useState([])
+  const [showInfo, setShowInfo] = useState(false)
+
+  const [dataYearly, setDataYearly] = useState<{ f5: any[], f6: any[]}>({ f5: [], f6: [] })
+  const [dataMonthly, setDataMonthly] = useState<{ f5: any[], f6: any[]}>({ f5: [], f6: [] })
+  const [dataMonthToMonth, setDataMonthToMonth] = useState<{ f5: any[], f6: any[]}>({ f5: [], f6: [] })
+
   const [dataAlokasi, setDataAlokasi] = useState([])
   const [dataHarga, setDataHarga] = useState([])
 
-  const handleFilterChange = (value: any, prov: string, kab: string, f5: any, f6: any, alokasi: any, harga: any) => {
+  const handleFilterChange = (
+    value: any, 
+    prov: string, 
+    kab: string, 
+    yearly: any,
+    currMonth: any,
+    mtm: any, 
+    alokasi: any, 
+    harga: any
+  ) => {
     handle(value, prov, kab)
 
-    setDataF5(f5)
-    setDataF6(f6)
+    setDataYearly(yearly)
+    setDataMonthly(currMonth)
+    setDataMonthToMonth(mtm)
     setDataAlokasi(alokasi)
     setDataHarga(harga)
+
+    setShowInfo(true)
   }
 
   return (
     <div className='w-full flex flex-col gap-4'>
       <CardFilter handleChange={handleFilterChange} />
       {
-        dataF5.length > 0 && (<CardReport data={dataF5} alokasi={dataAlokasi} harga={dataHarga} title={'F5'} />)
+        showInfo && dataHarga.length > 0 && (
+          <CardHarga 
+            harga={dataHarga}
+          />
+        )
       }
       {
-        dataF6.length > 0 && (<CardReport data={dataF6} alokasi={dataAlokasi} harga={dataHarga} title={'F6'} />)
+        showInfo &&
+        dataYearly &&
+        dataMonthly &&
+        dataMonthToMonth &&
+        dataAlokasi && (
+          <CardReport 
+            yearly={dataYearly} 
+            currmonth={dataMonthly} 
+            mtm={dataMonthToMonth}
+            alokasi={dataAlokasi} 
+          />
+        )
       }
     </div>
   )

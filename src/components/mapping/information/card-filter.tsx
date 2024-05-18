@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 
 type FilterProps = {
-  handleChange: (value: any, prov: string, kab: string, f5: any, f6: any, alokasi: any, harga: any) => void
+  handleChange: (value: any, prov: string, kab: string, yearly: any, currMonth: any, mtm: any, alokasi: any, harga: any) => void
 }
 
 const CardFilter = ({ handleChange }: FilterProps) => {
@@ -111,9 +111,19 @@ const CardFilter = ({ handleChange }: FilterProps) => {
           throw new Error('No data received');
         }
 
+        const dataReport = report.data
         const dataProduk = produk.data
   
-        handleChange(list.data, prov.data, kab.data, report.data.f5, report.data.f6, dataProduk.alokasi, dataProduk.harga);
+        handleChange(
+          list.data, 
+          prov.data, 
+          kab.data,
+          dataReport.yearly, 
+          dataReport.currmonth, 
+          dataReport.mtm, 
+          dataProduk.alokasi, 
+          dataProduk.harga
+        );
       })
       .catch(error => {
         setError(error.message);
