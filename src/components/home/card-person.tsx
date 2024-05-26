@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/avatar"
 import { Button } from '@/components/ui/button'
 
+import Link from 'next/link'
+
 type Props = {
   prov: any[]
   kab: any[]
@@ -50,12 +52,22 @@ const CardPerson = ({ prov, kab }: Props) => {
                   <div className='flex flex-col gap-2'>
                     <h1 className='text-sm opacity-70'>Contact</h1>
                     <div className='flex flex-col gap-2'>
-                      <div className='px-4 py-2 border rounded-mg'>
-                        <h1 className='text-xs'>{item.contact}</h1>
-                      </div>
-                      <div className='px-4 py-2 border rounded-mg'>
-                        <h1 className='text-xs'>{item.contact_wa} - Whatsapp</h1>
-                      </div>
+                      <Link
+                        href={`tel:+62${item.contact}`}
+                        target='_blank'
+                      >
+                        <div className='px-4 py-2 border rounded-mg'>
+                          <h1 className='text-xs'>{item.contact}</h1>
+                        </div>
+                      </Link>
+                      <Link
+                        href={`https://wa.me/+62${item.contact_wa}?text=halo ${item.nama_petugas},`}
+                        target='_blank'
+                      >
+                        <div className='px-4 py-2 border rounded-mg'>
+                          <h1 className='text-xs'>{item.contact_wa} - Whatsapp</h1>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>

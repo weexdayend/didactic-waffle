@@ -36,12 +36,6 @@ const DetailProfile = ({ information, wilker }: ParamsProps) => {
             <h1 className='text-lg'>{information[0].nama}</h1>
             <h1 className='text-xs opacity-70'>Alamat, {information[0].alamat}</h1>
           </div>
-          <Button
-            variant="outline"
-            size="icon"
-          >
-            <MapPinIcon className='h-4 w-4' />
-          </Button>
         </div>
       </CardHeader>
       <CardContent>

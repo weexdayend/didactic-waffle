@@ -21,7 +21,7 @@ const CardHarga = ({ harga }: ParamsProps) => {
       <Card className='w-full h-fit'>
         <CardHeader>
           <div className='flex flex-col'>
-            <h1 className='text-lg'>Harga Tebus</h1>
+            <h1 className='text-sm'>Harga Tebus Distributor ke Produsen</h1>
           </div>
         </CardHeader>
         <CardContent className='flex flex-col gap-6'>
@@ -50,7 +50,7 @@ const CardHarga = ({ harga }: ParamsProps) => {
       <Card className='w-full h-fit'>
         <CardHeader>
           <div className='flex flex-col'>
-            <h1 className='text-lg'>Harga Jual</h1>
+            <h1 className='text-sm'>Harga Jual Distributor ke Kios</h1>
           </div>
         </CardHeader>
         <CardContent className='flex flex-col gap-6'>

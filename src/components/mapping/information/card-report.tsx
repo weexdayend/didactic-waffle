@@ -37,7 +37,10 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
         </CardHeader>
         <CardContent className='flex flex-col gap-6'>
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Yearly</h1>
+            <div className='flex flex-col'>
+              <h1>Yearly</h1>
+              <p className='text-xs opacity-70'>Data yang disajikan berdasarkan tahun berjalan.</p>
+            </div>
             {yearly.f5.length > 0 ? yearly.f5.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
               const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
               const total = allocation ? allocation.yearly : 0;
@@ -72,7 +75,10 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
           </div>
 
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Current Month</h1>
+            <div className='flex flex-col'>
+              <h1>Current Month</h1>
+              <p className='text-xs opacity-70'>Data yang disajikan berdasarkan Bulan berjalan.</p>
+            </div>
             {currmonth.f5.length > 0 ? currmonth.f5.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
             const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
             const total = allocation ? allocation.yearly : 0;
@@ -104,8 +110,12 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
             </div>
           )}
           </div>
+
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Month to Month</h1>
+            <div className='flex flex-col'>
+              <h1>January to <span className='underline font-medium'>Current Month</span></h1>
+              <p className='text-xs opacity-70'>Data yang disajikan dari bulan januari hingga bulan berjalan.</p>
+            </div>
             {mtm.f5.length > 0 ? mtm.f5.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
             const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
             const total = allocation ? allocation.mtm : 0;
@@ -161,7 +171,10 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
         </CardHeader>
         <CardContent className='flex flex-col gap-6'>
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Yearly</h1>
+            <div className='flex flex-col'>
+              <h1>Yearly</h1>
+              <p className='text-xs opacity-70'>Data yang disajikan berdasarkan tahun berjalan.</p>
+            </div>
             {yearly.f6.length > 0 ? yearly.f6.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
               const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
               const total = allocation ? allocation.yearly : 0;
@@ -196,7 +209,10 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
           </div>
 
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Current Month</h1>
+            <div className='flex flex-col'>
+              <h1>Current Month</h1>
+              <p className='text-xs opacity-70'>Data yang disajikan berdasarkan Bulan berjalan.</p>
+            </div>
             {currmonth.f6.length > 0 ? currmonth.f6.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
             const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
             const total = allocation ? allocation.yearly : 0;
@@ -228,8 +244,12 @@ const CardReport = ({ yearly, currmonth, mtm, alokasi }: ParamsProps) => {
             </div>
           )}
           </div>
+
           <div className='w-full h-fit flex flex-col gap-4'>
-            <h1>Month to Month</h1>
+            <div className='flex flex-col'>
+              <h1>January to <span className='underline font-medium'>Current Month</span></h1>
+              <p className='text-xs opacity-70'>Data yang disajikan dari bulan januari hingga bulan berjalan.</p>
+            </div>
             {mtm.f6.length > 0 ? mtm.f6.filter(item => item.keterangan === "Penyaluran").map((item, index) => {
             const allocation = (alokasi as AllocationItem[]).find((allocationItem: AllocationItem) => allocationItem.kode_produk === item.kode_produk);
             const total = allocation ? allocation.mtm : 0;
