@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React from 'react'
 import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button"
@@ -19,6 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+const imageWidth = 150;
+const aspectRatio = 50 / 150;
+
 const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -28,7 +31,7 @@ const FormSchema = z.object({
   }),
 })
 
-const Page = () => {
+const SignIn = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -38,7 +41,7 @@ const Page = () => {
       await signIn("credentials", { 
         username: data.username, 
         password: data.password, 
-        callbackUrl: '/admin/dashboard' ,
+        callbackUrl: '/home' ,
       });
     } catch (error) {
       // Check if the error is due to email or password not found
@@ -53,17 +56,17 @@ const Page = () => {
       }
     }
   }
-  
+
   return (
-    <main className="flex items-center justify-center md:h-screen">
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32 gap-8 border rounded-xl">
-        <div className="flex h-20 w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-400 to-indigo-500 p-3 md:h-36">
+    <main className='flex h-screen w-screen'>
+      <div className="w-full flex flex-col gap-12 items-center border rounded-lg px-4 py-4">
+        <div className='w-full flex items-center justify-center px-4 py-4 rounded-lg bg-white'>
           <Image
-            src={'/assets/icons/logo-pi-putih.svg'}
-            width={130}
-            height={40}
-            alt="plur logo"
-            layout="fixed"
+            src="https://utfs.io/f/5ba07116-a629-4637-9104-286e39ef087c-mnmnjd.svg"
+            width={imageWidth}
+            height={imageWidth * aspectRatio}
+            alt="saptakarya"
+            priority={true}
           />
         </div>
         <Form {...form}>
@@ -79,6 +82,7 @@ const Page = () => {
                       placeholder='Username' 
                       {...field} 
                       value={field.value || ''}
+                      className='w-full'
                     />
                   </FormControl>
                   <FormMessage className='text-red-500' />
@@ -112,4 +116,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default SignIn

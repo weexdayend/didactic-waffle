@@ -1,16 +1,16 @@
 "use client"
 
 import Image from 'next/image'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import { ModeToggle } from '@/components/global/mode-toggle'
-import { MobileMenu } from '@/components/global/mobile-menu'
-
-import { HelpMenu } from '../global/help-menu'
 
 import Monitoring from '../monitoring'
+
+import { signOut } from "next-auth/react"
 import { useTheme } from 'next-themes'
+import { Button } from '../ui/button'
+import { PowerCircleIcon } from 'lucide-react'
 
 const Navigation = () => {
   const [source, setSource] = useState<string>('')
@@ -31,6 +31,10 @@ const Navigation = () => {
     }
   }, [theme])
 
+  const handleLogout = async () => {
+    await signOut()
+  }
+
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-50 bg-background">
       <aside className="flex items-center gap-2">
@@ -43,10 +47,13 @@ const Navigation = () => {
         />
         {/* <span className="text-xl font-bold"> Fermon</span> */}
       </aside>
-      <aside className="flex gap-2 items-center">
+      <aside className="flex flex-row gap-2 items-center justify-between">
         {/* <LanguageChanger locale={pathname} /> */}
         <Monitoring />
         <ModeToggle />
+        <Button variant="outline" className="w-full" onClick={handleLogout}>
+          <PowerCircleIcon className="h-5 w-5 text-red-500" />
+        </Button>
       </aside>
     </div>
   )
